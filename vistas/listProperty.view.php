@@ -470,17 +470,6 @@
       // Obtenemos el valor por el id
       // id_property = document.getElementById("id_owner_property").value;
 
-      //REDIRECCIONAR CON BOTON JS DATATABLES
-      $.fn.dataTable.ext.buttons.alert = {
-        className: 'buttons-alert',
-
-        action: function(e, dt, node, config) {
-          // alert( this.text() );
-          window.location.assign("https://app.propiedadesdng.com/printProperty.php");
-          // window.location.assign("http://localhost/app_atenea/printProperty.php");
-        }
-      };
-
       $("#tableProperty").dataTable({
         "destroy": true,
         "order": [], //[[ 0, "desc" ]],
@@ -490,19 +479,6 @@
         "ordering": false,
         "info": true,
         "autoWidth": true,
-        "dom": "<'row'<'form-inline' <'col-sm-6'B><'col-sm-6'f>>>" +
-          "<rt>" +
-          "<'row'<'form-inline'" +
-          "<'col-sm-6 col-md-6 col-lg-6'l>" +
-          "<'col-sm-6 col-md-6 col-lg-6'p>>>", //'Bfrtip'
-        "buttons": [
-          //Btn Imprimir
-          {
-            extend: 'alert',
-            text: '<i class="fa fa-print"></i> Imprimir',
-            className: 'btn btn-default',
-          },
-        ],
         "ajax": {
           "url": "model/listPropertyModel.php",
           "method": "POST"

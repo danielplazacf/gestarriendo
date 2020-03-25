@@ -131,15 +131,15 @@
                     <?php
                     if ($pago === '1') {
                       $html .= '
-                    <button type="button" class="btn btn-app" data-toggle="modal" data-target="#modalPagoCompleto">
+                    <button type="button" class="btn btn-app" data-toggle="modal" data-target="#modalPagos">
                       <i class="fa fa-file-invoice-dollar"></i> Pagos
                     </button>
-                    <button type="button" class="btn btn-app" data-toggle="modal" data-target="#modalCobroCompleto">
+                    <button type="button" class="btn btn-app" data-toggle="modal" data-target="#modalCobroSimple">
                       <i class="fa fa-file-invoice"></i> Cobros
                     </button>';
                     } else if ($pago === '0') {
                       $html .= '
-                    <!--<button type="button" class="disabled btn btn-app" data-toggle="modal" data-target="#modalPagoSimple">
+                    <!--<button type="button" class="btn btn-app" data-toggle="modal" data-target="#modalPagoSimple">
                       <i class="fa fa-file-invoice-dollar"></i> Pagos
                     </button>-->
                     <button type="button" class="btn btn-app" data-toggle="modal" data-target="#modalCobroSimple">
@@ -158,15 +158,7 @@
           <!-- /.col -->
           <div class="col-md-8">
             <!-- Custom Tabs -->
-            <div class="small">
-              <u>Terminologías:</u>
-              <ul class="list-inline mt-3">
-                <li><b>I:</b> Fecha inicio</li>
-                <li><b>F:</b> Fecha termino</li>
-                <li><b>P:</b> Propietario</li>
-                <li><b>A:</b> Arrendatario</li>
-              </ul>
-            </div>
+
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs">
                 <li class="active"><a href="#contratos" data-toggle="tab" aria-expanded="true">Contratos</a></li>
@@ -182,6 +174,14 @@
                 <div class="tab-pane active" id="contratos">
                   <div class="row">
                     <div class="col-xs-12">
+                      <div class="small">
+                        <ul class="list-inline mt-3">
+                          <li><b>I:</b> Fecha inicio</li>
+                          <li><b>F:</b> Fecha termino</li>
+                          <li><b>P:</b> Propietario</li>
+                          <li><b>A:</b> Arrendatario</li>
+                        </ul>
+                      </div>
                       <table id="tableOwner" class="table table-striped" style="font-size: 1.1rem">
                         <thead>
                           <tr>
@@ -199,26 +199,89 @@
                 </div>
                 <!-- /.tab-pane -->
                 <div class="tab-pane" id="movimientos">
-                  The European languages are members of the same family. Their separate existence is a myth.
-                  For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ
-                  in their grammar, their pronunciation and their most common words. Everyone realizes why a
-                  new common language would be desirable: one could refuse to pay expensive translators. To
-                  achieve this, it would be necessary to have uniform grammar, pronunciation and more common
-                  words. If several languages coalesce, the grammar of the resulting language is more simple
-                  and regular than that of the individual languages.
+                  <div class="row">
+                    <div class="col-md-12">
+                      <!-- The time line -->
+                      <ul class="timeline">
+                        <!-- timeline time label -->
+                        <li class="time-label">
+                          <span class="bg-red">
+                            10 Mar. 2020 <small>último</small>
+                          </span>
+                        </li>
+                        <!-- /.timeline-label -->
+                        <!-- timeline item -->
+                        <li>
+                          <i class="fa fa-question bg-aqua"></i>
+
+                          <div class="timeline-item">
+                            <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+
+                            <h3 class="timeline-header"><a href="#">Solicitud:</a> Visita de gasfiter a propiedad</h3>
+
+                            <div class="timeline-body">
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, dicta iure voluptate ea cumque voluptatum deleniti ipsum exercitationem dignissimos excepturi.
+                            </div>
+                            <div class="timeline-footer">
+                              <!-- <a class="btn btn-primary btn-xs">Read more</a>
+                              <a class="btn btn-danger btn-xs">Delete</a> -->
+                            </div>
+                          </div>
+                        </li>
+                        <!-- END timeline item -->
+                        <!-- timeline item -->
+                        <li>
+                          <i class="fa fa-info bg-green"></i>
+
+                          <div class="timeline-item">
+                            <span class="time"><i class="fa fa-clock-o"></i> 5 mins atras</span>
+
+                            <h3 class="timeline-header no-border"><a href="#">Informativo:</a> Aumento IPC próximo pago</h3>
+                          </div>
+                        </li>
+                        <!-- END timeline item -->
+                        <!-- timeline item -->
+                        <li>
+                          <i class="fa fa-comments bg-yellow"></i>
+
+                          <div class="timeline-item">
+                            <span class="time"><i class="fa fa-clock-o"></i> 27 mins atras</span>
+
+                            <h3 class="timeline-header"><a href="#">Reunión:</a> Entrega de llaves de propiedad</h3>
+
+                            <div class="timeline-body">
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, dicta iure voluptate ea cumque voluptatum deleniti ipsum exercitationem dignissimos excepturi.
+                            </div>
+                            <div class="timeline-footer">
+                              <!-- <a class="btn btn-warning btn-flat btn-xs">View comment</a> -->
+                            </div>
+                          </div>
+                        </li>
+                        <!-- END timeline item -->
+                        <!-- timeline time label -->
+                        <li class="time-label">
+                          <span class="bg-green">
+                            3 Ene. 2020
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- /.col -->
+                  </div>
                 </div>
                 <!-- /.tab-pane -->
                 <?php if ($pago === '1') { ?>
                   <div class="tab-pane" id="pagos">
                     <div class="row">
                       <div class="col-xs-12">
+
                         <table id="tablePagosP" class="table table-striped" style="font-size: 1.1rem; width:100%">
                           <thead>
                             <tr>
                               <th>DESDE</th>
                               <th>HACIA</th>
                               <th>CONCEPTO</th>
-                              <th>COBRO RECURRENTE</th>
+                              <th>PAGOS RECURRENTE</th>
                               <th>MONTO</th>
                               <th width="150px">OPCIONES</th>
                             </tr>
@@ -232,6 +295,12 @@
                 <div class="tab-pane" id="cobros">
                   <div class="row">
                     <div class="col-xs-12">
+                      <div class="small">
+                        <ul class="list-inline mt-3">
+                          <li class="text-success"><b>Cobro recurrente:</b> Cobrado y pagado mensualmente.</li>
+                          <li class="text-warning"><b>Cobro único:</b> Cobrado y pagado solo una vez.</li>
+                        </ul>
+                      </div>
                       <table id="tableCobrosP" class="table table-striped" style="font-size: 1.1rem; width:100%">
                         <thead>
                           <tr>
@@ -280,7 +349,7 @@
                   <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs nave-tabs">
                       <li class="active"><a href="#step_1" data-toggle="tab" aria-expanded="true">Individualización</a></li>
-                      <li class=""><a href="#step_2" data-toggle="tab" aria-expanded="false">Garantias</a></li>
+                      <li class=""><a href="#step_2" data-toggle="tab" aria-expanded="false">Garantias y Contrato</a></li>
 
                     </ul>
                     <div class="tab-content">
@@ -472,14 +541,12 @@
             <form id="editContrato" method="POST">
               <input type="hidden" id="id_contrato" name="id_contrato">
               <input type="hidden" id="id_property_edit" name="id_property_edit" value="<?php echo $_GET['id_property']; ?>">
-              <input type="hidden" id="agent_edit" name="agent_edit" value="<?php nameUser($_SESSION['user_system']); ?>">
-              <input type="hidden" id="date_edit" name="date_edit" value="<?php echo date('Y-m-d'); ?>">
               <div class="row">
                 <div class="col-xs-12">
                   <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs nave-tabs">
                       <li class="active"><a href="#step_1_edit" data-toggle="tab" aria-expanded="true">Individualización</a></li>
-                      <li class=""><a href="#step_2_edit" data-toggle="tab" aria-expanded="false">Garantias</a></li>
+                      <li class=""><a href="#step_2_edit" data-toggle="tab" aria-expanded="false">Garantias y Contrato</a></li>
 
                     </ul>
                     <div class="tab-content">
@@ -657,47 +724,147 @@
       </div>
     </div>
 
-    <!-- PAGO ADMINISTRACIÓN SIMPLE -->
-    <div class="modal fade" id="modalPagoSimple" role="dialog">
+    <!-- PAGOS ADMINISTRACIÓN -->
+    <div class="modal fade" id="modalPagos" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Generar Cobro a Arrendatario - Administración Simple</h4>
+            <h4 class="modal-title">Generar nuevo pago</h4>
           </div>
-          <div class="modal-body">
+          <div class="modal-body pb-0">
+            <form id="addPagos" method="POST">
+              <input type="hidden" id="cSimpleP" name="cSimpleP" value="cSimple">
+              <input type="hidden" id="id_property_p" name="id_property_p" value="<?php echo $_GET['id_property']; ?>">
+              <input type="hidden" id="agent_designated_p" name="agent_designated_p" value="<?php nameUser($_SESSION['user_system']); ?>">
+              <input type="hidden" id="date_register_p" name="date_register_p" value="<?php echo date('Y-m-d'); ?>">
+              <div class="row">
 
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>Pago desde:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-user-friends"></i>
+                      </div>
+                      <select id="desde_pago" name="desde_pago" class="form-control select2" required>
+                        <option></option>
+                        <option value="Arrendatario">Arrendatario</option>
+                        <option value="Propietario">Propietario</option>
+                        <option value="Gestarriendo">Gestarriendo</option>
+                      </select>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>Hacia:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-user"></i>
+                      </div>
+                      <select id="hacia_pago" name="hacia_pago" class="form-control select2" required>
+                        <option></option>
+                        <option value="Arrendatario">Arrendatario</option>
+                        <option value="Propietario">Propietario</option>
+                        <option value="Gestarriendo">Gestarriendo</option>
+                      </select>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>Concepto del cobro:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-file"></i>
+                      </div>
+                      <select style="text-transform: capitalize;" name="concepto_psimple" id="concepto_psimple" class="form-control select2" required>
+                        <option></option>
+                        <?php
+                        $selconcepto = 'SELECT * FROM tbl_concepto_cobro';
+                        $q = $con->query($selconcepto);
+                        // While para repetir todos los campos dentro de la base de datos
+                        while ($concepto = $q->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                          <option value="<?php echo $concepto['concepto_cobro']; ?>"><?php echo $concepto['concepto_cobro']; ?></option>
+                        <?php
+                        }
+                        ?>
+                      </select>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>¿Es recurrente?</label>
+                    <input name="pay_recurrent_p" id="pay_recurrent_p" type="checkbox" class="form-control" checked data-toggle="toggle">
+                  </div>
+                  <input type="hidden" name="hidden_recurrent_p" id="hidden_recurrent_p" value="1">
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>Monto a cobrar:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-usd"></i>
+                      </div>
+                      <input type="number" name="amount_csimple_p" id="amount_csimple_p" class="form-control" placeholder="Ej: 350000" required>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>Día vencimiento:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-calendar"></i>
+                      </div>
+                      <input type="number" name="venc_csimple_p" id="venc_csimple_p" class="form-control" placeholder="Día vencimiento" required>
+                      <div class="input-group-addon no-border">
+                        del mes
+                      </div>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+            </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+
         </div>
         <!-- /.modal-content -->
       </div>
     </div>
 
-    <!-- COBRO ADMINISTRACIÓN SIMPLE -->
+    <!-- COBRO ADMINISTRACIÓN -->
     <div class="modal fade" id="modalCobroSimple" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Generar Cobro - Administración Simple</h4>
+            <h4 class="modal-title">Generar nuevo cobro</h4>
           </div>
           <div class="modal-body pb-0">
             <form id="addCobroSimple" method="POST">
-              <?php
-              $id_property = $_GET['id_property'];
-              $contrato = "SELECT * FROM tbl_contrato_system WHERE id_property = '$id_property'";
-              $q = $con->query($contrato);
-              // While para repetir todos los campos dentro de la base de datos
-              $contrato_rw = $q->fetch(PDO::FETCH_ASSOC);
-              ?>
               <input type="hidden" id="cSimple" name="cSimple" value="cSimple">
-              <input type="hidden" id="id_property_c" name="id_property_c" value="<?php echo $contrato_rw['id_property']; ?>">
+              <input type="hidden" id="id_property_c" name="id_property_c" value="<?php echo $_GET['id_property']; ?>">
               <input type="hidden" id="agent_designated" name="agent_designated" value="<?php nameUser($_SESSION['user_system']); ?>">
               <input type="hidden" id="date_register" name="date_register" value="<?php echo date('Y-m-d'); ?>">
               <div class="row">
@@ -713,6 +880,7 @@
                         <option></option>
                         <option value="Arrendatario">Arrendatario</option>
                         <option value="Propietario">Propietario</option>
+                        <option value="Gestarriendo">Gestarriendo</option>
                       </select>
                     </div>
                     <!-- /.input group -->
@@ -728,6 +896,7 @@
                       </div>
                       <select id="hacia_cobro" name="hacia_cobro" class="form-control select2" required>
                         <option></option>
+                        <option value="Arrendatario">Arrendatario</option>
                         <option value="Propietario">Propietario</option>
                         <option value="Gestarriendo">Gestarriendo</option>
                       </select>
@@ -763,7 +932,7 @@
 
                 <div class="col-xs-6">
                   <div class="form-group">
-                    <label>Cobro Recurrente:</label>
+                    <label>¿Es recurrente?</label>
                     <input name="pay_recurrent" id="pay_recurrent" type="checkbox" class="form-control" checked data-toggle="toggle">
                   </div>
                   <input type="hidden" name="hidden_recurrent" id="hidden_recurrent" value="1">
@@ -811,43 +980,247 @@
       </div>
     </div>
 
-    <!-- PAGO ADMINISTRACIÓN COMPLETA -->
-    <div class="modal fade" id="modalPagoCompleto" role="dialog">
+    <!-- EDIT COBRO ADMINISTRACIÓN -->
+    <div class="modal fade" id="modalEditCobro" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Generar Cobro - Completa</h4>
+            <h4 class="modal-title">Generar nuevo cobro</h4>
           </div>
-          <div class="modal-body">
-            <p>One fine body…</p>
+          <div class="modal-body pb-0">
+            <form id="editCobro" method="POST">
+              <input type="hidden" id="cSimpleEdit" name="cSimpleEdit" value="cSimple">
+              <input type="hidden" id="id_cobro_property" name="id_cobro_property">
+              <div class="row">
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>Pago desde:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-user-friends"></i>
+                      </div>
+                      <select id="desde_edit" name="desde_edit" class="form-control" required>
+                        <option value="Arrendatario">Arrendatario</option>
+                        <option value="Propietario">Propietario</option>
+                        <option value="Gestarriendo">Gestarriendo</option>
+                      </select>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>Hacia:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-user"></i>
+                      </div>
+                      <select id="hacia_edit" name="hacia_edit" class="form-control" required>
+                        <option value="Arrendatario">Arrendatario</option>
+                        <option value="Propietario">Propietario</option>
+                        <option value="Gestarriendo">Gestarriendo</option>
+                      </select>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>Concepto del cobro:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-file"></i>
+                      </div>
+                      <select style="text-transform: capitalize;" name="concepto_edit" id="concepto_edit" class="form-control" required>
+                        <?php
+                        $selconcepto = 'SELECT * FROM tbl_concepto_cobro';
+                        $q = $con->query($selconcepto);
+                        // While para repetir todos los campos dentro de la base de datos
+                        while ($concepto = $q->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                          <option value="<?php echo $concepto['concepto_cobro']; ?>"><?php echo $concepto['concepto_cobro']; ?></option>
+                        <?php
+                        }
+                        ?>
+                      </select>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>¿Es recurrente?</label>
+                    <input name="pay_edit" id="pay_edit" type="checkbox" class="form-control" checked data-toggle="toggle">
+                  </div>
+                  <input type="hidden" name="hidden_recurrent_edit" id="hidden_recurrent_edit" value="1">
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>Monto a cobrar:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-usd"></i>
+                      </div>
+                      <input type="number" name="amount_edit" id="amount_edit" class="form-control" placeholder="Ej: 350000" required>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>Día vencimiento:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-calendar"></i>
+                      </div>
+                      <input type="number" name="venc_edit" id="venc_edit" class="form-control" placeholder="Día vencimiento" required>
+                      <div class="input-group-addon no-border">
+                        del mes
+                      </div>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+            </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+
         </div>
         <!-- /.modal-content -->
       </div>
     </div>
 
-    <!-- COBRO ADMINISTRACIÓN COMPLETA -->
-    <div class="modal fade" id="modalCobroCompleto" role="dialog">
+    <!-- EDIT COBRO ADMINISTRACIÓN -->
+    <div class="modal fade" id="modalEditPago" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Generar Pago - Completa</h4>
+            <h4 class="modal-title">Editar pago</h4>
           </div>
-          <div class="modal-body">
-            <p>One fine body…</p>
+          <div class="modal-body pb-0">
+            <form id="editPago" method="POST">
+              <input type="hidden" id="cSimpleEditP" name="cSimpleEditP" value="cSimple">
+              <input type="hidden" id="id_pago_property" name="id_pago_property">
+              <div class="row">
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>Pago desde:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-user-friends"></i>
+                      </div>
+                      <select id="desde_edit_p" name="desde_edit_p" class="form-control" required>
+                        <option value="Arrendatario">Arrendatario</option>
+                        <option value="Propietario">Propietario</option>
+                        <option value="Gestarriendo">Gestarriendo</option>
+                      </select>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>Hacia:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-user"></i>
+                      </div>
+                      <select id="hacia_edit_p" name="hacia_edit_p" class="form-control" required>
+                        <option value="Arrendatario">Arrendatario</option>
+                        <option value="Propietario">Propietario</option>
+                        <option value="Gestarriendo">Gestarriendo</option>
+                      </select>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>Concepto del cobro:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-file"></i>
+                      </div>
+                      <select style="text-transform: capitalize;" name="concepto_edit_p" id="concepto_edit_p" class="form-control" required>
+                        <?php
+                        $selconcepto = 'SELECT * FROM tbl_concepto_cobro';
+                        $q = $con->query($selconcepto);
+                        // While para repetir todos los campos dentro de la base de datos
+                        while ($concepto = $q->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                          <option value="<?php echo $concepto['concepto_cobro']; ?>"><?php echo $concepto['concepto_cobro']; ?></option>
+                        <?php
+                        }
+                        ?>
+                      </select>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>¿Es recurrente?</label>
+                    <input name="pay_edit_p" id="pay_edit_p" type="checkbox" class="form-control" checked data-toggle="toggle">
+                  </div>
+                  <input type="hidden" name="hidden_recurrent_edit_p" id="hidden_recurrent_edit_p" value="1">
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>Monto a cobrar:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-usd"></i>
+                      </div>
+                      <input type="number" name="amount_edit_p" id="amount_edit_p" class="form-control" placeholder="Ej: 350000" required>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>Día vencimiento:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-calendar"></i>
+                      </div>
+                      <input type="number" name="venc_edit_p" id="venc_edit_p" class="form-control" placeholder="Día vencimiento" required>
+                      <div class="input-group-addon no-border">
+                        del mes
+                      </div>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+            </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+
         </div>
         <!-- /.modal-content -->
       </div>
@@ -917,7 +1290,7 @@
                 <div class="col-xs-12">
                   <div class="form-group">
                     <label>Describa el movimiento:</label>
-                      <textarea name="txt_movimiento" id="txt_movimiento" class="form-control" placeholder="Describa aquí el movimiento que tuvo la propiedad..."></textarea>
+                    <textarea name="txt_movimiento" id="txt_movimiento" class="form-control" placeholder="Describa aquí el movimiento que tuvo la propiedad..."></textarea>
                     <!-- /.input group -->
                   </div>
                 </div>
@@ -966,6 +1339,12 @@
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
   <script>
+    // definimos el tipo de moneda con api de JS
+    const formatter = new Intl.NumberFormat('es-CL', {
+      style: 'currency',
+      currency: 'CLP',
+      minimumFractionDigits: 0
+    })
     // button status contrato
     $('#status_edit').bootstrapToggle({
       on: 'Activado',
@@ -1000,6 +1379,58 @@
       }
     })
 
+    // button status contrato
+    $('#pay_edit').bootstrapToggle({
+      on: 'Activado',
+      off: 'Desactivado',
+      width: '45%',
+      onstyle: 'success input-group',
+      offstyle: 'danger input-group'
+    })
+
+    // funcion que cambia el valor del checkbox
+    $('#pay_edit').change(function() {
+      if ($(this).prop('checked')) {
+        $('#hidden_recurrent_edit').val('1');
+      } else {
+        $('#hidden_recurrent_edit').val('0');
+      }
+    });
+
+    // button pay_recurrent pago
+    $('#pay_recurrent_p').bootstrapToggle({
+      on: 'Si',
+      off: 'No',
+      onstyle: 'success input-group',
+      offstyle: 'danger input-group'
+    })
+
+    $('#pay_recurrent_p').change(function() {
+      if ($(this).prop('checked')) {
+        $('#hidden_recurrent_p').val('1');
+      } else {
+        $('#hidden_recurrent_p').val('0');
+      }
+    })
+
+    // button status contrato
+    $('#pay_edit_p').bootstrapToggle({
+      on: 'Activado',
+      off: 'Desactivado',
+      width: '45%',
+      onstyle: 'success input-group',
+      offstyle: 'danger input-group'
+    })
+
+    // funcion que cambia el valor del checkbox
+    $('#pay_edit_p').change(function() {
+      if ($(this).prop('checked')) {
+        $('#hidden_recurrent_edit_p').val('1');
+      } else {
+        $('#hidden_recurrent_edit_p').val('0');
+      }
+    });
+
     // Reemplaza texto de parrafo luego de on.(change)
     $(function() {
       var texto = ['<strong>Contrato de Administración Simple</strong>____ El contrato de <u>administración simple</u> indica que los abonos del mismo, tienen el siguiente flujo: <ul><li>Arrendatario <i class="fas fa-angle-double-right"></i> Propietario // Propietario <i class="fas fa-angle-double-right"></i> GestArriendo</li></ul>', '<strong> Contrato de Administración Completa</strong>____ El contrato de <u>administración completa</u> indica que los abonos del mismo, tienen el siguiente flujo: <ul><li>Arrendatario <i class="fas fa-angle-double-right"></i> Gestarriendo // Gestarriendo <i class="fas fa-angle-double-right"></i> Propietario</li></ul>'];
@@ -1013,9 +1444,13 @@
     $(document).ready(function() {
       cargarContratos();
       cargarCobrosP();
+      cargarPagosP();
       addContrato();
       addCobroSimple();
+      addPagos();
       editContrato();
+      editCobro();
+      //editPago();
     });
 
     // Select 2
@@ -1074,7 +1509,7 @@
           //3
           {
             "mData": function(data, type, dataToSet) {
-              return '$' + data.garantia_contrato;
+              return formatter.format(data.garantia_contrato);
             }
           },
           //4
@@ -1160,14 +1595,14 @@
               if (data.hidden_recurrent === '1') {
                 return '<label class="label label-success">Cobro recurrente</label>'
               } else if (data.hidden_recurrent === '0') {
-                return '<label class="label label-danger">Cobro especifico</label>'
+                return '<label class="label label-warning">Cobro único</label>'
               }
             }
           },
           //5
           {
             "mData": function(data, type, dataToSet) {
-              return '$' + data.amount_csimple;
+              return formatter.format(data.amount_csimple);
             }
           },
           //6
@@ -1178,7 +1613,80 @@
             "mData": function(data, type, dataToSet) {
               // return "<div class='btn-group'><button button='button' onclick='mostrarProperty(" + data + ");' class='btn bg-olive' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i></button><a href='fichaProperty.php?property="+ data +"' class='btn btn-default'><i class='fa fa-eye'></i></a><button type='button' onclick='deleteProperty(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
 
-              return "<!-- Single button --><div class='ocultar-elemento btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar <span class='caret'></span></button><ul class='dropdown-menu'><li><a href='' onclick='mostrarContrato(" + data.id_contrato + ");' data-toggle='modal' data-target='#modalEditContrato'><i class='fa fa-edit'></i>Editar</a></li><li><a herf='' onclick='deleteContrato(" + data.id_contrato + ");'><i class='fa fa-trash'></i> Eliminar</a></li></ul></div>"
+              return "<!-- Single button --><div class='ocultar-elemento btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar <span class='caret'></span></button><ul class='dropdown-menu'><li><a href='' onclick='mostrarCobro(" + data.id_cobro_property + ");' data-toggle='modal' data-target='#modalEditCobro'><i class='fa fa-edit'></i>Editar</a></li><li><a herf='' onclick='deleteCobro(" + data.id_cobro_property + ");'><i class='fa fa-trash'></i> Eliminar</a></li></ul></div>"
+            }
+          }
+
+        ],
+        "language": idioma_spanol
+      });
+
+    }
+
+    // Cargamos la lista de propiedades en relación al propietario
+    cargarPagosP = function() {
+      // Obtenemos el valor por el id
+      id_property = document.getElementById("id_property").value;
+      //console.log(id_property);
+
+      var table = $("#tablePagosP").dataTable({
+        "destroy": true,
+        "order": [], //[[ 0, "desc" ]],
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": false,
+        "info": true,
+        "autoWidth": true,
+        "ajax": {
+          "url": "model/listPagosPropertyModel.php?id_property=" + id_property,
+          "method": "POST"
+        },
+        "aoColumns": [
+
+          //1
+          {
+            "mData": function(data, type, dataToSet) {
+              return data.desde_pago;
+            }
+          },
+          //2
+          {
+            "mData": function(data, type, dataToSet) {
+              return data.hacia_pago;
+            }
+          },
+          //3
+          {
+            "mData": function(data, type, dataToSet) {
+              return data.concepto_csimple;
+            }
+          },
+          //4
+          {
+            "mData": function(data, type, dataToSet) {
+              if (data.hidden_recurrent === '1') {
+                return '<label class="label label-success">Cobro recurrente</label>'
+              } else if (data.hidden_recurrent === '0') {
+                return '<label class="label label-warning">Cobro único</label>'
+              }
+            }
+          },
+          //5
+          {
+            "mData": function(data, type, dataToSet) {
+              return formatter.format(data.amount_csimple);
+            }
+          },
+          //6
+          // { "mData": function (data, type, dataToSet) {
+          //  return "DNG-"+ data.bank;}
+          // },
+          {
+            "mData": function(data, type, dataToSet) {
+              // return "<div class='btn-group'><button button='button' onclick='mostrarProperty(" + data + ");' class='btn bg-olive' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i></button><a href='fichaProperty.php?property="+ data +"' class='btn btn-default'><i class='fa fa-eye'></i></a><button type='button' onclick='deleteProperty(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
+
+              return "<!-- Single button --><div class='ocultar-elemento btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar <span class='caret'></span></button><ul class='dropdown-menu'><li><a href='' onclick='mostrarPago(" + data.id_pago_property + ");' data-toggle='modal' data-target='#modalEditPago'><i class='fa fa-edit'></i>Editar</a></li><li><a herf='' onclick='deletePago(" + data.id_pago_property + ");'><i class='fa fa-trash'></i> Eliminar</a></li></ul></div>"
             }
           }
 
@@ -1255,6 +1763,70 @@
       }
     }
 
+    var mostrarCobro = function(id_cobro_property) {
+
+      if (!/^([0-9])*$/.test(id_cobro_property)) {
+        return false
+      } else {
+        $.ajax({
+          url: "model/searchCobro.php",
+          method: "POST",
+          dataType: "json",
+          data: {
+            id_cobro_property: id_cobro_property
+          },
+          success: function(datos) {
+            $('#id_cobro_property').val(datos.id_cobro_property);
+            $('#desde_edit').val(datos.desde_cobro);
+            $('#hacia_edit').val(datos.hacia_cobro);
+            $('#concepto_edit').val(datos.concepto_csimple);
+
+            $('#hidden_recurrent_edit').val(datos.hidden_recurrent);
+            if (datos.hidden_recurrent === '1') {
+              $('#pay_edit').bootstrapToggle('on');
+            } else if (datos.hidden_recurrent === '0') {
+              $('#pay_edit').bootstrapToggle('off');
+            }
+
+            $('#amount_edit').val(datos.amount_csimple);
+            $('#venc_edit').val(datos.venc_csimple);
+          }
+        });
+      }
+    }
+
+    var mostrarPago = function(id_pago_property) {
+
+      if (!/^([0-9])*$/.test(id_pago_property)) {
+        return false
+      } else {
+        $.ajax({
+          url: "model/searchPago.php",
+          method: "POST",
+          dataType: "json",
+          data: {
+            id_pago_property: id_pago_property
+          },
+          success: function(datos) {
+            $('#id_pago_property').val(datos.id_pago_property);
+            $('#desde_edit_p').val(datos.desde_pago);
+            $('#hacia_edit_p').val(datos.hacia_pago);
+            $('#concepto_edit_p').val(datos.concepto_csimple);
+
+            $('#hidden_recurrent_edit_p').val(datos.hidden_recurrent);
+            if (datos.hidden_recurrent === '1') {
+              $('#pay_edit_p').bootstrapToggle('on');
+            } else if (datos.hidden_recurrent === '0') {
+              $('#pay_edit_p').bootstrapToggle('off');
+            }
+
+            $('#amount_edit_p').val(datos.amount_csimple);
+            $('#venc_edit_p').val(datos.venc_csimple);
+          }
+        });
+      }
+    }
+
     var deleteContrato = function(id_contrato) {
 
       if (!/^([0-9])*$/.test(id_contrato)) {
@@ -1283,6 +1855,47 @@
                       icon: "success",
                     });
                     cargarContratos();
+                  } else {
+                    console.log(data);
+                  }
+                }
+              });
+
+            } else {
+              swal("Que bien, no se ha eliminado el registro!");
+            }
+          });
+      }
+    }
+
+    var deleteCobro = function(id_cobro_property) {
+
+      if (!/^([0-9])*$/.test(id_cobro_property)) {
+        return false
+      } else {
+
+        swal({
+            title: "¿Quieres eliminar el Registro?",
+            text: "Una vez eliminado, no podras recuperarlo!",
+            icon: "warning",
+            buttons: ['Cancelar', 'Eliminar'],
+            dangerMode: true,
+          })
+
+          .then((willDelete) => {
+            if (willDelete) {
+              $.ajax({
+                url: "model/deleteCobro.php",
+                method: "POST",
+                data: {
+                  id_cobro_property: id_cobro_property
+                },
+                success: function(data) {
+                  if (data == 'ok') {
+                    swal("Eliminado! El registro fue eliminado.", {
+                      icon: "success",
+                    });
+                    cargarCobrosP();
                   } else {
                     console.log(data);
                   }
@@ -1337,6 +1950,88 @@
       });
     }
 
+    var editCobro = function(id_cobro_property) {
+      $('#editCobro').submit(function(e) {
+        var datos = $(this).serialize();
+        e.preventDefault();
+        //console.log(datos);
+
+        $.ajax({
+          type: "POST",
+          url: "model/editCobroModel.php",
+          data: datos,
+          success: function(data) {
+            if (data == 'ok') {
+              swal({
+                title: "Actualizado!",
+                text: "El registro fue actualizado satisfactoriamente.",
+                icon: "success",
+                button: "Ok",
+              });
+              cargarCobrosP();
+              $('#editCobro')[0].reset();
+              $('#modalEditCobro').modal('hide');
+              location.reload();
+              //$('#modalAddCobro').modal('show');
+              // console.log('Exitazooooooo');
+            } else if (data == 'vacio') {
+              swal({
+                title: "Algo salio mal!",
+                text: "Intentalo nuevamente, no puedes incluir campos vacios, ni caracteres extraños.",
+                icon: "error",
+                button: "Cerrar",
+              });
+              $('#editCobro')[0].reset();
+              $('#modalEditCobro').modal('hide');
+            } else {
+              console.log(data);
+            }
+          }
+        });
+      });
+    }
+
+    var editPago = function(id_cobro_property) {
+      $('#editCobro').submit(function(e) {
+        var datos = $(this).serialize();
+        e.preventDefault();
+        //console.log(datos);
+
+        $.ajax({
+          type: "POST",
+          url: "model/editCobroModel.php",
+          data: datos,
+          success: function(data) {
+            if (data == 'ok') {
+              swal({
+                title: "Actualizado!",
+                text: "El registro fue actualizado satisfactoriamente.",
+                icon: "success",
+                button: "Ok",
+              });
+              cargarCobrosP();
+              $('#editCobro')[0].reset();
+              $('#modalEditCobro').modal('hide');
+              location.reload();
+              //$('#modalAddCobro').modal('show');
+              // console.log('Exitazooooooo');
+            } else if (data == 'vacio') {
+              swal({
+                title: "Algo salio mal!",
+                text: "Intentalo nuevamente, no puedes incluir campos vacios, ni caracteres extraños.",
+                icon: "error",
+                button: "Cerrar",
+              });
+              $('#editCobro')[0].reset();
+              $('#modalEditCobro').modal('hide');
+            } else {
+              console.log(data);
+            }
+          }
+        });
+      });
+    }
+
     //Script para añadir registro
     var addContrato = function() {
       $('#addContrato').submit(function(e) {
@@ -1361,6 +2056,7 @@
               cargarContratos();
               $('#addContrato')[0].reset();
               $('#modalAddContrato').modal('hide');
+              location.reload();
               // console.log('Exitazooooooo');
             } else if (data == 'vacio') {
               swal({
@@ -1371,6 +2067,7 @@
               });
               $('#addContrato')[0].reset();
               $('#modalAddContrato').modal('hide');
+              location.reload();
             } else {
               console.log(data);
             }
@@ -1401,6 +2098,7 @@
               cargarCobrosP();
               $('#addCobroSimple')[0].reset();
               $('#modalCobroSimple').modal('hide');
+              location.reload();
               // console.log('Exitazooooooo');
             } else if (data == 'vacio') {
               swal({
@@ -1411,6 +2109,49 @@
               });
               $('#addCobroSimple')[0].reset();
               $('#modalCobroSimple').modal('hide');
+              location.reload();
+            } else {
+              console.log(data);
+            }
+          }
+        });
+      });
+    }
+
+    var addPagos = function() {
+      $('#addPagos').submit(function(e) {
+        e.preventDefault();
+        var datos = $(this).serialize();
+        //console.log(datos);
+
+        $.ajax({
+          type: "POST",
+          url: "model/addPagosPropertyModel.php",
+          data: datos,
+          success: function(data) {
+            if (data == 'ok') {
+              swal({
+                title: "Buen Trabajo!",
+                text: "El registro fue ingresado satisfactoriamente.",
+                icon: "success",
+                button: "Ok",
+              });
+
+              cargarPagosP();
+              $('#addPagos')[0].reset();
+              $('#modalPagos').modal('hide');
+              //location.reload();
+              // console.log('Exitazooooooo');
+            } else if (data == 'vacio') {
+              swal({
+                title: "Algo salio mal!",
+                text: "Un campo esta vacío, recuerda registrar todos los datos.",
+                icon: "error",
+                button: "Cerrar",
+              });
+              $('#addPagos')[0].reset();
+              $('#modalPagos').modal('hide');
+              //location.reload();
             } else {
               console.log(data);
             }
