@@ -106,7 +106,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-home"></i>
                       </div>
-                      <select style="text-transform: capitalize;" name="type_property" id="type_property" class="form-control select2">
+                      <select style="text-transform: capitalize;" name="type_property" id="type_property" class="form-control select2" required>
                         <option></option>
                         <option value="Casa">Casa</option>
                         <option value="Departamento">Departamento</option>
@@ -129,7 +129,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-map-marker"></i>
                       </div>
-                      <input name="address_property" id="address_property" type="text" class="form-control" autocomplete="none" placeholder="Ej: Avenida Providencia #111">
+                      <input name="address_property" id="address_property" type="text" class="form-control" autocomplete="none" placeholder="Ej: Avenida Providencia #111" required>
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -143,7 +143,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-filter"></i>
                       </div>
-                      <select style="text-transform: capitalize;" name="region_property" id="region_property" class="form-control select2">
+                      <select style="text-transform: capitalize;" name="region_property" id="region_property" class="form-control select2" required>
                         <option></option>
                         <?php
                         $selregion = 'SELECT * FROM tbl_regiones_system';
@@ -168,7 +168,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-filter"></i>
                       </div>
-                      <select style="text-transform: capitalize;" name="comuna_property" id="comuna_property" class="form-control select2" disabled>
+                      <select style="text-transform: capitalize;" name="comuna_property" id="comuna_property" class="form-control select2" required disabled>
                       </select>
                     </div>
                     <!-- /.input group -->
@@ -194,7 +194,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-tint"></i>
                       </div>
-                      <input name="n_cliente_agua" id="n_cliente_agua" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente">
+                      <input name="n_cliente_agua" id="n_cliente_agua" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -207,7 +207,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-bolt"></i>
                       </div>
-                      <input name="n_cliente_luz" id="n_cliente_luz" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente">
+                      <input name="n_cliente_luz" id="n_cliente_luz" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -220,7 +220,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-fire"></i>
                       </div>
-                      <input name="n_cliente_gas" id="n_cliente_gas" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente">
+                      <input name="n_cliente_gas" id="n_cliente_gas" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -258,7 +258,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-home"></i>
                       </div>
-                      <select style="text-transform: capitalize;" name="type_edit" id="type_edit" class="form-control">
+                      <select style="text-transform: capitalize;" name="type_edit" id="type_edit" class="form-control" required>
                         <option value="Casa">Casa</option>
                         <option value="Departamento">Departamento</option>
                         <option value="Oficina">Oficina</option>
@@ -280,7 +280,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-map-marker"></i>
                       </div>
-                      <input type="text" name="address_edit" id="address_edit" class="form-control" autocomplete="none" placeholder="Ej: Avenida Providencia #111">
+                      <input type="text" name="address_edit" id="address_edit" class="form-control" autocomplete="none" placeholder="Ej: Avenida Providencia #111" required>
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -332,7 +332,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-tint"></i>
                       </div>
-                      <input type="text" name="agua_edit" id="agua_edit" class="form-control" autocomplete="none" placeholder="N° de cliente">
+                      <input type="text" name="agua_edit" id="agua_edit" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -345,7 +345,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-bolt"></i>
                       </div>
-                      <input type="text" name="luz_edit" id="luz_edit" class="form-control" autocomplete="none" placeholder="N° de cliente">
+                      <input type="text" name="luz_edit" id="luz_edit" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -358,7 +358,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-fire"></i>
                       </div>
-                      <input type="text" name="gas_edit" id="gas_edit" class="form-control" autocomplete="none" placeholder="N° de cliente">
+                      <input type="text" name="gas_edit" id="gas_edit" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -407,6 +407,7 @@
   <script src="resources/dist/js/moment.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
+      $('.form-control').attr('required');
       cargarProperty();
       addProperty();
       editProperty();

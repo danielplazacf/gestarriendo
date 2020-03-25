@@ -138,9 +138,9 @@
                     dataType: "json",
                     data: direccion,
                     success: function(datos) {
-                        $('#agua_edit').html(datos.n_client_agua);
-                        $('#luz_edit').html(datos.n_client_luz);
-                        $('#gas_edit').html(datos.n_client_gas);
+                        $('#agua_edit').html(datos.n_client_agua + ' <button class="btn btn-sm btn-warning"><i class="fas fa-envelope"></i></button>');
+                        $('#luz_edit').html(datos.n_client_luz + ' <button class="btn btn-sm btn-warning"><i class="fas fa-envelope"></i></button>');
+                        $('#gas_edit').html(datos.n_client_gas  + ' <button class="btn btn-sm btn-warning"><i class="fas fa-envelope"></i></button>');
                     },
                     error: function(xhr, textStatus, errorMessage) {
 

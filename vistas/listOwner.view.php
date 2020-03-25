@@ -560,6 +560,7 @@
   <script src="resources/dist/js/moment.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
+      $('.form-control').attr('required');
       cargarOwner();
       addOwner();
       editOwner();

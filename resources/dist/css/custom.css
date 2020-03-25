@@ -6,6 +6,10 @@ Custom Style Gestarriendos
 
 /* Custom style Login */
 
+tbody {
+  font-size: 1.15rem!important;
+}
+
 .login-page {
   height: auto;
   background-color: #053a7e;

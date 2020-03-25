@@ -37,7 +37,6 @@
 				echo 'ok';
 			}else{
 				echo 'error';
-				print_r($query);
                 die($query);
 			}
 	}
