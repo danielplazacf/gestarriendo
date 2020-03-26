@@ -41,67 +41,117 @@
 
       <!-- Main content -->
       <section class="content container-fluid">
+
         <div class="row">
-          <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-aqua">
-              <div class="inner">
-                <h3>0</h3>
 
-                <p>Propietarios</p>
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-aqua"><i class="fas fa-building"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Propiedades</span>
+                <span class="info-box-number">0</span>
               </div>
-              <div class="icon">
-                <i class="fas fa-user"></i>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-green"><i class="fas fa-user"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Propietarios</span>
+                <span class="info-box-number">0</span>
               </div>
-              <a href="#" class="small-box-footer">Ver más <i class="fa fa-arrow-circle-right"></i></a>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+
+          <!-- fix for small devices only -->
+          <div class="clearfix visible-sm-block"></div>
+
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-red"><i class="fas fa-user-friends"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Arrendatarios</span>
+                <span class="info-box-number">0</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-yellow"><i class="fas fa-usd"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">UTILIDADES</span>
+                <span class="info-box-number"><small>$</small>2.000.000</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="box box-success">
+              <div class="box-header with-border">
+                <h3 class="box-title">Ingresos vs Utilidades</h3>
+
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+              </div>
+              <div class="box-body">
+                <div class="chart">
+                  <canvas id="barChart" style="height: 230px; width: 510px;" height="230" width="510"></canvas>
+                </div>
+              </div>
+              <!-- /.box-body -->
             </div>
           </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-green">
-              <div class="inner">
-                <h3>0</h3>
 
-                <p>Arrendatarios</p>
+          <div class="col-md-4">
+            <div class="box box-success">
+              <div class="box-header with-border">
+                <h3 class="box-title">Indicadores Económicos</h3>
+
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
               </div>
-              <div class="icon">
-                <i class="fas fa-user-friends"></i>
+              <div class="box-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <p class=""><b>UF:</b> <?php echo '$' . number_format($dailyIndicators->uf->valor, 0, '', '.'); ?></p>
+                    <p class=""><b>UTM:</b> <?php echo '$' . number_format($dailyIndicators->utm->valor, 0, '', '.'); ?></p>
+                    <p class=""><b>DOLAR:</b> <?php echo '$' . number_format($dailyIndicators->dolar->valor, 0, '', '.'); ?></p>
+                    <p class=""><b>EURO:</b> <?php echo '$' . number_format($dailyIndicators->euro->valor, 0, '', '.'); ?></p>
+                  </div>
+                  <div class="col-md-6">
+                    <p class=""><b>IPC:</b> <?php echo $dailyIndicators->ipc->valor; ?></p>
+                    <p class=""><b>IVP:</b> <?php echo '$' . number_format($dailyIndicators->ivp->valor, 0, '', '.'); ?></p>
+                    <p class=""><b>IMACEC:</b> <?php echo $dailyIndicators->imacec->valor; ?></p>
+                  </div>
+                </div>
               </div>
-              <a href="#" class="small-box-footer">Ver más <i class="fa fa-arrow-circle-right"></i></a>
+              <!-- /.box-body -->
             </div>
           </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-yellow">
-              <div class="inner">
-                <h3><sup style="font-size: 20px">$</sup>1.245.000</h3>
-
-                <p>Cobros</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-file-invoice"></i>
-              </div>
-              <a href="#" class="small-box-footer">Ver más <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-red">
-              <div class="inner">
-                <h3><sup style="font-size: 20px">$</sup>2.540.000</h3>
-
-                <p>Pagos</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-file-invoice-dollar"></i>
-              </div>
-              <a href="#" class="small-box-footer">Ver más <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
         </div>
 
       </section>
@@ -141,349 +191,88 @@
   <!-- Ventana Centrada JS -->
   <script type="text/javascript" src="resources/dist/js/VentanaCentrada.js"></script>
 
+  <script src="resources/bower_components/chart.js/Chart.js"></script>
+
   <script type="text/javascript">
-    // $(document).ready(function(){
-    //   cargarPayNote();
-    //   cargarChargeNote();
-    // })
+    // definimos el tipo de moneda con api de JS
+    const formatter = new Intl.NumberFormat('es-CL', {
+      style: 'currency',
+      currency: 'CLP',
+      minimumFractionDigits: 0
+    })
 
 
-    // // Cargamos la lista de propiedades en relación al propietario
-    // cargarPayNote = function () {
+    $(function() {
+      /* ChartJS
+       * -------
+       * Here we will create a few charts using ChartJS
+       */
 
-    //       $("#paynote_data").dataTable({
-    //           "destroy":true,
-    //           "order": false,//[[ 0, "desc" ]],
-    //           "paging": true,
-    //           "lengthChange": true,
-    //           "searching": true,
-    //           "ordering": false,
-    //           "info": true,
-    //           "autoWidth": true,
-    //           "ajax": {
-    //               "url": "model/listAllNote.php",
-    //               "method": "POST"
-    //           },
-    //           "aoColumns": [
+      var areaChartData = {
+        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
+        datasets: [{
+            label: 'Ingresos',
+            fillColor: 'rgba(210, 214, 222, 1)',
+            strokeColor: 'rgba(210, 214, 222, 1)',
+            pointColor: 'rgba(210, 214, 222, 1)',
+            pointStrokeColor: '#c1c7d1',
+            pointHighlightFill: '#fff',
+            pointHighlightStroke: 'rgba(220,220,220,1)',
+            data: [1200000, 1400000, 1600000, 1800000, 1200000, 1400000, 1600000]
+          },
+          {
+            label: 'Utilidades',
+            fillColor: 'rgba(60,141,188,0.9)',
+            strokeColor: 'rgba(60,141,188,0.8)',
+            pointColor: '#3b8bba',
+            pointStrokeColor: 'rgba(60,141,188,1)',
+            pointHighlightFill: '#fff',
+            pointHighlightStroke: 'rgba(60,141,188,1)',
+            data: [1100000, 1300000, 1500000, 1700000, 1300000, 1500000, 1700000]
+          }
+        ]
+      }
 
-    //               // //1
-    //               // { "mData": function (data, type, dataToSet) {
-    //               //  return data.id_paynote;}
-    //               // },
-    //               //2
-    //               { "mData": function (data, type, dataToSet) {
-    //                return "N° " + data.number_paynote;}
-    //               },
-    //               //3
-    //               { "mData": function (data, type, dataToSet) {
-    //                return "<b>Para:</b> " + data.name_owner + "<br><b>Emisión:</b> " + moment(data.date_register).format('D/M/Y') +"<br><b>Dirección:</b> " + data.address_property ;}
-    //               },
-    //               //4
-    //               { "mData": function (data, type, dataToSet) {
-    //                return "$"+ formatNumber.new(data.total_amount);}
-    //               },
-    //               //5
-    //               { "mData": function (data, type, dataToSet) {
+      //-------------
+      //- BAR CHART -
+      //-------------
+      var barChartCanvas = $('#barChart').get(0).getContext('2d')
+      var barChart = new Chart(barChartCanvas)
+      var barChartData = areaChartData
+      barChartData.datasets[1].fillColor = '#00a65a'
+      barChartData.datasets[1].strokeColor = '#00a65a'
+      barChartData.datasets[1].pointColor = '#00a65a'
+      var barChartOptions = {
+        //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+        scaleBeginAtZero: true,
+        //Boolean - Whether grid lines are shown across the chart
+        scaleShowGridLines: true,
+        //String - Colour of the grid lines
+        scaleGridLineColor: 'rgba(0,0,0,.05)',
+        //Number - Width of the grid lines
+        scaleGridLineWidth: 1,
+        //Boolean - Whether to show horizontal lines (except X axis)
+        scaleShowHorizontalLines: true,
+        //Boolean - Whether to show vertical lines (except Y axis)
+        scaleShowVerticalLines: true,
+        //Boolean - If there is a stroke on each bar
+        barShowStroke: true,
+        //Number - Pixel width of the bar stroke
+        barStrokeWidth: 2,
+        //Number - Spacing between each of the X value sets
+        barValueSpacing: 5,
+        //Number - Spacing between data sets within X values
+        barDatasetSpacing: 1,
+        //String - A legend template
+        legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+        //Boolean - whether to make the chart responsive
+        responsive: true,
+        maintainAspectRatio: true
+      }
 
-    //                 if (data.status_paynote === 'Pagado') {
-    //                   return "<label class='label label-success'>"+ data.status_paynote +"</label>";
-    //                 }else{
-    //                   return "<label class='label label-danger'>"+ data.status_paynote +"</label>";
-    //                 }
-    //                }
-    //               },
-
-    //               //8
-    //               { "mData": function (data, type, dataToSet) {
-
-    //                 if (data.status_paynote === 'Pagado') {
-    //                   var btnPag = '<button onclick=checkNotePay('+data.id_paynote+') class="btn btn-success"><i class="fa fa-check"></i></button>';
-    //                 }else{
-    //                   var btnPag = '<button onclick=checkNotePay('+data.id_paynote+') class="btn btn-danger"><i class="fa fa-times"></i></button>';
-    //                 }
-
-    //                 return '<div class="btn-group btn-group-sm"><button button="button" onclick="mostrarPdf(' + data.number_paynote + ')" class="btn btn-default"><i class="fa fa-file-pdf-o"></i></button>'+ btnPag +'</div>'
-    //                   }
-
-    //                   // <button onclick=checkNotePay("'+data.status_paynote+'") class="btn btn-success">boton</button>
-
-
-    //               }
-    //           ], 
-    //           "language": idioma_spanol
-    //       });
-    //   }
-
-    //   idioma_spanol = {
-    //       "sProcessing": "Procesando...",
-    //       "sLengthMenu": "Mostrar _MENU_ registros",
-    //       "sZeroRecords": "No se encontraron resultados",
-    //       "sEmptyTable": "Ningún dato disponible en esta tabla",
-    //       "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-    //       "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-    //       "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-    //       "sInfoPostFix": "",
-    //       "sSearch": "<b>Filtrar</b> <i class='fa fa-search'></i>:",
-    //       "sUrl": "",
-    //       "sInfoThousands": ",",
-    //       "sLoadingRecords": "Cargando...",
-    //       "oPaginate": {
-    //           "sFirst": "Primero",
-    //           "sLast": "Último",
-    //           "sNext": "Siguiente",
-    //           "sPrevious": "Anterior"
-    //       },
-    //       "oAria": {
-    //           "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-    //           "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-    //       }
-    //   }
-
-    // // Cargamos la lista de propiedades en relación al propietario
-    // cargarChargeNote = function () {
-
-    //       $("#chargenote_data").dataTable({
-    //           "destroy":true,
-    //           "order": false,//[[ 0, "desc" ]],
-    //           "paging": true,
-    //           "lengthChange": true,
-    //           "searching": true,
-    //           "ordering": false,
-    //           "info": true,
-    //           "autoWidth": true,
-    //           "ajax": {
-    //               "url": "model/listAllCharge.php",
-    //               "method": "POST"
-    //           },
-    //           "aoColumns": [
-    //               //2
-    //               { "mData": function (data, type, dataToSet) {
-    //                return "N° " + data.number_chargenote;}
-    //               },
-    //               //3
-    //               { "mData": function (data, type, dataToSet) {
-    //                return "<b>Para: </b>"+ data.name_owner +"<br><b>Emisión:</b> " + moment(data.date_register).format('D/M/Y') + "<br><b>Dirección:</b> " + data.address_property ;}
-    //               },
-    //               //4
-    //               { "mData": function (data, type, dataToSet) {
-    //                return "$"+ formatNumber.new(data.total_amount);}
-    //               },
-    //               //5
-    //               { "mData": function (data, type, dataToSet) {
-
-    //                 if (data.status_chargenote === 'Pagado') {
-    //                   return "<label class='label label-success'>"+ data.status_chargenote +"</label>";
-    //                 }else{
-    //                   return "<label class='label label-danger'>"+ data.status_chargenote +"</label>";
-    //                 }
-    //                }
-    //               },
-
-    //               //8
-    //               { "mData": function (data, type, dataToSet) {
-
-    //                 if (data.status_chargenote === 'Pagado') {
-    //                   var btnPag = '<button onclick=checkChargePay('+data.id_chargenote+') class="btn btn-success"><i class="fa fa-check"></i></button>';
-    //                 }else{
-    //                   var btnPag = '<button onclick=checkChargePay('+data.id_chargenote+') class="btn btn-danger"><i class="fa fa-times"></i></button>';
-    //                 }
-
-    //                 return '<div class="btn-group btn-group-sm"><button button="button" onclick="mostrarCharge(' + data.number_chargenote + ')" class="btn btn-default"><i class="fa fa-file-pdf-o"></i></button>'+ btnPag +'</div>'
-    //                   }
-
-    //                   // <button onclick=checkNotePay("'+data.status_paynote+'") class="btn btn-success">boton</button>
-
-
-    //               }
-
-    //           ], 
-    //           "language": idioma_spanol
-    //       });
-    //   }
-
-    //   idioma_spanol = {
-    //       "sProcessing": "Procesando...",
-    //       "sLengthMenu": "Mostrar _MENU_ registros",
-    //       "sZeroRecords": "No se encontraron resultados",
-    //       "sEmptyTable": "Ningún dato disponible en esta tabla",
-    //       "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-    //       "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-    //       "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-    //       "sInfoPostFix": "",
-    //       "sSearch": "Buscar:",
-    //       "sUrl": "",
-    //       "sInfoThousands": ",",
-    //       "sLoadingRecords": "Cargando...",
-    //       "oPaginate": {
-    //           "sFirst": "Primero",
-    //           "sLast": "Último",
-    //           "sNext": "Siguiente",
-    //           "sPrevious": "Anterior"
-    //       },
-    //       "oAria": {
-    //           "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-    //           "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-    //       }
-    //   }
-
-    // var formatNumber = {
-    //    separador: ".", // separador para los miles
-    //    sepDecimal: ',', // separador para los decimales
-    //    formatear:function (num){
-    //      num +='';
-    //      var splitStr = num.split('.');
-    //      var splitLeft = splitStr[0];
-    //      var splitRight = splitStr.length > 1 ? this.sepDecimal + splitStr[1] : '';
-    //      var regx = /(\d+)(\d{3})/;
-    //      while (regx.test(splitLeft)) {
-    //        splitLeft = splitLeft.replace(regx, '$1' + this.separador + '$2');
-    //      }
-    //      return this.simbol + splitLeft +splitRight;
-    //    },
-    //    new:function(num, simbol){
-    //      this.simbol = simbol ||'';
-    //      return this.formatear(num);
-    //    }
-    //  }
-
-    // var mostrarPdf = function(number_paynote){
-    //   if (!/^([0-9])*$/.test(number_paynote)) {
-    //     return false
-    //   } else {
-    //     VentanaCentrada('./resources/dompdf/pdf_paynote.php?number='+number_paynote,'Nota de Pago','','1024','768','true');
-    //   }
-    // }
-
-    // //Script JS
-    // var checkNotePay = function (id_paynote) {
-
-    //   if (!/^([0-9])*$/.test(id_paynote)) {
-    //     return false
-    //   } else {
-
-    //     swal({
-    //       title: "¿Cambiar estado de Pago?",
-    //       // text: "Recuerda verificar la recepcion con el destinatario, una vez enviado el documento.",
-    //       text: "El número de nota de pago es: "+id_paynote+"",
-    //       icon: "info",
-    //       buttons: ['Cancelar','Aceptar'],
-    //       dangerMode: false,
-    //     })
-
-    //     .then((willSend) => {
-    //       if (willSend) {
-    //         $('.loader').show();
-    //         $.ajax({
-    //           url: "model/updateStatusNotePay.php",
-    //           method: "POST",
-    //           data: {id_paynote: id_paynote},
-    //           success: function (data) {
-    //             if (data == 'ok') {
-    //               swal({
-    //                 title: "Buen Trabajo!",
-    //                 text: "El estado ha cambiado.",
-    //                 icon: "success",
-    //                 button: "Ok",
-    //               });
-    //               $('.loader').hide();
-    //               cargarPayNote();
-    //             } else if (data == 'vacio') {
-    //               swal({
-    //                 title: "Algo salio mal!",
-    //                 text: "El estado no pudo ser cambiado.",
-    //                 icon: "error",
-    //                 button: "Cerrar",
-    //               });
-    //               $('.loader').hide();
-    //               cargarPayNote();
-    //             } else {
-    //               console.log(data);
-    //               $('.loader').hide();
-    //               cargarPayNote();
-    //             }
-    //             // $('.loader').hide();
-    //             // swal("Genial! El mensaje ha sido enviado satisfactoriamente.", {
-    //             //   icon: "success",
-    //             // });
-    //             // cargarPayNote();
-    //           }
-    //         });
-
-    //       } else {
-    //         swal("El estado de la Nota de Pago no fue cambiado");
-    //       }
-    //     });
-    //   }
-    // }
-    // //Script JS
-    // var checkChargePay = function (id_chargenote) {
-
-    //   if (!/^([0-9])*$/.test(id_chargenote)) {
-    //     return false
-    //   } else {
-
-    //     swal({
-    //       title: "¿Cambiar estado de Cobro?",
-    //       // text: "Recuerda verificar la recepcion con el destinatario, una vez enviado el documento.",
-    //       text: "El número de nota de cobro es: "+id_chargenote+"",
-    //       icon: "info",
-    //       buttons: ['Cancelar','Aceptar'],
-    //       dangerMode: false,
-    //     })
-
-    //     .then((willSend) => {
-    //       if (willSend) {
-    //         $('.loader').show();
-    //         $.ajax({
-    //           url: "model/updateStatusChargePay.php",
-    //           method: "POST",
-    //           data: {id_chargenote: id_chargenote},
-    //           success: function (data) {
-    //             if (data == 'ok') {
-    //               swal({
-    //                 title: "Buen Trabajo!",
-    //                 text: "El estado ha cambiado.",
-    //                 icon: "success",
-    //                 button: "Ok",
-    //               });
-    //               $('.loader').hide();
-    //               cargarChargeNote();
-    //             } else if (data == 'vacio') {
-    //               swal({
-    //                 title: "Algo salio mal!",
-    //                 text: "El estado no pudo ser cambiado.",
-    //                 icon: "error",
-    //                 button: "Cerrar",
-    //               });
-    //               $('.loader').hide();
-    //               cargarChargeNote();
-    //             } else {
-    //               console.log(data);
-    //               $('.loader').hide();
-    //               cargarChargeNote();
-    //             }
-    //             // $('.loader').hide();
-    //             // swal("Genial! El mensaje ha sido enviado satisfactoriamente.", {
-    //             //   icon: "success",
-    //             // });
-    //             // cargarPayNote();
-    //           }
-    //         });
-
-    //       } else {
-    //         swal("El estado de la Nota de Pago no fue cambiado");
-    //       }
-    //     });
-    //   }
-    // }
-
-    // var mostrarCharge = function(number_chargenote){
-    //   if (!/^([0-9])*$/.test(number_chargenote)) {
-    //     return false
-    //   } else {
-    //     VentanaCentrada('./resources/dompdf/pdf_chargenote.php?number='+number_chargenote,'Nota de Pago','','1024','768','true');
-    //   }
-    // }
+      barChartOptions.datasetFill = false
+      barChart.Bar(barChartData, barChartOptions)
+    })
   </script>
 
 </body>

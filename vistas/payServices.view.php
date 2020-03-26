@@ -46,23 +46,27 @@
                     <div class="col-md-12">
                         <div class="box">
                             <div class="box-body">
-                                <form class="mb-5" id="form" method="post">
+                                <form class="form-inline mb-5" id="form" method="post">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <label>La dirección de la propiedad:</label>
-                                            <select name="address_property" id="address_property" class="form-control select2">
-                                                <option></option>
-                                                <?php
-                                                $seladdress = 'SELECT id_property, address_property FROM tbl_property_system';
-                                                $q = $con->query($seladdress);
-                                                // While para repetir todos los campos dentro de la base de datos
-                                                while ($address = $q->fetch(PDO::FETCH_ASSOC)) {
-                                                ?>
-                                                    <option value="<?php echo $address['id_property']; ?>"><?php echo $address['address_property']; ?></option>
-                                                <?php
-                                                }
-                                                ?>
-                                            </select>
+                                            <div class="form-group">
+                                                <label>La dirección de la propiedad:</label>
+                                                <select name="address_property" id="address_property" class="form-control select2">
+                                                    <option></option>
+                                                    <?php
+                                                    $seladdress = 'SELECT id_property, address_property FROM tbl_property_system';
+                                                    $q = $con->query($seladdress);
+                                                    // While para repetir todos los campos dentro de la base de datos
+                                                    while ($address = $q->fetch(PDO::FETCH_ASSOC)) {
+                                                    ?>
+                                                        <option value="<?php echo $address['id_property']; ?>"><?php echo $address['address_property']; ?></option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                                <button id="btnMora" type="button" data-toggle="modal" data-target="#modalMora" class="mt-3 btn btn-warning" disabled><i class="fas fa-info-circle"></i> Notificar Mora</button>
+                                            </div>
+
                                         </div>
                                         <div class="col-md-3">
                                             <label>N° Cliente agua:</label>
@@ -92,6 +96,44 @@
 
         </div>
         <!-- /.content-wrapper -->
+        <div class="modal fade" id="modalMora" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">Notificar de mora en servicios</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>¿Quieres enviar la notificación a <u><span id="nameLeaser"></span></u> de su mora?</label>
+                                <form id="notificaMora" method="post" class="form-inline">
+                                    <input type="hidden" name="id_property" id="id_property">
+                                    <input type="hidden" id="name_leaser">
+
+                                    <div class="col-md-8">
+                                        <div class="form-group w-100">
+                                            <input name="emailLeaser" id="emailLeaser" type="text" class="form-control w-100" placeholder="enviar@notificacioncliente.com">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group w-100">
+                                            <button type="button" id="btnEmail" class="btn btn-success w-100"><i class="fas fa-envelope"></i> Si, enviar </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
 
         <!-- Main Footer -->
         <footer class="main-footer">
@@ -126,29 +168,97 @@
     <script type="text/javascript" src="resources/dist/js/VentanaCentrada.js"></script>
 
     <script type="text/javascript">
-
         $('#address_property').on('change', function() {
+            $('#btnMora').attr('disabled', true);
+
             $('#address_property option:selected').each(function() {
-
                 var direccion = $(this).val();
-
                 $.ajax({
                     url: "model/searchClient.php",
                     method: "POST",
                     dataType: "json",
                     data: direccion,
                     success: function(datos) {
-                        $('#agua_edit').html(datos.n_client_agua + ' <button class="btn btn-sm btn-warning"><i class="fas fa-envelope"></i></button>');
-                        $('#luz_edit').html(datos.n_client_luz + ' <button class="btn btn-sm btn-warning"><i class="fas fa-envelope"></i></button>');
-                        $('#gas_edit').html(datos.n_client_gas  + ' <button class="btn btn-sm btn-warning"><i class="fas fa-envelope"></i></button>');
+                        $('#agua_edit').html(datos.n_client_agua);
+                        $('#luz_edit').html(datos.n_client_luz);
+                        $('#gas_edit').html(datos.n_client_gas);
+                        $('#id_property').val(datos.id_property);
+                        $('#btnMora').attr('disabled', false);
                     },
                     error: function(xhr, textStatus, errorMessage) {
 
                         console.log("ERROR" + errorMessage + textStatus + xhr);
 
                     }
+
                 });
+
             })
+        })
+
+        var alertEnvio = function(id_contrato) {
+
+            if (!/^([0-9])*$/.test(id_contrato)) {
+                return false
+            } else {
+
+                swal({
+                        title: "¿Quieres eliminar el Registro?",
+                        text: "Una vez eliminado, no podras recuperarlo!",
+                        icon: "warning",
+                        buttons: ['Cancelar', 'Eliminar'],
+                        dangerMode: true,
+                    })
+
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                url: "model/deleteContrato.php",
+                                method: "POST",
+                                data: {
+                                    id_contrato: id_contrato
+                                },
+                                success: function(data) {
+                                    if (data == 'ok') {
+                                        swal("Eliminado! El registro fue eliminado.", {
+                                            icon: "success",
+                                        });
+                                        cargarContratos();
+                                    } else {
+                                        console.log(data);
+                                    }
+                                }
+                            });
+
+                        } else {
+                            swal("Que bien, no se ha eliminado el registro!");
+                        }
+                    });
+            }
+        }
+
+        $('#btnMora').on('click', function() {
+            var id_property = $('#id_property').val();
+            $.ajax({
+                url: "model/searchEmail.php",
+                method: "POST",
+                dataType: "json",
+                data: {id_property: id_property},
+                success: function(datos) {
+                    $('#nameLeaser').html(datos.name_leaser);
+                    $('#emailLeaser').val(datos.email_leaser);
+                },
+                error: function(xhr, textStatus, errorMessage) {
+                    console.log("ERROR" + errorMessage + textStatus + xhr);
+                }
+
+            });
+            console.log(id_property);
+        })
+
+        $('#btnEmail').on('click', function(){
+            $('#modalMora').modal('hide');
+            swal( "Enviado" ,  "La notificación ha sido enviada!" ,  "success" );
         })
 
         // Select 2

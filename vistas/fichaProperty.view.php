@@ -1450,7 +1450,7 @@
       addPagos();
       editContrato();
       editCobro();
-      //editPago();
+      editPago();
     });
 
     // Select 2
@@ -1909,6 +1909,47 @@
       }
     }
 
+    var deletePago = function(id_pago_property) {
+
+if (!/^([0-9])*$/.test(id_pago_property)) {
+  return false
+} else {
+
+  swal({
+      title: "¿Quieres eliminar el Registro?",
+      text: "Una vez eliminado, no podras recuperarlo!",
+      icon: "warning",
+      buttons: ['Cancelar', 'Eliminar'],
+      dangerMode: true,
+    })
+
+    .then((willDelete) => {
+      if (willDelete) {
+        $.ajax({
+          url: "model/deletePago.php",
+          method: "POST",
+          data: {
+            id_pago_property: id_pago_property
+          },
+          success: function(data) {
+            if (data == 'ok') {
+              swal("Eliminado! El registro fue eliminado.", {
+                icon: "success",
+              });
+              cargarPagosP();
+            } else {
+              console.log(data);
+            }
+          }
+        });
+
+      } else {
+        swal("Que bien, no se ha eliminado el registro!");
+      }
+    });
+}
+}
+
     var editContrato = function(id_contrato) {
       $('#editContrato').submit(function(e) {
         var datos = $(this).serialize();
@@ -1991,15 +2032,15 @@
       });
     }
 
-    var editPago = function(id_cobro_property) {
-      $('#editCobro').submit(function(e) {
+    var editPago = function(id_pago_property) {
+      $('#editPago').submit(function(e) {
         var datos = $(this).serialize();
         e.preventDefault();
         //console.log(datos);
 
         $.ajax({
           type: "POST",
-          url: "model/editCobroModel.php",
+          url: "model/editPagoModel.php",
           data: datos,
           success: function(data) {
             if (data == 'ok') {
@@ -2009,10 +2050,10 @@
                 icon: "success",
                 button: "Ok",
               });
-              cargarCobrosP();
-              $('#editCobro')[0].reset();
-              $('#modalEditCobro').modal('hide');
-              location.reload();
+              cargarPagosP();
+              $('#editPago')[0].reset();
+              $('#modalEditPago').modal('hide');
+              // location.reload();
               //$('#modalAddCobro').modal('show');
               // console.log('Exitazooooooo');
             } else if (data == 'vacio') {
@@ -2022,8 +2063,8 @@
                 icon: "error",
                 button: "Cerrar",
               });
-              $('#editCobro')[0].reset();
-              $('#modalEditCobro').modal('hide');
+              $('#editPago')[0].reset();
+              $('#modalEditPago').modal('hide');
             } else {
               console.log(data);
             }

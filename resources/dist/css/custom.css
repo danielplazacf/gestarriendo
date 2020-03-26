@@ -1286,6 +1286,7 @@ label {
 .sidebar-menu > li > a > .fa, .sidebar-menu > li > a > .fas, .sidebar-menu > li > a > .glyphicon, .sidebar-menu > li > a > .ion {
   width: 20px;
 }
+
 .bg-white{
   background-color: white;
 }
@@ -1293,6 +1294,7 @@ label {
 .text-warning {
   color: #f39c12;
 }
+
 .text-success {
   color: #00a65a;
 }
