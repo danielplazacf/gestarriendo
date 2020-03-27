@@ -180,9 +180,7 @@
 
                     // la variable direccion guarda el valor de la seleccion anterior
                     var direccion = $(this).val();
-
-                    console.log(direccion);
-
+                    //console.log(direccion);
                     // se ejecuta un ajax para buscar los numeros de clientes
                     $.ajax({
                         url: "model/searchNumberClient.php",
@@ -191,6 +189,11 @@
                         // data es igual al valor de var direccion
                         data: {
                             id_property: direccion
+                        },
+                        beforeSend: function(){
+                            $('#agua_edit').html('Cargando...');
+                            $('#luz_edit').html('Cargando...');
+                            $('#gas_edit').html('Cargando...');
                         },
                         success: function(datos) {
                             // mostramos los datos obtenidos de la busqueda en los siguientes id's
