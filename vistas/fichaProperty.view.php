@@ -1339,12 +1339,6 @@
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
   <script>
-    // definimos el tipo de moneda con api de JS
-    const formatter = new Intl.NumberFormat('es-CL', {
-      style: 'currency',
-      currency: 'CLP',
-      minimumFractionDigits: 0
-    })
     // button status contrato
     $('#status_edit').bootstrapToggle({
       on: 'Activado',

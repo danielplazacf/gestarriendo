@@ -28,14 +28,16 @@
         <li class="<?php echo $active_inmuebles;?>"><a href="listProperty.php"><i class="fas fa-home"></i> <span>Inmuebles</span></a></li>
         <!-- pagos -->
         <li class="treeview <?php echo $active_pay;?>">
-          <a class="active" href="#"><i class="fas fa-file-invoice-dollar"></i><span> Finanzas y Pagos</span>
+          <a class="active" href="#"><i class="fas fa-funnel-dollar"></i><span> Finanzas y Pagos</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+              <i class="fas fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
+            <li><a href="historialPagos.php"><i class="fas fa-file-invoice-dollar"></i> Historial Pagos</a></li>
+            <li><a href="historialCobros.php"><i class="fas fa-file-invoice"></i> Historial Cobros</a></li>
             <li><a href="accountBank.php"><i class="fas fa-university"></i> Cuentas Bancarias</a></li>
-            <li><a href="payServices.php"><i class="fa fa-file-invoice-dollar"></i> Revisar Servicios</a></li>
+            <li><a href="payServices.php"><i class="fas fa-search-dollar"></i> Revisar Servicios</a></li>
           </ul>
         </li>
         
