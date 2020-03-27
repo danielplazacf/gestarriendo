@@ -168,97 +168,101 @@
     <script type="text/javascript" src="resources/dist/js/VentanaCentrada.js"></script>
 
     <script type="text/javascript">
-        $('#address_property').on('change', function() {
-            $('#btnMora').attr('disabled', true);
+        $(document).ready(function() {
+            // ejecucion de on(change) al cambiar la opcion
+            $('#address_property').on('change', function() {
 
-            $('#address_property option:selected').each(function() {
-                var direccion = $(this).val();
+                // deshabilitamos button 'btnMora'
+                $('#btnMora').attr('disabled', 'disabled');
+
+                // toma la opcion seleccionada
+                $('#address_property option:selected').each(function() {
+
+                    // la variable direccion guarda el valor de la seleccion anterior
+                    var direccion = $(this).val();
+
+                    console.log(direccion);
+
+                    // se ejecuta un ajax para buscar los numeros de clientes
+                    $.ajax({
+                        url: "model/searchNumberClient.php",
+                        method: "POST",
+                        dataType: "json",
+                        // data es igual al valor de var direccion
+                        data: {
+                            id_property: direccion
+                        },
+                        success: function(datos) {
+                            // mostramos los datos obtenidos de la busqueda en los siguientes id's
+                            $('#agua_edit').html(datos.n_client_agua);
+                            $('#luz_edit').html(datos.n_client_luz);
+                            $('#gas_edit').html(datos.n_client_gas);
+                            $('#id_property').val(datos.id_property);
+                            // al obtener los numeros de clientes, habilitamos el 'btnMora'
+                            $('#btnMora').attr('disabled', false);
+                        },
+                        error: function(xhr, textStatus, errorMessage) {
+
+                            console.log("ERROR:" + errorMessage + textStatus + xhr);
+
+                        }
+
+                    });
+
+                })
+            })
+
+            // ejecucion on(click) al clickear sobre el boton
+            $('#btnMora').on('click', function() {
+                // obtenemos el valor del campo con id 'id_property'
+                var id_property = $('#id_property').val();
+                // ejecutamos ajax para obtener los correos de cada arrendatario
                 $.ajax({
-                    url: "model/searchClient.php",
+                    url: "model/searchEmail.php",
                     method: "POST",
                     dataType: "json",
-                    data: direccion,
+                    // data es igual a el id_property
+                    data: {
+                        id_property: id_property
+                    },
                     success: function(datos) {
-                        $('#agua_edit').html(datos.n_client_agua);
-                        $('#luz_edit').html(datos.n_client_luz);
-                        $('#gas_edit').html(datos.n_client_gas);
-                        $('#id_property').val(datos.id_property);
-                        $('#btnMora').attr('disabled', false);
+                        $('#nameLeaser').html(datos.name_leaser);
+                        $('#emailLeaser').val(datos.email_leaser);
                     },
                     error: function(xhr, textStatus, errorMessage) {
-
                         console.log("ERROR" + errorMessage + textStatus + xhr);
-
                     }
 
                 });
-
+                console.log(id_property);
             })
-        })
 
-        var alertEnvio = function(id_contrato) {
 
-            if (!/^([0-9])*$/.test(id_contrato)) {
-                return false
-            } else {
+            $('#btnEmail').on('click', function() {
+                var email = $('#emailLeaser').val();
 
-                swal({
-                        title: "¿Quieres eliminar el Registro?",
-                        text: "Una vez eliminado, no podras recuperarlo!",
-                        icon: "warning",
-                        buttons: ['Cancelar', 'Eliminar'],
-                        dangerMode: true,
-                    })
+                // $.ajax({
+                //     url: "model/searchEmail.php",
+                //     method: "POST",
+                //     dataType: "json",
+                //     // data es igual a el id_property
+                //     data: {
+                //         id_property: id_property
+                //     },
+                //     success: function(datos) {
+                //         $('#nameLeaser').html(datos.name_leaser);
+                //         $('#emailLeaser').val(datos.email_leaser);
+                //     },
+                //     error: function(xhr, textStatus, errorMessage) {
+                //         console.log("ERROR" + errorMessage + textStatus + xhr);
+                //     }
 
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            $.ajax({
-                                url: "model/deleteContrato.php",
-                                method: "POST",
-                                data: {
-                                    id_contrato: id_contrato
-                                },
-                                success: function(data) {
-                                    if (data == 'ok') {
-                                        swal("Eliminado! El registro fue eliminado.", {
-                                            icon: "success",
-                                        });
-                                        cargarContratos();
-                                    } else {
-                                        console.log(data);
-                                    }
-                                }
-                            });
+                // });
 
-                        } else {
-                            swal("Que bien, no se ha eliminado el registro!");
-                        }
-                    });
-            }
-        }
+                // $('#modalMora').modal('hide');
+                // swal("Enviado", "La notificación ha sido enviada!", "success");
+            })
 
-        $('#btnMora').on('click', function() {
-            var id_property = $('#id_property').val();
-            $.ajax({
-                url: "model/searchEmail.php",
-                method: "POST",
-                dataType: "json",
-                data: {id_property: id_property},
-                success: function(datos) {
-                    $('#nameLeaser').html(datos.name_leaser);
-                    $('#emailLeaser').val(datos.email_leaser);
-                },
-                error: function(xhr, textStatus, errorMessage) {
-                    console.log("ERROR" + errorMessage + textStatus + xhr);
-                }
-
-            });
-            console.log(id_property);
-        })
-
-        $('#btnEmail').on('click', function(){
-            $('#modalMora').modal('hide');
-            swal( "Enviado" ,  "La notificación ha sido enviada!" ,  "success" );
         })
 
         // Select 2
