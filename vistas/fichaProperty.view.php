@@ -177,9 +177,10 @@
                       <div class="small">
                         <ul class="list-inline mt-3">
                           <li><b>I:</b> Fecha inicio</li>
-                          <li><b>F:</b> Fecha termino</li>
+                          <li><b>T:</b> Fecha termino</li>
                           <li><b>P:</b> Propietario</li>
                           <li><b>A:</b> Arrendatario</li>
+                          <li><b>RG:</b> Receptor Garantía</li>
                         </ul>
                       </div>
                       <table id="tableOwner" class="table table-striped" style="font-size: 1.1rem">
@@ -779,7 +780,7 @@
 
                 <div class="col-xs-6">
                   <div class="form-group">
-                    <label>Concepto del cobro:</label>
+                    <label>Concepto del Pago:</label>
                     <div class="input-group">
                       <div class="input-group-addon">
                         <i class="fas fa-file"></i>
@@ -812,7 +813,7 @@
 
                 <div class="col-xs-6">
                   <div class="form-group">
-                    <label>Monto a cobrar:</label>
+                    <label>Monto a Pagar:</label>
                     <div class="input-group">
                       <div class="input-group-addon">
                         <i class="fas fa-usd"></i>
@@ -1103,7 +1104,7 @@
       </div>
     </div>
 
-    <!-- EDIT COBRO ADMINISTRACIÓN -->
+    <!-- EDIT PAGO ADMINISTRACIÓN -->
     <div class="modal fade" id="modalEditPago" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -1154,7 +1155,7 @@
 
                 <div class="col-xs-6">
                   <div class="form-group">
-                    <label>Concepto del cobro:</label>
+                    <label>Concepto del Pago:</label>
                     <div class="input-group">
                       <div class="input-group-addon">
                         <i class="fas fa-file"></i>
@@ -1186,7 +1187,7 @@
 
                 <div class="col-xs-6">
                   <div class="form-group">
-                    <label>Monto a cobrar:</label>
+                    <label>Monto a Pagar:</label>
                     <div class="input-group">
                       <div class="input-group-addon">
                         <i class="fas fa-usd"></i>
@@ -1509,7 +1510,7 @@
           //3
           {
             "mData": function(data, type, dataToSet) {
-              return formatter.format(data.garantia_contrato);
+              return '<b>RG:</b> ' + data.receptor_garantia + '<br>' + formatter.format(data.garantia_contrato);
             }
           },
           //4

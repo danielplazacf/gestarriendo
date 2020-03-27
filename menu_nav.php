@@ -20,12 +20,13 @@
 
         <!-- escritorio -->
         <li class="<?php echo $active_escritorio;?>"><a href="index.php"><i class="fas fa-tachometer-alt"></i> <span>Escritorio</span></a></li>
+        <!-- inmuebles -->
+        <li class="<?php echo $active_inmuebles;?>"><a href="listProperty.php"><i class="fas fa-home"></i> <span>Propiedades</span></a></li>
         <!-- propietarios -->
         <li class="<?php echo $active_owner;?>"><a href="listOwner.php"><i class="fas fa-user"></i> <span>Propietarios</span></a></li>
         <!-- arrendatario -->
         <li class="<?php echo $active_leaser;?>"><a href="listLeaser.php"><i class="fas fa-user-friends"></i> <span>Arrendatarios</span></a></li>
-        <!-- inmuebles -->
-        <li class="<?php echo $active_inmuebles;?>"><a href="listProperty.php"><i class="fas fa-home"></i> <span>Inmuebles</span></a></li>
+        
         <!-- pagos -->
         <li class="treeview <?php echo $active_pay;?>">
           <a class="active" href="#"><i class="fas fa-funnel-dollar"></i><span> Finanzas y Pagos</span>
