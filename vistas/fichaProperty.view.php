@@ -1339,6 +1339,12 @@
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
   <script>
+    // definimos el tipo de moneda con api de JS
+    const formatter = new Intl.NumberFormat('es-CL', {
+      style: 'currency',
+      currency: 'CLP',
+      minimumFractionDigits: 0
+    })
     // button status contrato
     $('#status_edit').bootstrapToggle({
       on: 'Activado',
@@ -1905,44 +1911,44 @@
 
     var deletePago = function(id_pago_property) {
 
-if (!/^([0-9])*$/.test(id_pago_property)) {
-  return false
-} else {
-
-  swal({
-      title: "¿Quieres eliminar el Registro?",
-      text: "Una vez eliminado, no podras recuperarlo!",
-      icon: "warning",
-      buttons: ['Cancelar', 'Eliminar'],
-      dangerMode: true,
-    })
-
-    .then((willDelete) => {
-      if (willDelete) {
-        $.ajax({
-          url: "model/deletePago.php",
-          method: "POST",
-          data: {
-            id_pago_property: id_pago_property
-          },
-          success: function(data) {
-            if (data == 'ok') {
-              swal("Eliminado! El registro fue eliminado.", {
-                icon: "success",
-              });
-              cargarPagosP();
-            } else {
-              console.log(data);
-            }
-          }
-        });
-
+      if (!/^([0-9])*$/.test(id_pago_property)) {
+        return false
       } else {
-        swal("Que bien, no se ha eliminado el registro!");
+
+        swal({
+            title: "¿Quieres eliminar el Registro?",
+            text: "Una vez eliminado, no podras recuperarlo!",
+            icon: "warning",
+            buttons: ['Cancelar', 'Eliminar'],
+            dangerMode: true,
+          })
+
+          .then((willDelete) => {
+            if (willDelete) {
+              $.ajax({
+                url: "model/deletePago.php",
+                method: "POST",
+                data: {
+                  id_pago_property: id_pago_property
+                },
+                success: function(data) {
+                  if (data == 'ok') {
+                    swal("Eliminado! El registro fue eliminado.", {
+                      icon: "success",
+                    });
+                    cargarPagosP();
+                  } else {
+                    console.log(data);
+                  }
+                }
+              });
+
+            } else {
+              swal("Que bien, no se ha eliminado el registro!");
+            }
+          });
       }
-    });
-}
-}
+    }
 
     var editContrato = function(id_contrato) {
       $('#editContrato').submit(function(e) {
