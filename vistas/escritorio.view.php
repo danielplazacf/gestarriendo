@@ -45,10 +45,10 @@
         <div class="row">
 
         <div class="col-md-12">
-          <div class="alert alert-warning">
+          <div class="alert alert-warning mb-3">
             <?php
               if(NAME_APP === 'gestarriendo-master'){
-                echo 'El nombre de tu app es' . NAME_APP . ', para cambiarlo debes ir a <code>model/functions.php</code>';
+                echo 'El nombre de tu app es <code>' . NAME_APP . '</code>, para cambiarlo debes ir a <code>model/functions.php</code>';
               }
             ?>
           </div>
