@@ -56,8 +56,6 @@
                     if(empty($rowEmpresa['name_empresa'])){
                         $html = '<div class="col-md-12"><div class="alert alert-warning alert-dismissible mb-3"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Al parecer aún no completas los datos de la empresa en el sistema, para hacerlo debes seguir este <a class="text-black" href="optionSystem.php">enlace</a>. Si no lo haces, tendras problemas en el envio de correos.</div></div>';
                         echo $html;
-                    }else{
-                        echo 'Error';
                     }
                     ?>
                     <div class="col-md-12">

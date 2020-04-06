@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <td height="14"></td>
                         </tr>
                         <tr>
-                            <td height="53" bgcolor="#ffffff" align="left" style="padding-left:50px"><img src="/<?php echo $gest_url . '/' . $logo; ?>" alt="Gestarriendo" width="220" border="0" style="display:block" class="CToWUd"></td>
+                            <td height="53" bgcolor="#ffffff" align="left" style="padding-left:50px"><img src="<?php echo $gest_url . '/' . $logo; ?>" alt="Gestarriendo" width="220" border="0" style="display:block" class="CToWUd"></td>
                         </tr>
                         <tr>
                             <td height="10"></td>

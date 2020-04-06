@@ -44,16 +44,16 @@
 
         <div class="row">
 
-        <div class="col-md-12">
-          <div class="alert alert-warning alert-dismissible mb-3">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <div class="col-md-12">
             <?php
-              if(NAME_APP === 'gestarriendo-master'){
-                echo 'El nombre de tu app es <code>' . NAME_APP . '</code>, para cambiarlo debes ir a <code>model/functions.php</code>. Si tienes problemas contacta con el administrador del sistema.';
-              }
+            if (NAME_APP === 'gestarriendo-master'){
+              echo '<div class="alert alert-warning alert-dismissible mb-3"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>El nombre de tu app es <code>' . NAME_APP . '</code>, para cambiarlo debes ir a <code>model/functions.php</code>. Si tienes problemas contacta con el administrador del sistema.</div>';
+            }elseif(NAME_APP === 'https://gestarriendo.clicfactor.com'){
+              echo '<div class="alert alert-warning alert-dismissible mb-3"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>El nombre de tu app es <code>' . NAME_APP . '</code>, para cambiarlo debes ir a <code>model/functions.php</code>. Si tienes problemas contacta con el administrador del sistema.</div>';
+            }
             ?>
+
           </div>
-        </div>
 
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
@@ -61,7 +61,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Propiedades</span>
-                <span class="info-box-number" id="countProperty"><?php echo $rowProperty;?></span>
+                <span class="info-box-number" id="countProperty"><?php echo $rowProperty; ?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -74,7 +74,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Propietarios</span>
-                <span class="info-box-number"><?php echo $rowOwner;?></span>
+                <span class="info-box-number"><?php echo $rowOwner; ?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -91,7 +91,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Arrendatarios</span>
-                <span class="info-box-number"><?php echo $rowLeaser;?></span>
+                <span class="info-box-number"><?php echo $rowLeaser; ?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -205,7 +205,6 @@
   <script src="resources/bower_components/chart.js/Chart.js"></script>
 
   <script type="text/javascript">
-
     // definimos el tipo de moneda con api de JS
     const formatter = new Intl.NumberFormat('es-CL', {
       style: 'currency',
@@ -284,7 +283,6 @@
       barChartOptions.datasetFill = false
       barChart.Bar(barChartData, barChartOptions)
     })
-
   </script>
 
 </body>

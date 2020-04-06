@@ -5,7 +5,7 @@
 	Correo: web@integramosweb.pro
 	---------------------------*/
 	
-	define('NAME_APP', 'gestarriendo-master');
+	define('NAME_APP', 'https://gestarriendo.clicfactor.com');
 
 	function nameUser($usuario){
 
