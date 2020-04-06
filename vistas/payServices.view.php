@@ -273,9 +273,8 @@
 
         })
 
+        $('.load-email').hide();
         var sendMail = function() {
-            $('.load-email').hide();
-
             $('#notificaMora').submit(function(e) {
                 e.preventDefault();
                 var datos = $(this).serialize();
