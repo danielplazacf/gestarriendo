@@ -96,10 +96,19 @@
                             </div>
                             <!-- /.box-body -->
                         </div>
-                        <div class="alert alert-warning mb-3">
-                            <strong>Información:</strong> para cambiar los datos de la empresa, debes vaciar los datos guardados anteriormente con el botón que esta abajo.
+                        <div class="alert alert-warning alert-dismissible mb-3">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <strong>Información:</strong> Si existen datos de empresa o quieres cambiar los datos, debes vaciar los datos guardados anteriormente con el botón que esta abajo.
                         </div>
-                        <button type="button" onclick="deleteDato(<?php echo $row['id_dempresa']; ?>)" class="btn btn-danger"><i class="fas fa-trash"></i> Vaciar datos</button>
+                        <?php
+                        $button = '';
+                            if(!empty($row['id_dempresa'])){
+                                $button = '<button type="button" onclick="deleteDato('. $row['id_dempresa'] .')" class="btn btn-danger"><i class="fas fa-trash"></i> Vaciar datos</button>';
+                            }else{
+                                $button = '<button type="button" disabled class="btn btn-danger"><i class="fas fa-trash"></i> Vaciar datos</button>';
+                            }
+                            echo $button;
+                        ?>
                     </div>
 
                     <div class="col-md-5">
