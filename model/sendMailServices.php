@@ -227,7 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <tbody>
                                         <tr>
                                             <td width="97"></td>
-                                            <td height="38" align="center"><img src="https://ci5.googleusercontent.com/proxy/61TSFUj54-goYLIdsu12L11K4HLDDieJpuh9gdY6rOebbpSbmmbD4E3CtfoIedwp0uJdF9Kc3YyzhMDIy25pEC56FdujEkyFsNMnNsI4KGaihwJl9bYT7enfCEk=s0-d-e1-ft#http://image.corp.bancofalabella.com/lib/fea012737562047d75/m/1/bbfcl.png" alt="http://www.bancofalabella.cl/" border="0" width="240" height="38" style="display:block" class="CToWUd"></td>
+                                            <!-- <td height="38" align="center"><img src="https://ci5.googleusercontent.com/proxy/61TSFUj54-goYLIdsu12L11K4HLDDieJpuh9gdY6rOebbpSbmmbD4E3CtfoIedwp0uJdF9Kc3YyzhMDIy25pEC56FdujEkyFsNMnNsI4KGaihwJl9bYT7enfCEk=s0-d-e1-ft#http://image.corp.bancofalabella.com/lib/fea012737562047d75/m/1/bbfcl.png" alt="http://www.bancofalabella.cl/" border="0" width="240" height="38" style="display:block" class="CToWUd"></td> -->
                                             <td width="97"></td>
                                         </tr>
                                     </tbody>
