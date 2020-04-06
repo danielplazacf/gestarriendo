@@ -35,9 +35,9 @@
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
+                <!-- <div class="pull-left">
                   <a href="#" class="btn bg-olive"><i class="fa fa-user"></i> Perfil</a>
-                </div>
+                </div> -->
                 <div class="pull-right">
                   <a href="model/cerrarSession.php" class="btn btn-danger"><i class="fa fa-sign-out"></i> Salir</a>
                 </div>

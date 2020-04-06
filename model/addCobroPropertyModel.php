@@ -12,8 +12,8 @@ require_once('../gt-config/conexion.php');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($_POST['cSimple'] === 'cSimple') {
         $id_property = filter_var($_POST['id_property_c'], FILTER_SANITIZE_NUMBER_INT);
-        $agent = filter_var($_POST['agent_designated'], FILTER_SANITIZE_STRING);
-        $date = filter_var($_POST['date_register'], FILTER_SANITIZE_STRING);
+        $agent = filter_var($_POST['agent_designated_c'], FILTER_SANITIZE_STRING);
+        $date = filter_var($_POST['date_register_c'], FILTER_SANITIZE_STRING);
         //
         $desde = filter_var($_POST['desde_cobro'], FILTER_SANITIZE_STRING);
         $hacia = filter_var($_POST['hacia_cobro'], FILTER_SANITIZE_STRING);

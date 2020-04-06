@@ -99,7 +99,7 @@
               <input type="hidden" id="agent_designated" name="agent_designated" value="<?php nameUser($_SESSION['user_system']); ?>">
               <input type="hidden" id="date_register" name="date_register" value="<?php echo date('Y-m-d'); ?>">
               <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-6 col-lg-6">
                   <div class="form-group">
                     <label>Selecciona tipo de propiedad:</label>
                     <div class="input-group">
@@ -122,7 +122,18 @@
                     <!-- /.input group -->
                   </div>
                 </div>
-                <div class="col-xs-12">
+                <div class="col-xs-6 col-lg-6">
+                  <div class="form-group">
+                    <label>Fecha Inicio Administración:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-calendar"></i>
+                      </div>
+                      <input id="date_administracion" name="date_administracion" type="date" class="form-control" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-lg-6">
                   <div class="form-group">
                     <label>Indique la dirección del inmueble:</label>
                     <div class="input-group">
@@ -229,7 +240,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button id="btnSave" type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Guardar</button>
+            <button id="btnSave" type="submit" class="btn btn-success"></button>
           </div>
           </form>
         </div>
@@ -251,7 +262,7 @@
               <input type="hidden" id="id_property" name="id_property">
 
               <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-6 col-lg-6">
                   <div class="form-group">
                     <label>Selecciona tipo de propiedad:</label>
                     <div class="input-group">
@@ -271,6 +282,17 @@
                       </select>
                     </div>
                     <!-- /.input group -->
+                  </div>
+                </div>
+                <div class="col-xs-6 col-lg-6">
+                  <div class="form-group">
+                    <label>Fecha Inicio Administración:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-calendar"></i>
+                      </div>
+                      <input id="date_admin_edit" name="date_admin_edit" type="date" class="form-control">
+                    </div>
                   </div>
                 </div>
                 <div class="col-xs-12">
@@ -367,7 +389,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button id="btnEdit" type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Guardar</button>
+            <button id="btnEdit" type="submit" class="btn btn-success"></button>
           </div>
           </form>
         </div>
@@ -407,7 +429,10 @@
   <script src="resources/dist/js/moment.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-      $('.form-control').attr('required');
+      // definimos el texto del boton btnSave
+      $('#btnSave').html('<i class="fa fa-check-circle"></i> Guardar');
+      // definimos el texto del boton btnEdit
+      $('#btnEdit').html('<i class="fa fa-check-circle"></i> Editar');
       cargarProperty();
       addProperty();
       editProperty();
@@ -472,6 +497,7 @@
 
       $("#tableProperty").dataTable({
         "destroy": true,
+        "processing": true,
         "order": [], //[[ 0, "desc" ]],
         "paging": true,
         "lengthChange": true,
@@ -488,7 +514,7 @@
           //1
           {
             "mData": function(data, type, dataToSet) {
-              return '<u><a class="text-bold text-black" href="fichaProperty.php?id_property='+ data.id_property +'">Ver Ficha</a></u><br><b>ID:' + data.id_property + '</b><br>' + data.agent_designated + "<br>" + moment(data.date_register).format('D/M/Y');
+              return '<a class="text-bold" href="fichaProperty.php?id_property='+ data.id_property +'"><i class="fas fa-eye"></i> Ver Ficha</a><br><b>ID:' + data.id_property + '</b><br>' + data.agent_designated + "<br>" + moment(data.date_register).format('D/M/Y');
             }
           },
           //2
@@ -576,6 +602,7 @@
             $('#id_property').val(datos.id_property);
 
             $('#type_edit').val(datos.type_property);
+            $('#date_admin_edit').val(datos.date_administracion);
             $('#address_edit').val(datos.address_property);
             $('#region_edit').val(datos.region_property);
             $('#comuna_edit').val(datos.comuna_property);
@@ -644,6 +671,10 @@
           type: "POST",
           url: "model/editPropertyModel.php",
           data: datos,
+          beforeSend: function(){
+            $('#btnEdit').attr('disabled', true);
+            $('#btnEdit').html('<i class="fas fa-spin fa-spinner"></i>');
+          },
           success: function(data) {
             if (data == 'ok') {
               swal({
@@ -655,8 +686,10 @@
               cargarProperty();
               $('#editProperty')[0].reset();
               $('#modalEditProperty').modal('hide');
+              $('#btnEdit').removeAttr('disabled');
+              $('#btnEdit').html('<i class="fa fa-check-circle"></i> Editar');
               // console.log('Exitazooooooo');
-            } else if (data == 'vacio') {
+            } else if (data == 'error') {
               swal({
                 title: "Algo salio mal!",
                 text: "Intentalo nuevamente, no puedes incluir campos vacios, ni caracteres extraños.",
@@ -665,6 +698,8 @@
               });
               $('#editProperty')[0].reset();
               $('#modalEditProperty').modal('hide');
+              $('#btnEdit').removeAttr('disabled');
+              $('#btnEdit').html('<i class="fa fa-check-circle"></i> Editar');
             } else {
               console.log(data);
             }
@@ -683,6 +718,10 @@
           type: "POST",
           url: "model/addPropertyModel.php",
           data: datos,
+          beforeSend: function(){
+            $('#btnSave').attr('disabled', true);
+            $('#btnSave').html('<i class="fas fa-spin fa-spinner"></i>');
+          },
           success: function(data) {
             if (data == 'ok') {
               swal({
@@ -691,12 +730,13 @@
                 icon: "success",
                 button: "Ok",
               });
-
+              cargarProperty();
               $('#addProperty')[0].reset();
               $('#modalAddProperty').modal('hide');
-              cargarProperty();
+              $('#btnSave').removeAttr('disabled');
+              $('#btnSave').html('<i class="fa fa-check-circle"></i> Guardar');
               // console.log('Exitazooooooo');
-            } else if (data == 'vacio') {
+            } else if (data == 'error') {
               swal({
                 title: "Algo salio mal!",
                 text: "Un campo esta vacío, recuerda registrar todos los datos.",
@@ -705,6 +745,8 @@
               });
               $('#addProperty')[0].reset();
               $('#modalAddProperty').modal('hide');
+              $('#btnSave').removeAttr('disabled');
+              $('#btnSave').html('<i class="fa fa-check-circle"></i> Guardar');
             } else {
               console.log(data);
             }

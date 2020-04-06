@@ -9,11 +9,16 @@
         .form-date {
             margin-bottom: 20px;
         }
+
+        .font-weight-light {
+            font-weight: 300;
+        }
     </style>
 </head>
 
 <body class="hold-transition skin-black sidebar-mini <?php echo $sidebar; ?>">
     <div class="loader"></div>
+    <div class="load-email"></div>
     <div class="wrapper">
 
         <!-- Main Header -->
@@ -70,16 +75,16 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label>N° Cliente agua:</label>
-                                            <p id="agua_edit">Cargando...</p>
+                                            <p id="agua_edit">Sin registros</p>
                                             <!-- <p id="resultado">Cargando...</p> -->
                                         </div>
                                         <div class="col-md-3">
                                             <label>N° Cliente luz:</label>
-                                            <p id="luz_edit">Cargando...</p>
+                                            <p id="luz_edit">Sin registros</p>
                                         </div>
                                         <div class="col-md-3">
                                             <label>N° Cliente gas:</label>
-                                            <p id="gas_edit">Cargando...</p>
+                                            <p id="gas_edit">Sin registros</p>
                                         </div>
                                     </div>
                                 </form>
@@ -107,19 +112,29 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <label>¿Quieres enviar la notificación a <u><span id="nameLeaser"></span></u> de su mora?</label>
+                                <label id="statusForm"></label>
                                 <form id="notificaMora" method="post" class="form-inline">
                                     <input type="hidden" name="id_property" id="id_property">
-                                    <input type="hidden" id="name_leaser">
+                                    <input type="hidden" name="nameLeaser" id="nameLeaser">
 
-                                    <div class="col-md-8">
-                                        <div class="form-group w-100">
-                                            <input name="emailLeaser" id="emailLeaser" type="text" class="form-control w-100" placeholder="enviar@notificacioncliente.com">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <input name="emailLeaser" id="emailLeaser" type="text" class="form-control" placeholder="enviar@notificacioncliente.com">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
+                                        <div class="form-group">
+                                            <select name="selServices" id="selServices" class="form-control select2 w-100">
+                                                <option></option>
+                                                <option value="agua">Notificar Agua</option>
+                                                <option value="luz">Notificar Luz</option>
+                                                <option value="gas">Notificar Gas</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
                                         <div class="form-group w-100">
-                                            <button type="button" id="btnEmail" class="btn btn-success w-100"><i class="fas fa-envelope"></i> Si, enviar </button>
+                                            <button type="submit" id="btnEmail" class="btn btn-success w-100"><i class="fas fa-envelope"></i> Si, enviar </button>
                                         </div>
                                     </div>
                                 </form>
@@ -169,6 +184,7 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+            sendMail();
             // ejecucion de on(change) al cambiar la opcion
             $('#address_property').on('change', function() {
 
@@ -190,10 +206,11 @@
                         data: {
                             id_property: direccion
                         },
-                        beforeSend: function(){
-                            $('#agua_edit').html('Cargando...');
-                            $('#luz_edit').html('Cargando...');
-                            $('#gas_edit').html('Cargando...');
+                        beforeSend: function() {
+                            // mostramos un load en los siguientes id's
+                            $('#agua_edit').html('Sin registros');
+                            $('#luz_edit').html('Sin registros');
+                            $('#gas_edit').html('Sin registros');
                         },
                         success: function(datos) {
                             // mostramos los datos obtenidos de la busqueda en los siguientes id's
@@ -221,7 +238,7 @@
                 var id_property = $('#id_property').val();
                 // ejecutamos ajax para obtener los correos de cada arrendatario
                 $.ajax({
-                    url: "model/searchEmail.php",
+                    url: "model/searchEmailClient.php",
                     method: "POST",
                     dataType: "json",
                     // data es igual a el id_property
@@ -229,44 +246,64 @@
                         id_property: id_property
                     },
                     success: function(datos) {
-                        $('#nameLeaser').html(datos.name_leaser);
-                        $('#emailLeaser').val(datos.email_leaser);
+                        //console.log(datos);
+                        if (datos.error == 'vacio') {
+                            $('#statusForm').html('<div class="mb-3 ml-4 px-2 alert alert-warning" role="alert"><strong>Lo siento!</strong> <span class="font-weight-light">Al parecer aun no hay un arrendatario en esta <u>propiedad.</u> Intenta agregar uno.</span></div>');
+                            $('#nameLeaser').val('');
+                            $('#selServices').attr('disabled', true);
+                            $('#emailLeaser').attr('disabled', true);
+                            $('#btnEmail').attr('disabled', true);
+                            $('#notificaMora')[0].reset();
+                        } else {
+                            $('#statusForm').html('¿Quieres enviar la notificación a <u>' + datos.name_leaser + '</u> de su mora?');
+                            $('#nameLeaser').val(datos.name_leaser);
+                            $('#emailLeaser').val(datos.email_leaser);
+                            $('#selServices').attr('disabled', false);
+                            $('#emailLeaser').attr('disabled', false);
+                            $('#btnEmail').attr('disabled', false);   
+                        }
+
                     },
                     error: function(xhr, textStatus, errorMessage) {
                         console.log("ERROR" + errorMessage + textStatus + xhr);
                     }
 
                 });
-                console.log(id_property);
-            })
-
-
-            $('#btnEmail').on('click', function() {
-                var email = $('#emailLeaser').val();
-
-                // $.ajax({
-                //     url: "model/searchEmail.php",
-                //     method: "POST",
-                //     dataType: "json",
-                //     // data es igual a el id_property
-                //     data: {
-                //         id_property: id_property
-                //     },
-                //     success: function(datos) {
-                //         $('#nameLeaser').html(datos.name_leaser);
-                //         $('#emailLeaser').val(datos.email_leaser);
-                //     },
-                //     error: function(xhr, textStatus, errorMessage) {
-                //         console.log("ERROR" + errorMessage + textStatus + xhr);
-                //     }
-
-                // });
-
-                // $('#modalMora').modal('hide');
-                // swal("Enviado", "La notificación ha sido enviada!", "success");
             })
 
         })
+
+        var sendMail = function() {
+            $('.load-email').hide();
+
+            $('#notificaMora').submit(function(e) {
+                e.preventDefault();
+                var datos = $(this).serialize();
+                //console.log(datos);
+                
+                $.ajax({
+                    type: "POST",
+                    url: "model/sendMailServices.php",
+                    data: datos,
+                    beforeSend: function(){
+                        $('.load-email').show();
+                        $('#modalMora').modal('hide');
+                    },
+                    success: function(data) {
+                        $('.load-email').hide();
+                        swal({
+                                title: "Enviado!",
+                                text: "El correo fue enviado satisfactoriamente.",
+                                icon: "success",
+                                button: "Ok",
+                            });
+                    },
+                    error: function(xhr, textStatus, errorMessage) {
+                        console.log("ERROR: " + errorMessage + textStatus + xhr);
+                    }
+                });
+            })
+        }
 
         // Select 2
         $(function() {

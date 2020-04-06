@@ -46,7 +46,7 @@
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
       <div class="form-group has-feedback">
         <span class="fa fa-user form-control-feedback"></span>
-        <input name="usuario" type="text" class="form-control" placeholder="Ingrese su correo electrónico" autocomplete="off">
+        <input name="usuario" type="text" class="form-control" placeholder="Ingrese su nombre de usuario" autocomplete="off">
         
       </div>
       <div class="form-group has-feedback">

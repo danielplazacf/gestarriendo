@@ -44,13 +44,23 @@
 
         <div class="row">
 
+        <div class="col-md-12">
+          <div class="alert alert-warning">
+            <?php
+              if(NAME_APP === 'gestarriendo-master'){
+                echo 'El nombre de tu app es' . NAME_APP . ', para cambiarlo debes ir a <code>model/functions.php</code>';
+              }
+            ?>
+          </div>
+        </div>
+
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
               <span class="info-box-icon bg-aqua"><i class="fas fa-building"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">Propiedades</span>
-                <span class="info-box-number">0</span>
+                <span class="info-box-number" id="countProperty"><?php echo $rowProperty;?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -63,7 +73,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Propietarios</span>
-                <span class="info-box-number">0</span>
+                <span class="info-box-number"><?php echo $rowOwner;?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -80,7 +90,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Arrendatarios</span>
-                <span class="info-box-number">0</span>
+                <span class="info-box-number"><?php echo $rowLeaser;?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -93,7 +103,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">UTILIDADES</span>
-                <span class="info-box-number"><small>$</small>2.000.000</span>
+                <span class="info-box-number"><small>$</small>0</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -194,13 +204,13 @@
   <script src="resources/bower_components/chart.js/Chart.js"></script>
 
   <script type="text/javascript">
+
     // definimos el tipo de moneda con api de JS
     const formatter = new Intl.NumberFormat('es-CL', {
       style: 'currency',
       currency: 'CLP',
       minimumFractionDigits: 0
     })
-
 
     $(function() {
       /* ChartJS
@@ -273,6 +283,7 @@
       barChartOptions.datasetFill = false
       barChart.Bar(barChartData, barChartOptions)
     })
+
   </script>
 
 </body>

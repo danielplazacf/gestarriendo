@@ -41,6 +41,10 @@
             <li><a href="payServices.php"><i class="fas fa-search-dollar"></i> Revisar Servicios</a></li>
           </ul>
         </li>
+
+        <li class="<?php echo $active_opciones;?>">
+          <a href="optionSystem.php"><i class="fas fa-cog"></i> <span>Opciones</span></a>
+        </li>
         
 
       </ul>

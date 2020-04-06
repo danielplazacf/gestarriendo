@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title><?php echo $titulo;?> | Sistema de gestión de propiedades DNG</title>
+<title><?php echo $titulo;?> | Sistema de gestión de propiedades</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <link rel="stylesheet" href="resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -19,7 +19,7 @@
 <!-- Skin Blue -->
 <link rel="stylesheet" href="resources/dist/css/skins/skin-black.min.css">
 
-<link rel="shortcut icon" href="">
+<link rel="shortcut icon" href="https://dibytes.cl/wp-content/uploads/2018/04/cropped-favicon-dibytes-32x32.png">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

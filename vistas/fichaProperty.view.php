@@ -5,6 +5,8 @@
   <?php include 'head.php'; ?>
   <!-- DataTables css -->
   <link rel="stylesheet" href="resources/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!-- Timeline css -->
+  <link rel="stylesheet" href="resources/bower_components/timeline/dist/css/timeline.min.css">
   <!-- Button Toggle -->
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
@@ -125,7 +127,7 @@
                     <a class="btn btn-app" data-toggle="modal" data-target="#modalAddContrato">
                       <i class="fas fa-file-signature"></i> Contrato
                     </a>
-                    <a class="btn btn-app" data-toggle="modal" data-target="#modalAddMovimiento">
+                    <a class="btn btn-app" data-toggle="modal" data-target="#modalAddMoveProperty">
                       <i class="fa fa-refresh"></i> Movimiento
                     </a>
                     <?php
@@ -199,73 +201,81 @@
                   </div>
                 </div>
                 <!-- /.tab-pane -->
-                <div class="tab-pane" id="movimientos">
+                <div class="tab-pane" id="movimientos" style="overflow-x: hidden;overflow-y:auto; height:27rem">
                   <div class="row">
                     <div class="col-md-12">
                       <!-- The time line -->
-                      <ul class="timeline">
-                        <!-- timeline time label -->
-                        <li class="time-label">
-                          <span class="bg-red">
-                            10 Mar. 2020 <small>último</small>
-                          </span>
-                        </li>
-                        <!-- /.timeline-label -->
-                        <!-- timeline item -->
-                        <li>
-                          <i class="fa fa-question bg-aqua"></i>
+                      <?php
+                      $key = $_GET['id_property'];
+                      $statement = $con->prepare("SELECT * 
+                      FROM tbl_movement_property 
+                      WHERE id_property = '$key' 
+                      ORDER BY date_movement 
+                      DESC");
+                      $statement->execute();
+                      $result = $statement->fetchAll();
 
-                          <div class="timeline-item">
-                            <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                      if (!empty($result)) {
+                      ?>
+                        <div class="timeline">
+                          <div class="timeline__wrap">
+                            <div class="timeline__items">
+                              <?php foreach ($result as $row) { ?>
+                                <div class="timeline__item">
+                                  <div class="timeline__content">
+                                    <span class="time" style="font-size: 1.1rem;color: #3c8dbc;"><i class="fa fa-clock-o"></i>
+                                      <?php
+                                      $originalDate = $row['date_movement'];
+                                      $newDate = date("d/m/Y", strtotime($originalDate));
+                                      echo $newDate; ?>
+                                    </span>
+                                    <h4 style="font-weight: 700;">
+                                      <?php
 
-                            <h3 class="timeline-header"><a href="#">Solicitud:</a> Visita de gasfiter a propiedad</h3>
+                                      switch ($row['type_movement']) {
+                                        case '1':
+                                          echo 'Informativo';
+                                          break;
 
-                            <div class="timeline-body">
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, dicta iure voluptate ea cumque voluptatum deleniti ipsum exercitationem dignissimos excepturi.
-                            </div>
-                            <div class="timeline-footer">
-                              <!-- <a class="btn btn-primary btn-xs">Read more</a>
-                              <a class="btn btn-danger btn-xs">Delete</a> -->
+                                        case '2':
+                                          echo 'Solicitud';
+                                          break;
+
+                                        case '3':
+                                          echo 'Reunión';
+                                          break;
+
+                                        case '4':
+                                          echo 'Evento';
+                                          break;
+
+                                        case '5':
+                                          echo 'Otro';
+                                          break;
+
+                                        default:
+                                          echo 'Sin registro';
+                                          break;
+                                      }
+                                      ?>
+                                    </h4>
+                                    <p><?php echo $row['txt_movement']; ?></p>
+                                    <div class="btn-group">
+                                      <a href="" onclick="deleteMovement(<?php echo $row['id_mov_property']; ?>);" class="btn btn-sm btn-default"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                  </div>
+                                </div>
+                              <?php } ?>
                             </div>
                           </div>
-                        </li>
-                        <!-- END timeline item -->
-                        <!-- timeline item -->
-                        <li>
-                          <i class="fa fa-info bg-green"></i>
+                        </div>
+                      <?php
+                      } else {
+                        echo '<div class="alert alert-warning" role="alert"><strong>Lo sentimos!</strong> no hay movimientos registrados. Para ingresar un movimiento puedes hacer clic a este <a href="" class="text-black" data-toggle="modal" data-target="#modalAddMoveProperty">link</a> o al botón Movimiento.</div>';
+                      }
+                      ?>
 
-                          <div class="timeline-item">
-                            <span class="time"><i class="fa fa-clock-o"></i> 5 mins atras</span>
 
-                            <h3 class="timeline-header no-border"><a href="#">Informativo:</a> Aumento IPC próximo pago</h3>
-                          </div>
-                        </li>
-                        <!-- END timeline item -->
-                        <!-- timeline item -->
-                        <li>
-                          <i class="fa fa-comments bg-yellow"></i>
-
-                          <div class="timeline-item">
-                            <span class="time"><i class="fa fa-clock-o"></i> 27 mins atras</span>
-
-                            <h3 class="timeline-header"><a href="#">Reunión:</a> Entrega de llaves de propiedad</h3>
-
-                            <div class="timeline-body">
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, dicta iure voluptate ea cumque voluptatum deleniti ipsum exercitationem dignissimos excepturi.
-                            </div>
-                            <div class="timeline-footer">
-                              <!-- <a class="btn btn-warning btn-flat btn-xs">View comment</a> -->
-                            </div>
-                          </div>
-                        </li>
-                        <!-- END timeline item -->
-                        <!-- timeline time label -->
-                        <li class="time-label">
-                          <span class="bg-green">
-                            3 Ene. 2020
-                          </span>
-                        </li>
-                      </ul>
                     </div>
                     <!-- /.col -->
                   </div>
@@ -331,13 +341,13 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <!-- ADD CONTRATO ADMINSTRACIÓN  -->
+    <!-- ADD CONTRATO ARRENDAMIENTO  -->
     <div class="modal fade" id="modalAddContrato" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title text-center" id="myModalLabel">CREAR CONTRATO DE ADMINISTRACIÓN</h4>
+            <h4 class="modal-title text-center" id="myModalLabel">CREAR CONTRATO DE ARRENDAMIENTO</h4>
           </div>
           <div class="modal-body" style="background: #f4f4f4">
             <form id="addContrato" method="POST">
@@ -523,20 +533,20 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button id="btnSubmit" type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Guardar</button>
+            <button id="btnSaveContrato" type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Guardar</button>
           </div>
           </form>
         </div>
       </div>
     </div>
 
-    <!-- EDIT CONTRATO ADMINISTRACIÓN -->
+    <!-- EDIT CONTRATO ARRENDAMIENTO -->
     <div class="modal fade" id="modalEditContrato" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title text-center" id="myModalLabel">EDITAR CONTRATO DE ADMINISTRACIÓN</h4>
+            <h4 class="modal-title text-center" id="myModalLabel">EDITAR CONTRATO DE ARRENDAMIENTO</h4>
           </div>
           <div class="modal-body" style="background: #f4f4f4">
             <form id="editContrato" method="POST">
@@ -718,7 +728,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button id="btnEdit" type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Guardar</button>
+            <button id="btnEditContrato" type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Guardar</button>
           </div>
           </form>
         </div>
@@ -749,12 +759,12 @@
                       <div class="input-group-addon">
                         <i class="fas fa-user-friends"></i>
                       </div>
-                      <select id="desde_pago" name="desde_pago" class="form-control select2" required>
+                      <!-- <select id="desde_pago" name="desde_pago" class="form-control select2" required>
                         <option></option>
                         <option value="Arrendatario">Arrendatario</option>
-                        <option value="Propietario">Propietario</option>
                         <option value="Gestarriendo">Gestarriendo</option>
-                      </select>
+                      </select> -->
+                      <input type="text" id="desde_pago" name="desde_pago" class="form-control" value="Arrendatario" readonly>
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -767,12 +777,12 @@
                       <div class="input-group-addon">
                         <i class="fas fa-user"></i>
                       </div>
-                      <select id="hacia_pago" name="hacia_pago" class="form-control select2" required>
+                      <!-- <select id="hacia_pago" name="hacia_pago" class="form-control select2" required>
                         <option></option>
-                        <option value="Arrendatario">Arrendatario</option>
                         <option value="Propietario">Propietario</option>
                         <option value="Gestarriendo">Gestarriendo</option>
-                      </select>
+                      </select> -->
+                      <input type="text" id="desde_pago" name="desde_pago" class="form-control" value="Gestarriendo" readonly>
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -811,6 +821,25 @@
                   <input type="hidden" name="hidden_recurrent_p" id="hidden_recurrent_p" value="1">
                 </div>
 
+                <div id="account_bank" class="col-xs-8">
+                  <div class="form-group">
+                    <label>Cuenta Bancaria:</label>
+                    <select name="account_id_p" id="account_id_p" class="form-control select2">
+                      <option></option>
+                      <?php
+                      $query = $con->prepare("SELECT * FROM tbl_account_bank");
+                      $query->execute();
+                      $cuentas = $query->fetchAll(PDO::FETCH_ASSOC);
+                      ?>
+                      <?php foreach ($cuentas as $cuenta) { ?>
+                        <option value="<?php echo $cuenta['id_account_bank']; ?>"><?php echo $cuenta['titular_account'] . ' - ' . $cuenta['bank_account'] . ' - ' . $cuenta['number_account']; ?></option>
+                      <?php } ?>
+                      <option></option>
+                    </select>
+                  </div>
+
+                </div>
+
                 <div class="col-xs-6">
                   <div class="form-group">
                     <label>Monto a Pagar:</label>
@@ -843,7 +872,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" id="btnSavePagos" class="btn btn-primary"></button>
               </div>
             </form>
           </div>
@@ -866,13 +895,13 @@
             <form id="addCobroSimple" method="POST">
               <input type="hidden" id="cSimple" name="cSimple" value="cSimple">
               <input type="hidden" id="id_property_c" name="id_property_c" value="<?php echo $_GET['id_property']; ?>">
-              <input type="hidden" id="agent_designated" name="agent_designated" value="<?php nameUser($_SESSION['user_system']); ?>">
-              <input type="hidden" id="date_register" name="date_register" value="<?php echo date('Y-m-d'); ?>">
+              <input type="hidden" id="agent_designated_c" name="agent_designated_c" value="<?php nameUser($_SESSION['user_system']); ?>">
+              <input type="hidden" id="date_register_c" name="date_register_c" value="<?php echo date('Y-m-d'); ?>">
               <div class="row">
 
                 <div class="col-xs-6">
                   <div class="form-group">
-                    <label>Pago desde:</label>
+                    <label>Cobro desde:</label>
                     <div class="input-group">
                       <div class="input-group-addon">
                         <i class="fas fa-user-friends"></i>
@@ -939,6 +968,25 @@
                   <input type="hidden" name="hidden_recurrent" id="hidden_recurrent" value="1">
                 </div>
 
+                <div id="c_account_bank" class="col-xs-8">
+                  <div class="form-group">
+                    <label>Cuenta Bancaria:</label>
+                    <select name="c_account_id" id="c_account_id" class="form-control select2">
+                      <option></option>
+                      <?php
+                      $query = $con->prepare("SELECT * FROM tbl_account_bank");
+                      $query->execute();
+                      $cuentas = $query->fetchAll(PDO::FETCH_ASSOC);
+                      ?>
+                      <?php foreach ($cuentas as $cuenta) { ?>
+                        <option value="<?php echo $cuenta['id_account_bank']; ?>"><?php echo $cuenta['titular_account'] . ' - ' . $cuenta['bank_account'] . ' - ' . $cuenta['number_account']; ?></option>
+                      <?php } ?>
+                      <option></option>
+                    </select>
+                  </div>
+
+                </div>
+
                 <div class="col-xs-6">
                   <div class="form-group">
                     <label>Monto a cobrar:</label>
@@ -971,7 +1019,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-                <button type="submit" id="btnLoad" class="btn btn-primary">Guardar</button>
+                <button type="submit" id="btnSaveCobros" class="btn btn-primary"></button>
               </div>
             </form>
           </div>
@@ -1062,6 +1110,25 @@
                   <input type="hidden" name="hidden_recurrent_edit" id="hidden_recurrent_edit" value="1">
                 </div>
 
+                <div id="c_account_bank" class="col-xs-8">
+                  <div class="form-group">
+                    <label>Cuenta Bancaria:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-university"></i>
+                      </div>
+                      <select name="account_edit_c" id="account_edit_c" class="form-control">
+                        <?php
+                        $query = $con->prepare("SELECT * FROM tbl_account_bank");
+                        $query->execute();
+                        while ($cuentas = $query->fetchAll(PDO::FETCH_ASSOC)) { ?>
+                          <option value="<?php echo $cuenta['id_account_bank']; ?>"><?php echo $cuenta['titular_account'] . ' - ' . $cuenta['bank_account'] . ' - ' . $cuenta['number_account']; ?></option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="col-xs-6">
                   <div class="form-group">
                     <label>Monto a cobrar:</label>
@@ -1094,7 +1161,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" id="btnEditCobros" class="btn btn-primary"></button>
               </div>
             </form>
           </div>
@@ -1185,6 +1252,25 @@
                   <input type="hidden" name="hidden_recurrent_edit_p" id="hidden_recurrent_edit_p" value="1">
                 </div>
 
+                <div class="col-xs-8">
+                  <div class="form-group">
+                    <label>Cuenta Bancaria:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fas fa-university"></i>
+                      </div>
+                      <select name="account_edit_p" id="account_edit_p" class="form-control">
+                        <?php
+                        $query = $con->prepare("SELECT * FROM tbl_account_bank");
+                        $query->execute();
+                        while ($cuentas = $query->fetchAll(PDO::FETCH_ASSOC)) { ?>
+                          <option value="<?php echo $cuenta['id_account_bank']; ?>"><?php echo $cuenta['titular_account'] . ' - ' . $cuenta['bank_account'] . ' - ' . $cuenta['number_account']; ?></option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="col-xs-6">
                   <div class="form-group">
                     <label>Monto a Pagar:</label>
@@ -1217,7 +1303,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" id="btnEditPagos" class="btn btn-primary"></button>
               </div>
             </form>
           </div>
@@ -1228,7 +1314,7 @@
     </div>
 
     <!-- MOVIMIENTOS INMUEBLE -->
-    <div class="modal fade" id="modalAddMovimiento" role="dialog">
+    <div class="modal fade" id="modalAddMoveProperty" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -1237,10 +1323,12 @@
             <h4 class="modal-title">Movimientos</h4>
           </div>
           <div class="modal-body">
-            <form id="addLeaser" method="POST">
-              <!-- <input type="hidden" id="agent_designated" name="agent_designated" value="<?php nameUser($_SESSION['user_system']); ?>"> -->
-              <!-- <input type="hidden" id="date_register" name="date_register" value="<?php echo date('Y-m-d'); ?>"> -->
-
+            <div class="alert alert-warning mb-4" role="alert">
+              <p>Te recordamos que estos movimientos no pueden ser editados con <u>posterioridad</u>.</p>
+            </div>
+            <form id="addMoveProperty" method="POST">
+              <input type="hidden" name="id_property_m" id="id_property_m" value="<?php echo $_GET['id_property']; ?>">
+              <input type="hidden" name="hour_movement" id="hour_movement">
               <div class="row">
                 <div class="col-xs-12">
                   <div class="form-group">
@@ -1249,7 +1337,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-user"></i>
                       </div>
-                      <input type="text" name="agent_designated" id="agent_designated" class="form-control" value="<?php nameUser($_SESSION['user_system']); ?>" readonly>
+                      <input type="text" name="agent_movement" id="agent_movement" class="form-control" value="<?php nameUser($_SESSION['user_system']); ?>" readonly>
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -1262,7 +1350,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="date" id="date_register" name="date_register" value="<?php echo date('Y-m-d'); ?>" class="form-control">
+                      <input type="date" id="date_movement" name="date_movement" value="<?php echo date('Y-m-d'); ?>" class="form-control">
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -1275,13 +1363,13 @@
                       <div class="input-group-addon">
                         <i class="fas fa-refresh"></i>
                       </div>
-                      <select id="tipo_movimiento" name="tipo_movimiento" class="form-control select2" required>
+                      <select id="type_movement" name="type_movement" class="form-control select2" required>
                         <option></option>
-                        <option value="Informativo">Informativo</option>
-                        <option value="Solicitud">Solicitud</option>
-                        <option value="Reunión">Reunión</option>
-                        <option value="Evento">Evento</option>
-                        <option value="Otro">Otro</option>
+                        <option value="1">Informativo</option>
+                        <option value="2">Solicitud</option>
+                        <option value="3">Reunión</option>
+                        <option value="4">Evento</option>
+                        <option value="5">Otro</option>
                       </select>
                     </div>
                     <!-- /.input group -->
@@ -1291,7 +1379,7 @@
                 <div class="col-xs-12">
                   <div class="form-group">
                     <label>Describa el movimiento:</label>
-                    <textarea name="txt_movimiento" id="txt_movimiento" class="form-control" placeholder="Describa aquí el movimiento que tuvo la propiedad..."></textarea>
+                    <textarea name="txt_movement" id="txt_movement" class="form-control" placeholder="Describa aquí el movimiento que tuvo la propiedad..."></textarea>
                     <!-- /.input group -->
                   </div>
                 </div>
@@ -1300,7 +1388,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button id="btnSave" type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Guardar</button>
+            <button id="btnSaveMove" type="submit" class="btn btn-success"></button>
           </div>
           </form>
         </div>
@@ -1336,10 +1424,23 @@
   <script type="text/javascript" src="resources/dist/js/moment.min.js"></script>
   <!-- Ventana Centrada JS -->
   <script type="text/javascript" src="resources/dist/js/VentanaCentrada.js"></script>
-
+  <!-- Button Toggle -->
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-
+  <!-- Timeline -->
+  <script src="resources/bower_components/timeline/dist/js/timeline.min.js"></script>
   <script>
+    // definimos el texto del boton btnSave
+    $('#btnSaveContrato').html('<i class="fa fa-check-circle"></i> Guardar');
+    $('#btnSavePagos').html('<i class="fa fa-check-circle"></i> Guardar');
+    $('#btnSaveCobros').html('<i class="fa fa-check-circle"></i> Guardar');
+
+    // definimos el texto del boton btnEdit
+    $('#btnEditContrato').html('<i class="fa fa-check-circle"></i> Editar');
+    $('#btnEditPagos').html('<i class="fa fa-check-circle"></i> Editar');
+    $('#btnEditCobros').html('<i class="fa fa-check-circle"></i> Editar');
+
+    // definimos el texto para saveMovimiento
+    $('#btnSaveMove').html('<i class="fa fa-check-circle"></i> Guardar');
     // definimos el tipo de moneda con api de JS
     const formatter = new Intl.NumberFormat('es-CL', {
       style: 'currency',
@@ -1443,12 +1544,18 @@
     })
 
     $(document).ready(function() {
+      //timeline
+      $('.timeline').timeline({
+        verticalStartPosition: 'right',
+      });
+
       cargarContratos();
       cargarCobrosP();
       cargarPagosP();
       addContrato();
       addCobroSimple();
       addPagos();
+      addMoveProperty();
       editContrato();
       editCobro();
       editPago();
@@ -1694,7 +1801,6 @@
         ],
         "language": idioma_spanol
       });
-
     }
 
 
@@ -1722,8 +1828,6 @@
         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
       }
     }
-
-
 
     var mostrarContrato = function(id_contrato) {
 
@@ -1780,6 +1884,7 @@
             $('#id_cobro_property').val(datos.id_cobro_property);
             $('#desde_edit').val(datos.desde_cobro);
             $('#hacia_edit').val(datos.hacia_cobro);
+            $('#account_bank_edit').val(datos.account_bank);
             $('#concepto_edit').val(datos.concepto_csimple);
 
             $('#hidden_recurrent_edit').val(datos.hidden_recurrent);
@@ -1789,6 +1894,7 @@
               $('#pay_edit').bootstrapToggle('off');
             }
 
+            $('#account_edit_c').val(datos.account_edit_c);
             $('#amount_edit').val(datos.amount_csimple);
             $('#venc_edit').val(datos.venc_csimple);
           }
@@ -1820,6 +1926,8 @@
             } else if (datos.hidden_recurrent === '0') {
               $('#pay_edit_p').bootstrapToggle('off');
             }
+
+            $('#account_edit_p').val(datos.account_edit_p);
 
             $('#amount_edit_p').val(datos.amount_csimple);
             $('#venc_edit_p').val(datos.venc_csimple);
@@ -1961,6 +2069,10 @@
           type: "POST",
           url: "model/editContratoModel.php",
           data: datos,
+          beforeSend: function() {
+            $('#btnEditContrato').attr('disabled', true);
+            $('#btnEditContrato').html('<i class="fas fa-spin fa-spinner"></i>');
+          },
           success: function(data) {
             if (data == 'ok') {
               swal({
@@ -1972,10 +2084,12 @@
               cargarContratos();
               $('#editContrato')[0].reset();
               $('#modalEditContrato').modal('hide');
+              $('#btnEditContrato').removeAttr('disabled');
+              $('#btnEditContrato').html('<i class="fa fa-check-circle"></i> Editar');
               location.reload();
               //$('#modalAddCobro').modal('show');
               // console.log('Exitazooooooo');
-            } else if (data == 'vacio') {
+            } else if (data == 'error') {
               swal({
                 title: "Algo salio mal!",
                 text: "Intentalo nuevamente, no puedes incluir campos vacios, ni caracteres extraños.",
@@ -1984,6 +2098,8 @@
               });
               $('#editContrato')[0].reset();
               $('#modalEditContrato').modal('hide');
+              $('#btnEditContrato').removeAttr('disabled');
+              $('#btnEditContrato').html('<i class="fa fa-check-circle"></i> Editar');
             } else {
               console.log(data);
             }
@@ -2002,6 +2118,10 @@
           type: "POST",
           url: "model/editCobroModel.php",
           data: datos,
+          beforeSend: function() {
+            $('#btnEditCobros').attr('disabled', true);
+            $('#btnEditCobros').html('<i class="fas fa-spin fa-spinner"></i>');
+          },
           success: function(data) {
             if (data == 'ok') {
               swal({
@@ -2016,7 +2136,7 @@
               location.reload();
               //$('#modalAddCobro').modal('show');
               // console.log('Exitazooooooo');
-            } else if (data == 'vacio') {
+            } else if (data == 'error') {
               swal({
                 title: "Algo salio mal!",
                 text: "Intentalo nuevamente, no puedes incluir campos vacios, ni caracteres extraños.",
@@ -2025,6 +2145,8 @@
               });
               $('#editCobro')[0].reset();
               $('#modalEditCobro').modal('hide');
+              $('#btnSaveContrato').removeAttr('disabled');
+              $('#btnSaveContrato').html('<i class="fa fa-check-circle"></i> Guardar');
             } else {
               console.log(data);
             }
@@ -2043,6 +2165,10 @@
           type: "POST",
           url: "model/editPagoModel.php",
           data: datos,
+          beforeSend: function() {
+            $('#btnEditPagos').attr('disabled', true);
+            $('#btnEditPagos').html('<i class="fas fa-spin fa-spinner"></i>');
+          },
           success: function(data) {
             if (data == 'ok') {
               swal({
@@ -2054,10 +2180,10 @@
               cargarPagosP();
               $('#editPago')[0].reset();
               $('#modalEditPago').modal('hide');
-              // location.reload();
+              location.reload();
               //$('#modalAddCobro').modal('show');
               // console.log('Exitazooooooo');
-            } else if (data == 'vacio') {
+            } else if (data == 'error') {
               swal({
                 title: "Algo salio mal!",
                 text: "Intentalo nuevamente, no puedes incluir campos vacios, ni caracteres extraños.",
@@ -2066,6 +2192,8 @@
               });
               $('#editPago')[0].reset();
               $('#modalEditPago').modal('hide');
+              $('#btnSaveContrato').removeAttr('disabled');
+              $('#btnSaveContrato').html('<i class="fa fa-check-circle"></i> Guardar');
             } else {
               console.log(data);
             }
@@ -2084,8 +2212,9 @@
           type: "POST",
           url: "model/addContratoModel.php",
           data: datos,
-          beforeSend: function(data) {
-            $('#btnSubmit').prop('disabled', true);
+          beforeSend: function() {
+            $('#btnSaveContrato').attr('disabled', true);
+            $('#btnSaveContrato').html('<i class="fas fa-spin fa-spinner"></i>');
           },
           success: function(data) {
             if (data == 'ok') {
@@ -2100,7 +2229,7 @@
               $('#modalAddContrato').modal('hide');
               location.reload();
               // console.log('Exitazooooooo');
-            } else if (data == 'vacio') {
+            } else if (data == 'error') {
               swal({
                 title: "Algo salio mal!",
                 text: "Un campo esta vacío, recuerda registrar todos los datos.",
@@ -2109,13 +2238,50 @@
               });
               $('#addContrato')[0].reset();
               $('#modalAddContrato').modal('hide');
-              location.reload();
+              $('#btnSaveContrato').removeAttr('disabled');
+              $('#btnSaveContrato').html('<i class="fa fa-check-circle"></i> Guardar');
             } else {
               console.log(data);
             }
           }
         });
       });
+    }
+
+    var addMoveProperty = function() {
+      $('#addMoveProperty').submit(function(e) {
+        e.preventDefault();
+        var datos = $(this).serialize();
+        //console.log(datos);
+        $.ajax({
+          type: "POST",
+          url: "model/addMovePropertyModel.php",
+          data: datos,
+          beforeSend: function() {
+            $('#btnSaveMove').attr('disabled', true);
+            $('#btnSaveMove').html('<i class="fas fa-spin fa-spinner"></i>');
+          },
+          success: function(data) {
+            if (data == 'ok') {
+              location.reload();
+              // console.log('Exitazooooooo');
+            } else if (data == 'error') {
+              swal({
+                title: "Algo salio mal!",
+                text: "Un campo esta vacío, recuerda registrar todos los datos.",
+                icon: "error",
+                button: "Cerrar",
+              });
+              $('#addMoveProperty')[0].reset();
+              $('#modalAddMoveProperty').modal('hide');
+              $('#btnSaveMove').removeAttr('disabled');
+              $('#btnSaveMove').html('<i class="fa fa-check-circle"></i> Guardar');
+            } else {
+              console.log(data);
+            }
+          }
+        });
+      })
     }
 
     var addCobroSimple = function() {
@@ -2128,6 +2294,10 @@
           type: "POST",
           url: "model/addCobroPropertyModel.php",
           data: datos,
+          beforeSend: function() {
+            $('#btnSaveCobros').attr('disabled', true);
+            $('#btnSaveCobros').html('<i class="fas fa-spin fa-spinner"></i>');
+          },
           success: function(data) {
             if (data == 'ok') {
               swal({
@@ -2136,13 +2306,12 @@
                 icon: "success",
                 button: "Ok",
               });
-
               cargarCobrosP();
               $('#addCobroSimple')[0].reset();
               $('#modalCobroSimple').modal('hide');
               location.reload();
               // console.log('Exitazooooooo');
-            } else if (data == 'vacio') {
+            } else if (data == 'error') {
               swal({
                 title: "Algo salio mal!",
                 text: "Un campo esta vacío, recuerda registrar todos los datos.",
@@ -2151,7 +2320,8 @@
               });
               $('#addCobroSimple')[0].reset();
               $('#modalCobroSimple').modal('hide');
-              location.reload();
+              $('#btnSaveCobros').removeAttr('disabled');
+              $('#btnSaveCobros').html('<i class="fa fa-check-circle"></i> Guardar');
             } else {
               console.log(data);
             }
@@ -2170,6 +2340,10 @@
           type: "POST",
           url: "model/addPagosPropertyModel.php",
           data: datos,
+          beforeSend: function() {
+            $('#btnSavePagos').attr('disabled', true);
+            $('#btnSavePagos').html('<i class="fas fa-spin fa-spinner"></i>');
+          },
           success: function(data) {
             if (data == 'ok') {
               swal({
@@ -2178,13 +2352,12 @@
                 icon: "success",
                 button: "Ok",
               });
-
               cargarPagosP();
               $('#addPagos')[0].reset();
               $('#modalPagos').modal('hide');
-              //location.reload();
+              location.reload();
               // console.log('Exitazooooooo');
-            } else if (data == 'vacio') {
+            } else if (data == 'error') {
               swal({
                 title: "Algo salio mal!",
                 text: "Un campo esta vacío, recuerda registrar todos los datos.",
@@ -2193,6 +2366,8 @@
               });
               $('#addPagos')[0].reset();
               $('#modalPagos').modal('hide');
+              $('#btnSavePagos').removeAttr('disabled');
+              $('#btnSavePagos').html('<i class="fa fa-check-circle"></i> Guardar');
               //location.reload();
             } else {
               console.log(data);
@@ -2201,6 +2376,27 @@
         });
       });
     }
+
+    // mostrar cuenta cobro desde
+    $(function() {
+      $('#c_account_bank').hide();
+
+      $('#desde_cobro').change(function() {
+        if ($('#desde_cobro').val() == 'Gestarriendo') {
+          $('#c_account_bank').show();
+        } else {
+          $('#c_account_bank').hide();
+        }
+      });
+
+      $('#hacia_cobro').change(function() {
+        if ($('#hacia_cobro').val() == 'Gestarriendo') {
+          $('#c_account_bank').show();
+        } else {
+          $('#c_account_bank').hide();
+        }
+      });
+    });
 
     // Botones tabs
     $('.btnNext').click(function() {

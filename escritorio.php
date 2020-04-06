@@ -25,6 +25,11 @@
   $active_leaser = "";
   $active_pay = "";
 
+  $rowProperty = $con->query('select count(*) from tbl_property_system')->fetchColumn();
+  $rowOwner = $con->query('select count(*) from tbl_owner_system')->fetchColumn();
+  $rowLeaser = $con->query('select count(*) from tbl_leaser_system')->fetchColumn();
+
+
   $apiUrl = 'https://mindicador.cl/api';
   //Es necesario tener habilitada la directiva allow_url_fopen para usar file_get_contents
   if ( ini_get('allow_url_fopen') ) {

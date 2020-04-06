@@ -3,7 +3,9 @@
 	Autor: Jesús Caballero P.
 	Web: integramosweb.pro
 	Correo: web@integramosweb.pro
-    ---------------------------*/
+	---------------------------*/
+	
+	define('NAME_APP', 'gestarriendo-master');
 
 	function nameUser($usuario){
 

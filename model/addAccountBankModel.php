@@ -21,7 +21,7 @@
 		$query = $con->prepare("INSERT INTO tbl_account_bank (titular_account, rut_account, bank_account, type_account, number_account, email_account)
          VALUES (:titular_account,:rut_account,:bank_account,:type_account,:number_account,:email_account)");
          
-        // bindParam('valor_input', $variable_input);
+        // bindParam('nombre_campo_database', $variable_input);
 		$query->bindParam('titular_account', $titular_account);
 		$query->bindParam('rut_account', $rut_account);
 

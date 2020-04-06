@@ -299,7 +299,7 @@
               </div>
               <div class="modal-footer bg-white">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-                <button id="btnSave" type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Guardar</button>
+                <button id="btnSave" type="submit" class="btn btn-success"></button>
               </div>
             </form>
           </div>
@@ -519,7 +519,7 @@
               </div>
               <div class="modal-footer bg-white">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-                <button id="btnEdit" type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Guardar</button>
+                <button id="btnEdit" type="submit" class="btn btn-success"></button>
               </div>
             </form>
           </div>
@@ -560,7 +560,11 @@
   <script src="resources/dist/js/moment.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-      $('.form-control').attr('required');
+      // definimos el texto del boton btnSave
+      $('#btnSave').html('<i class="fa fa-check-circle"></i> Guardar');
+      // definimos el texto del boton btnEdit
+      $('#btnEdit').html('<i class="fa fa-check-circle"></i> Editar');
+
       cargarOwner();
       addOwner();
       editOwner();
@@ -594,6 +598,7 @@
 
       $("#tableOwner").dataTable({
         "destroy": true,
+        "processing": true,
         "order": [], //[[ 0, "desc" ]],
         "paging": true,
         "lengthChange": true,
@@ -761,6 +766,10 @@
           type: "POST",
           url: "model/editOwnerModel.php",
           data: datos,
+          beforeSend: function(){
+            $('#btnEdit').attr('disabled', true);
+            $('#btnEdit').html('<i class="fas fa-spin fa-spinner"></i>');
+          },
           success: function(data) {
             if (data == 'ok') {
               swal({
@@ -772,8 +781,10 @@
               cargarOwner();
               $('#editOwner')[0].reset();
               $('#modalEditOwner').modal('hide');
+              $('#btnEdit').removeAttr('disabled');
+              $('#btnEdit').html('<i class="fa fa-check-circle"></i> Editar');
               // console.log('Exitazooooooo');
-            } else if (data == 'vacio') {
+            } else if (data == 'error') {
               swal({
                 title: "Algo salio mal!",
                 text: "Intentalo nuevamente, no puedes incluir campos vacios, ni caracteres extraños.",
@@ -782,6 +793,8 @@
               });
               $('#editOwner')[0].reset();
               $('#modalEditOwner').modal('hide');
+              $('#btnEdit').removeAttr('disabled');
+              $('#btnEdit').html('<i class="fa fa-check-circle"></i> Editar');
             } else {
               console.log(data);
             }
@@ -800,6 +813,10 @@
           type: "POST",
           url: "model/addOwnerModel.php",
           data: datos,
+          beforeSend: function(){
+            $('#btnSave').attr('disabled', true);
+            $('#btnSave').html('<i class="fas fa-spin fa-spinner"></i>');
+          }, 
           success: function(data) {
             if (data == 'ok') {
               swal({
@@ -808,12 +825,13 @@
                 icon: "success",
                 button: "Ok",
               });
-
               cargarOwner();
               $('#addOwner')[0].reset();
               $('#modalAddOwner').modal('hide');
+              $('#btnSave').removeAttr('disabled');
+              $('#btnSave').html('<i class="fa fa-check-circle"></i> Guardar');
               // console.log('Exitazooooooo');
-            } else if (data == 'vacio') {
+            } else if (data == 'error') {
               swal({
                 title: "Algo salio mal!",
                 text: "Un campo esta vacío, recuerda registrar todos los datos.",
@@ -822,6 +840,8 @@
               });
               $('#addOwner')[0].reset();
               $('#modalAddOwner').modal('hide');
+              $('#btnSave').removeAttr('disabled');
+              $('#btnSave').html('<i class="fa fa-check-circle"></i> Guardar');
             } else {
               console.log(data);
             }

@@ -1298,3 +1298,30 @@ label {
 .text-success {
   color: #00a65a;
 }
+
+.select2-selection__clear{
+  margin-left: 1rem;
+}
+
+.skin-black .main-header li.user-header {
+  background-color: #053a7e!important;
+}
+
+.timeline__content p {
+  font-size: 1.3rem!important;
+}
+
+.timeline:not(.timeline--horizontal):before {
+  background-color: #053a7e!important;
+}
+
+.timeline__item:after {
+  border: 4px solid #053a7e!important;
+}
+
+/* .timeline__content:before {
+  border-left: 12px solid #3c8dbc!important;
+} */
+/* .timeline__content {
+  border: 1px solid #3c8dbc!important;
+} */
