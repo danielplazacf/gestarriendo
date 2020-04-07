@@ -1,9 +1,4 @@
 <?php
-/*-------------------------
-    Autor: Jesus Caballero
-    Web: propiedadesdng.com
-    Mail: jesus@propiedadesdng.com
-    ---------------------------*/
 
 ob_start();
 
@@ -95,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </tr>
                         <tr>
                             <td style="font-family:Helvetica,arial,sans-serif;font-size:14px;text-align:justify;color:#555759">
-                                <p>Junto con desearle un excelente día, le recordamos que su <strong><em>cuenta de <?php echo $servicio; ?></em></strong> asociada a la propiedad en arrendamiento ubicada en <strong><em><?php echo $direccion; ?></em></strong>, se encuentra en mora rogamos cancelar la deuda.<br><br>
+                                <p>Junto con desearle un excelente día, le recordamos que su <strong><em>cuenta de <?php echo $servicio; ?></em></strong> asociada a la propiedad en arrendamiento ubicada en <strong><em><?php echo $direccion; ?></em></strong>, <strong>se encuentra en mora</strong>. Solicitamos regularizar la situacion a la brevedad posible.<br><br>
                                     Este es un recordatorio, a fin de evitar problemas con la continuidad de su contrato de arriendo.
                                     Quedamos atentos ante cualquier consulta o solicitud adicional, respondiendo este mismo correo.</p>
                             </td>
