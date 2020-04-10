@@ -223,7 +223,7 @@
                               <?php foreach ($result as $row) { ?>
                                 <div class="timeline__item">
                                   <div class="timeline__content">
-                                    <span class="time" style="font-size: 1.1rem;color: #3c8dbc;"><i class="fa fa-clock-o"></i>
+                                    <span class="time" style="font-size: 1.1rem;color: #3c8dbc;"><i class="fas fa-calendar"></i>
                                       <?php
                                       $originalDate = $row['date_movement'];
                                       $newDate = date("d/m/Y", strtotime($originalDate));
@@ -261,7 +261,7 @@
                                     </h4>
                                     <p><?php echo $row['txt_movement']; ?></p>
                                     <div class="btn-group">
-                                      <a href="" onclick="deleteMovement(<?php echo $row['id_mov_property']; ?>);" class="btn btn-sm btn-default"><i class="fas fa-trash"></i></a>
+                                      <button type="button" onclick="deleteMovement(<?php echo $row['id_mov_property']; ?>);" class="btn btn-sm btn-default"><i class="fas fa-trash"></i></button>
                                     </div>
                                   </div>
                                 </div>
@@ -2046,6 +2046,44 @@
                       icon: "success",
                     });
                     cargarPagosP();
+                  } else {
+                    console.log(data);
+                  }
+                }
+              });
+
+            } else {
+              swal("Que bien, no se ha eliminado el registro!");
+            }
+          });
+      }
+    }
+
+    var deleteMovement = function(id_mov_property) {
+
+      if (!/^([0-9])*$/.test(id_mov_property)) {
+        return false
+      } else {
+
+        swal({
+            title: "¿Quieres eliminar el Registro?",
+            text: "Una vez eliminado, no podras recuperarlo!",
+            icon: "warning",
+            buttons: ['Cancelar', 'Eliminar'],
+            dangerMode: true,
+          })
+
+          .then((willDelete) => {
+            if (willDelete) {
+              $.ajax({
+                url: "model/deleteMovProperty.php",
+                method: "POST",
+                data: {
+                  id_mov_property: id_mov_property
+                },
+                success: function(data) {
+                  if (data == 'ok') {
+                    location.reload();
                   } else {
                     console.log(data);
                   }

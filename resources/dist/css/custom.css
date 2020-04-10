@@ -4,8 +4,17 @@ Custom Style Gestarriendos
 @web www.integramosweb.pro
 */
 
-/* Custom style Login */
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap');
 
+*{
+  font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Custom style Login */
 tbody {
   font-size: 1.15rem!important;
 }
