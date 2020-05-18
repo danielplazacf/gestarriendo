@@ -141,7 +141,7 @@
 
                 <div class="col-xs-6">
                   <div class="form-group">
-                    <label>N° de Contacto:</label>
+                    <label>N° de Whatsapp:</label>
                     <div class="input-group">
                       <div class="input-group-addon">
                         +56
@@ -231,7 +231,7 @@
 
                 <div class="col-xs-6">
                   <div class="form-group">
-                    <label>N° de Contacto:</label>
+                    <label>N° de Whatsapp:</label>
                     <div class="input-group">
                       <div class="input-group-addon">
                         +56

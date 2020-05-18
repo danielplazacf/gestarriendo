@@ -54,30 +54,63 @@
       <!-- Main content -->
       <section class="content container-fluid">
 
-        <div class="row">
-          <div class="col-xs-12">
+        
 
-            <div class="box no-border">
-              <!-- /.box-header -->
-              <div class="box-body ">
-                <table id="tableProperty" class="table table-striped" style="font-size: 1.2rem">
-                  <thead>
-                    <tr>
-                      <th>DATOS INTERNOS</th>
-                      <th>TIPO DE PROPIEDAD</th>
-                      <th>DIRECCIÓN</th>
-                      <th>COMUNA</th>
-                      <th>SERVICIOS BÁSICOS</th>
-                      <th width="150px">OPCIONES</th>
-                    </tr>
-                  </thead>
-                </table>
+        <div class="row">
+        <?php
+          $statement = $con->prepare("SELECT * FROM tbl_property_system ORDER BY date_register ASC");
+          $statement->execute();
+          while ($rowProperty = $statement->fetch()){
+        ?>
+          <div class="col-md-4 col-xs-12">
+            <div class="box box-widget widget-user">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header bg-blue-active">
+              
+                <div class="row">
+                  <div class="col-md-4">
+                    <img src="resources/dist/img/img_property.png" width="100%">
+                  </div>
+                  <div class="col-md-8">
+                    <h3 class="widget-user-username">
+                      <a href="fichaProperty.php?id_property=<?php echo $rowProperty['id_property'];?>" class="text-white">
+                        <?php echo $rowProperty['address_property'];?>
+                      </a>
+                    </h3>
+                    <h5 class="widget-user-desc"><?php echo $rowProperty['type_property'];?></h5>
+                    <a href="fichaProperty.php?id_property=<?php echo $rowProperty['id_property'];?>" class="btn btn-sm btn-primary">Ingresar</a>
+                  </div>
+                </div>
               </div>
-              <!-- /.box-body -->
+              <div class="box-footer pt-0">
+                <?php if(isset($rowProperty['id_property'])): ?>
+                <?php
+                  $key = $rowProperty['id_property'];
+                  $stmt = $con->prepare("SELECT * FROM tbl_contrato_system WHERE id_property = '$key'");
+                  $stmt->execute();
+                  $rowContrato= $stmt->fetch();
+                ?>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="description-block bg-yellowlight">
+                      <h5 class="description-header py-3 px-3 text-left">
+                      <?php 
+                        $originalDate = $rowContrato['fecha_inicio'];
+                        $newDate = date("d/m/Y", strtotime($originalDate));
+                      ?>
+                        <b>Arrendatario:</b> <?php echo $rowContrato['name_leaser'];?> <br>
+                        <b>En arriendo desde:</b> <?php echo $newDate;?>
+                      </h5>
+                      
+                    </div>
+                  </div>
+                </div>
+                <?php endif; ?>
+                <!-- /.row -->
+              </div>
             </div>
-            <!-- /.box -->
           </div>
-          <!-- /.col -->
+        <?php } ?>
         </div>
         <!-- /.row -->
       </section>

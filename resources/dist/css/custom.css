@@ -137,7 +137,7 @@ label {
 .widget-user .widget-user-image {
   position: absolute;
   top: 65px;
-  left: 85%;
+  left: 82%;
   margin-left: -45px;
 }
 
@@ -1304,6 +1304,10 @@ label {
   color: #f39c12;
 }
 
+.text-white{
+  color:#fff;
+}
+
 .text-success {
   color: #00a65a;
 }
@@ -1316,10 +1320,6 @@ label {
   background-color: #053a7e!important;
 }
 
-.timeline__content p {
-  font-size: 1.3rem!important;
-}
-
 .timeline:not(.timeline--horizontal):before {
   background-color: #053a7e!important;
 }
@@ -1328,9 +1328,32 @@ label {
   border: 4px solid #053a7e!important;
 }
 
+.info-box-finanza{
+  font-size:1.2rem;
+}
+.text-pay-owner{
+  font-size: 14px;
+}
+
+.info-box-content {
+  padding: .27rem 10px;
+  margin-left: 90px;
+}
+.widget-user .widget-user-username{
+  font-size: 1.2rem;
+}
+
+.bg-yellowlight {
+  background-color: #f1d4cd;
+  color: #000;
+}
+
 /* .timeline__content:before {
   border-left: 12px solid #3c8dbc!important;
 } */
 /* .timeline__content {
   border: 1px solid #3c8dbc!important;
 } */
+b, strong {
+  font-weight: 500;
+}

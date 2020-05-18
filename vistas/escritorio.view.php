@@ -48,8 +48,6 @@
             <?php
             if (NAME_APP === 'gestarriendo-master'){
               echo '<div class="alert alert-warning alert-dismissible mb-3"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>El nombre de tu app es <code>' . NAME_APP . '</code>, para cambiarlo debes ir a <code>model/functions.php</code>. Si tienes problemas contacta con el administrador del sistema.</div>';
-            }elseif(NAME_APP === 'https://gestarriendo.clicfactor.com'){
-              echo '<div class="alert alert-warning alert-dismissible mb-3"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>El nombre de tu app es <code>' . NAME_APP . '</code>, para cambiarlo debes ir a <code>model/functions.php</code>. Si tienes problemas contacta con el administrador del sistema.</div>';
             }
             ?>
 
