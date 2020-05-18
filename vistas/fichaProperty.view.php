@@ -200,6 +200,7 @@
                 ");
               $selContrato->execute();
               $rowContrato = $selContrato->fetch(PDO::FETCH_ASSOC);
+              echo $rowContrato['tipo_contrato'];
               ?>
               <?php if ($rowContrato['tipo_contrato'] == '1') : ?>
 
@@ -462,6 +463,7 @@
                 </div>
               </div>
             </div>
+
             <div class="row">
               <div class="col-lg-12">
                 <div class="nav-tabs-custom">
