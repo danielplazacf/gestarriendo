@@ -489,6 +489,7 @@
                                   <th>CONCEPTO</th>
                                   <th>PAGOS RECURRENTE</th>
                                   <th>MONTO</th>
+                                  <th>VENCIMIENTO</th>
                                   <th width="150px">OPCIONES</th>
                                 </tr>
                               </thead>
@@ -515,6 +516,7 @@
                                 <th>CONCEPTO</th>
                                 <th>COBRO RECURRENTE</th>
                                 <th>MONTO</th>
+                                <th>VENCIMIENTO</th>
                                 <th width="150px">OPCIONES</th>
                               </tr>
                             </thead>

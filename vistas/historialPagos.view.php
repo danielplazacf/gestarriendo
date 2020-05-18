@@ -178,13 +178,13 @@
                     //5
                     {
                         "mData": function(data, type, dataToSet) {
-                            return formatter.format(data.amount_csimple);
+                            return formatter.format(data.amount_psimple);
                         }
                     },
 
                     {
                         "mData": function(data, type, dataToSet) {
-                            return data.venc_csimple + ' de cada mes';
+                            return data.venc_psimple + ' de cada mes';
                         }
                     }
 

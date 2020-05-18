@@ -282,10 +282,13 @@ cargarCobrosP = function() {
           return formatter.format(data.amount_csimple);
         }
       },
-      //6
-      // { "mData": function (data, type, dataToSet) {
-      //  return "DNG-"+ data.bank;}
-      // },
+
+      {
+        "mData": function(data, type, dataToSet) {
+            return data.venc_csimple + ' de cada mes';
+        }
+      },
+    
       {
         "mData": function(data, type, dataToSet) {
           // return "<div class='btn-group'><button button='button' onclick='mostrarProperty(" + data + ");' class='btn bg-olive' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i></button><a href='fichaProperty.php?property="+ data +"' class='btn btn-default'><i class='fa fa-eye'></i></a><button type='button' onclick='deleteProperty(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
@@ -355,10 +358,13 @@ cargarPagosP = function() {
           return formatter.format(data.amount_psimple);
         }
       },
-      //6
-      // { "mData": function (data, type, dataToSet) {
-      //  return "DNG-"+ data.bank;}
-      // },
+
+      {
+        "mData": function(data, type, dataToSet) {
+            return data.venc_psimple + ' de cada mes';
+        }
+      },
+
       {
         "mData": function(data, type, dataToSet) {
           // return "<div class='btn-group'><button button='button' onclick='mostrarProperty(" + data + ");' class='btn bg-olive' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i></button><a href='fichaProperty.php?property="+ data +"' class='btn btn-default'><i class='fa fa-eye'></i></a><button type='button' onclick='deleteProperty(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
