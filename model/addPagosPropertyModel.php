@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // echo $id_property .'<br>'. $status .'<br>'. $agent .'<br>'. $date .'<br>'. $name_owner .'<br>'. $name_leaser .'<br>'. $f_init .'<br>'. $f_termino .'<br>'. $garantia .'<br>'. $r_garantia .'<br>'. $type_contrato;        
 
         $query = $con->prepare("INSERT INTO tbl_pagos_property
-        (id_property, agent_designated, date_register, desde_pago, hacia_pago, concepto_csimple, hidden_recurrent, amount_csimple, venc_csimple)
+        (id_property, agent_designated, date_register, desde_pago, hacia_pago, concepto_csimple, hidden_recurrent, amount_psimple, venc_psimple)
         VALUES (:id_property_p,:agent_designated_p,:date_register_p,:desde_pago,:hacia_pago,:concepto_psimple,:hidden_recurrent_p,:amount_csimple_p,:venc_csimple_p)");
 
         // bindParam('valor_input', $variable_input);

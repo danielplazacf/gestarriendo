@@ -192,7 +192,8 @@
             <!-- Custom Tabs -->
             <div class="row">
               <?php
-              $selContrato = $con->prepare("SELECT Tc.name_leaser, Tc.name_owner, Tc.tipo_contrato, Tcob.amount_csimple, Tcob.venc_csimple, Tpag.amount_psimple, Tpag.venc_psimple
+              $selContrato = $con->prepare("
+                SELECT Tc.name_leaser, Tc.name_owner, Tc.tipo_contrato, Tcob.amount_csimple, Tcob.venc_csimple, Tpag.amount_psimple, Tpag.venc_psimple
                 FROM tbl_contrato_system Tc
                 INNER JOIN tbl_cobros_property Tcob
                 INNER JOIN tbl_pagos_property Tpag
@@ -200,7 +201,6 @@
                 ");
               $selContrato->execute();
               $rowContrato = $selContrato->fetch(PDO::FETCH_ASSOC);
-              echo $rowContrato['tipo_contrato'];
               ?>
               <?php if ($rowContrato['tipo_contrato'] == '1') : ?>
 
