@@ -346,9 +346,9 @@ cargarPagosP = function() {
       {
         "mData": function(data, type, dataToSet) {
           if (data.hidden_recurrent === '1') {
-            return '<label class="label label-success">Cobro recurrente</label>'
+            return '<label class="label label-success">Pago recurrente</label>'
           } else if (data.hidden_recurrent === '0') {
-            return '<label class="label label-warning">Cobro único</label>'
+            return '<label class="label label-warning">Pago único</label>'
           }
         }
       },

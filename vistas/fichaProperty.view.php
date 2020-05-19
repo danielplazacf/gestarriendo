@@ -14,26 +14,28 @@
     .swal-text {
       text-align: center !important;
     }
+
     .text-muted {
-    color: #797979;
-    font-weight: 400;
+      color: #797979;
+      font-weight: 400;
     }
-    .box-totales-pr{
-      border-bottom: 1px solid #ccc; 
-      height:55px;
+
+    .box-totales-pr {
+      border-bottom: 1px solid #ccc;
+      height: 55px;
       margin-bottom: 0;
       margin-top: 1em
     }
 
     .dl-horizontal dt {
-    float: left;
-    width: 170px;
-    clear: left;
-    text-align: right;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
+      float: left;
+      width: 170px;
+      clear: left;
+      text-align: right;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   </style>
 </head>
 
@@ -60,7 +62,8 @@
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-          <?php echo $titulo; $key = $_GET['id_property'];?>
+          <?php echo $titulo;
+          $key = $_GET['id_property']; ?>
           <small>Sistema de Gestión Inmobiliaria</small>
           <!-- <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalAddMove">
           <i class="fa fa-plus-circle"></i> Nuevo Movimiento
@@ -98,7 +101,7 @@
                       <span class="description-text">CANON:</span>
                       <?php
                       $concepto = 'Canon de arriendo';
-                      $canon_stmt = $con->prepare("SELECT * FROM tbl_cobros_property WHERE concepto_csimple = '$concepto' AND id_property = '$id_property'");
+                      $canon_stmt = $con->prepare("SELECT * FROM tbl_cobros_property WHERE concepto_csimple = '$concepto' AND id_property = '$id_property' LIMIT 1");
                       $canon_stmt->execute();
                       $row = $canon_stmt->fetch(PDO::FETCH_ASSOC);
                       @$concepto_rw = $row['concepto_csimple'];
@@ -162,7 +165,7 @@
               <div class="box-body">
                 <div class="row">
                   <div class="col-sm-12">
-                  <a class="btn btn-app" data-toggle="modal" data-target="#modalAddContrato">
+                    <a class="btn btn-app" data-toggle="modal" data-target="#modalAddContrato">
                       <i class="fas fa-file-signature"></i> Contrato
                     </a>
                     <?php
@@ -192,18 +195,19 @@
             <!-- Custom Tabs -->
             <div class="row">
               <?php
+              // echo $key;
               $selContrato = $con->prepare("
-                SELECT Tc.name_leaser, Tc.name_owner, Tc.tipo_contrato, Tcob.amount_csimple, Tcob.venc_csimple, Tpag.amount_psimple, Tpag.venc_psimple
+                SELECT Tc.id_property, Tc.name_leaser, Tc.name_owner, Tc.tipo_contrato, Tcob.amount_csimple, Tcob.venc_csimple, Tpag.id_property, Tpag.amount_psimple, Tpag.venc_psimple
                 FROM tbl_contrato_system Tc
                 INNER JOIN tbl_cobros_property Tcob
                 INNER JOIN tbl_pagos_property Tpag
-                ON Tc.id_property = Tcob.id_property
+                WHERE Tc.id_property = '$key'
                 ");
               $selContrato->execute();
               $rowContrato = $selContrato->fetch(PDO::FETCH_ASSOC);
               ?>
-              <?php if ($rowContrato['tipo_contrato'] == '1') : ?>
-
+              <?php if ($pago == '1') : // La variable pago 1 es igual a tipo contrato completo
+              ?>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <div class="info-box">
                     <span class="info-box-icon bg-yellow">1</span>
@@ -260,70 +264,165 @@
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <div class="box box-solid">
-                  <?php
-                  $selMontoTotal = $con->prepare("
-                  SELECT SUM(amount_csimple) as totalIngreso 
+                    <?php
+                    $selMontoIngresos = $con->prepare("
+                  SELECT SUM(amount_csimple) AS totalIngreso 
                   FROM tbl_cobros_property 
                   WHERE id_property = '$key' 
                   ");
-                  $selMontoTotal->execute();
+                    $selMontoIngresos->execute();
+                    $rowMontoI = $selMontoIngresos->fetch();
 
-                  $rowMonto = $selMontoTotal->fetch();
-                  
-                  ?>
+                    $selMontoEgresos = $con->prepare("
+                  SELECT SUM(amount_psimple) AS totalEgreso
+                  FROM tbl_pagos_property 
+                  WHERE id_property = '$key' 
+                  ");
+                    $selMontoEgresos->execute();
+                    $rowMontoE = $selMontoEgresos->fetch();
+
+                    //UTILIDAD INGRESO - EGRESO
+                    $montoIngreso = $rowMontoI['totalIngreso'];
+                    $montoEgreso = $rowMontoE['totalEgreso'];
+                    $utilidad = $montoIngreso - $montoEgreso;
+
+                    ?>
 
                     <!-- /.box-header -->
                     <div class="box-body" style="padding:0;border-radius:5px;">
                       <dl class="dl-horizontal" style="margin-bottom: 0; border-bottom: 1px solid #ccc;height:55px; padding:10px">
                         <dt class="text-left">Ingresos Totales<br><small class="text-muted">Desde la adquisición</small></dt>
-                        <dd class="text-right text-success" style="font-size: 2rem; font-weight:600;">$<?php echo number_format($rowMonto['totalIngreso'], 0, '', '.');?></dd>
+                        <dd class="text-right text-success" style="font-size: 2rem; font-weight:600;">$<?php echo number_format($rowMontoI['totalIngreso'], 0, '', '.'); ?></dd>
                       </dl>
                       <dl class="dl-horizontal" style="margin-bottom: 0; border-bottom: 1px solid #ccc;height:55px; padding:10px">
-                        <dt class="text-left">Gastos Totales<br><small class="text-muted">Desde la adquisición</small></dt>
-                        <dd class="text-right text-red" style="font-size: 2rem; font-weight:600;">$2.500.000</dd>
+                        <dt class="text-left">Egresos Totales<br><small class="text-muted">Desde la adquisición</small></dt>
+                        <dd class="text-right text-red" style="font-size: 2rem; font-weight:600;">$<?php echo number_format($rowMontoE['totalEgreso'], 0, '', '.'); ?></dd>
                       </dl>
                       <dl class="dl-horizontal" style="margin-bottom: 0;height:55px; padding:10px">
                         <dt class="text-left">Total Utilidades<br><small class="text-muted">Desde la adquisición a la fecha</small></dt>
-                        <dd class="text-right text-warning" style="font-size: 2rem; font-weight:600;">$10.000.000</dd>
+                        <dd class="text-right text-warning" style="font-size: 2rem; font-weight:600;">$<?php echo number_format($utilidad, 0, '', '.'); ?></dd>
                       </dl>
                     </div>
                     <!-- /.box-body -->
                   </div>
                 </div>
               <?php endif; ?>
+              <?php
+              // echo $key;
+              // $selContratoSimple = $con->prepare("
+              //   SELECT Tc.id_property, Tc.name_leaser, Tc.name_owner, Tc.tipo_contrato, Tcob.id_property, Tcob.amount_csimple, Tcob.venc_csimple, Tpag.id_property, Tpag.amount_psimple, Tpag.venc_psimple
+              //   FROM tbl_contrato_system Tc
+              //   INNER JOIN tbl_cobros_property Tcob
+              //   INNER JOIN tbl_pagos_property Tpag
+              //   WHERE Tc.id_property = '$key'
+              //   ");
+              // $selContratoSimple->execute();
+              // $rowContratoS = $selContratoSimple->fetch(PDO::FETCH_ASSOC);
 
-              <?php if ($rowContrato['tipo_contrato'] == '2') : ?>
+              $selCobro = $con->prepare("
+              SELECT *
+              FROM tbl_cobros_property
+              WHERE id_property = '$key'
+              AND desde_cobro = 'Arrendatario'
+              ");
+              $selCobro->execute();
+              $rowCobro = $selCobro->fetch(PDO::FETCH_ASSOC);
+              ?>
+              <?php if ($pago == '0') : //si su valor es 0 es tipo contrato simple 
+              ?>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <div class="info-box">
-                    <span class="info-box-icon bg-green"><i class="fas fa-exchange-alt"></i></span>
+                    <span class="info-box-icon bg-yellow">1</span>
 
                     <div class="info-box-content">
+                      <span class="info-box-number">$<?php echo number_format($rowCobro['amount_csimple'], 0, '', '.'); ?></span>
+
+                      <span class="info-box-number text-pay-owner">ARRENDATARIO A PROPIETARIO</span>
                       <span class="info-box-text info-box-finanza">
-                        OPERACIÓN UNO <i class="fas fa-arrow-right"></i> <i class="fas fa-calendar-alt"></i> Venc. <?php echo $rowContrato['venc_csimple']; ?> de cada mes
+                        <i class="fas fa-calendar-alt"></i> Venc. <?php echo $rowCobro['venc_csimple']; ?> de cada mes
                       </span>
-                      <span class="info-box-number">$<?php echo number_format($rowContrato['amount_csimple'], 0, '', '.'); ?></span>
-                      <span class="info-box-finanza"><?php echo $rowContrato['name_leaser']; ?> <b><i class="fas fa-arrow-right"></i></b> GESTARRIENDO </span>
-                      <span class="info-box-number">INGRESO RECURRENTE</span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
                   <!-- /.info-box -->
                 </div>
+                <?php
+                $propietario = 'Propietario';
+                $selPago = $con->prepare("SELECT * FROM tbl_cobros_property WHERE id_property = '$key' AND desde_cobro = '$propietario'");
+                $selPago->execute();
+                $rowPago = $selPago->fetch(PDO::FETCH_ASSOC);
+                ?>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fas fa-exchange-alt"></i></span>
+                    <span class="info-box-icon bg-red">2</span>
 
                     <div class="info-box-content">
+
+                      <span class="info-box-number">$<?php echo number_format($rowPago['amount_csimple'], 0, '', '.'); ?></span>
+
+                      <span class="info-box-number text-pay-owner">PROPIETARIO A GESTARRIENDO</span>
                       <span class="info-box-text info-box-finanza">
-                        OPERACIÓN DOS <i class="fas fa-arrow-right"></i> <i class="fas fa-calendar-alt"></i> Venc. <?php echo $rowContrato['venc_psimple']; ?> de cada mes
+                        <i class="fas fa-calendar-alt"></i> Venc. <?php echo $rowPago['venc_csimple']; ?> de cada mes
                       </span>
-                      <span class="info-box-number">$<?php echo number_format($rowContrato['amount_psimple'], 0, '', '.'); ?></span>
-                      <span class="info-box-finanza">GESTARRIENDO <b><i class="fas fa-arrow-right"></i></b> <?php echo $rowContrato['name_owner']; ?></span>
-                      <span class="info-box-number">EGRESO RECURRENTE</span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
                   <!-- /.info-box -->
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-olive"><i class="fas fa-money"></i></span>
+
+                    <div class="info-box-content">
+                      <span class="info-box-text info-box-finanza">
+                        CONTRATO DE ADMINISTRACIÓN COMPLETA
+                      </span>
+                      <?php
+                      $monto1 = $rowContrato['amount_csimple'];
+                      $monto2 = $rowContrato['amount_psimple'];
+                      $montofinal = $monto1 - $monto2;
+
+                      ?>
+                      <span class="info-box-number">$<?php echo number_format($montofinal, 0, '', '.'); ?></span>
+                      <span class="info-box-number text-pay-owner">UTILIDAD MENSUAL</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="box box-solid">
+                    <?php
+                    $selMontoIngresos = $con->prepare("
+                    SELECT SUM(amount_csimple) AS totalIngreso 
+                    FROM tbl_cobros_property 
+                    WHERE id_property = '$key'
+                    AND desde_cobro = '$propietario'
+                    ");
+                    $selMontoIngresos->execute();
+                    $rowMontoI = $selMontoIngresos->fetch();
+
+                    //UTILIDAD INGRESO - EGRESO
+                    $montoIngreso = $rowMontoI['totalIngreso'];
+                    $utilidad = $montoIngreso;
+
+                    ?>
+
+                    <!-- /.box-header -->
+                    <div class="box-body" style="padding:0;border-radius:5px;">
+                      <dl class="dl-horizontal" style="margin-bottom: 0; border-bottom: 1px solid #ccc;height:55px; padding:10px">
+                        <dt class="text-left">Ingresos Totales<br><small class="text-muted">Desde la adquisición</small></dt>
+                        <dd class="text-right text-success" style="font-size: 2rem; font-weight:600;">$<?php echo number_format($rowMontoI['totalIngreso'], 0, '', '.'); ?></dd>
+                      </dl>
+                      <dl class="dl-horizontal" style="margin-bottom: 0;height:55px; padding:10px">
+                        <dt class="text-left">Total Utilidades<br><small class="text-muted">Desde la adquisición a la fecha</small></dt>
+                        <dd class="text-right text-warning" style="font-size: 2rem; font-weight:600;">$<?php echo number_format($utilidad, 0, '', '.'); ?></dd>
+                      </dl>
+                    </div>
+                    <!-- /.box-body -->
+                  </div>
                 </div>
               <?php endif; ?>
 
@@ -371,7 +470,7 @@
                         <div class="col-md-12">
                           <!-- The time line -->
                           <?php
-                          
+
                           $statement = $con->prepare("SELECT * 
                           FROM tbl_movement_property 
                           WHERE id_property = '$key' 
@@ -389,9 +488,9 @@
                                     <div class="timeline__item">
                                       <div class="timeline__content">
                                         <p class="time" style="font-size: 1rem;color: #063a7e;">
-                                          
+
                                           <span class="text-black" style="font-size: 1.5rem; font-weight:600">
-                                          <?php
+                                            <?php
                                             switch ($row['type_movement']) {
                                               case '1':
                                                 echo 'Informativo';
@@ -417,17 +516,17 @@
                                                 echo 'Sin registro';
                                                 break;
                                             }
-                                          ?>
+                                            ?>
                                           </span>
-                                          
-                                            <i class="fas fa-calendar"></i>
+
+                                          <i class="fas fa-calendar"></i>
                                           <?php
-                                            $originalDate = $row['date_movement'];
-                                            $newDate = date("d/m/Y", strtotime($originalDate));
-                                            echo $newDate; 
+                                          $originalDate = $row['date_movement'];
+                                          $newDate = date("d/m/Y", strtotime($originalDate));
+                                          echo $newDate;
                                           ?>
                                           </span>
-                                          
+
                                         </p>
 
                                         <div class="row">
@@ -438,8 +537,8 @@
                                             <a onclick="deleteMovement(<?php echo $row['id_mov_property']; ?>);" class="text-red"><i class="fas fa-trash" style="font-size:1.5rem;"></i></a>
                                           </div>
                                         </div>
-                                        
-                                        
+
+
                                         <div class="btn-group">
                                         </div>
                                       </div>
@@ -468,12 +567,12 @@
               <div class="col-lg-12">
                 <div class="nav-tabs-custom">
                   <ul class="nav nav-tabs">
-                    <?php if ($pago === '1') { ?>
+                    <?php if ($pago == '1') { ?>
                       <li class="active"><a href="#pagos" data-toggle="tab" aria-expanded="false">Pagos</a></li>
+                      <li class=""><a href="#cobros" data-toggle="tab" aria-expanded="false">Cobros</a></li>
+                    <?php } else if ($pago == '0') { ?>
+                      <li class="active"><a href="#cobros" data-toggle="tab" aria-expanded="false">Cobros</a></li>
                     <?php } ?>
-                    <li class=""><a href="#cobros" data-toggle="tab" aria-expanded="false">Cobros</a></li>
-
-                    <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
                   </ul>
                   <div class="tab-content">
                     <!-- /.tab-pane -->
@@ -497,34 +596,60 @@
                           </div>
                         </div>
                       </div>
-                    <?php } ?>
-                    <!-- /.tab-pane -->
-                    <div class="tab-pane" id="cobros">
-                      <div class="row">
-                        <div class="col-xs-12">
-                          <div class="small">
-                            <ul class="list-inline mt-3">
-                              <li class="text-success"><b>Cobro recurrente:</b> Cobrado y pagado mensualmente.</li>
-                              <li class="text-warning"><b>Cobro único:</b> Cobrado y pagado solo una vez.</li>
-                            </ul>
+                      <div class="tab-pane" id="cobros">
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <div class="small">
+                              <ul class="list-inline mt-3">
+                                <li class="text-success"><b>Cobro recurrente:</b> Cobrado y pagado mensualmente.</li>
+                                <li class="text-warning"><b>Cobro único:</b> Cobrado y pagado solo una vez.</li>
+                              </ul>
+                            </div>
+                            <table id="tableCobrosP" class="table table-striped" style="font-size: 1.1rem; width:100%">
+                              <thead>
+                                <tr>
+                                  <th>DESDE</th>
+                                  <th>HACIA</th>
+                                  <th>CONCEPTO</th>
+                                  <th>COBRO RECURRENTE</th>
+                                  <th>MONTO</th>
+                                  <th>VENCIMIENTO</th>
+                                  <th width="150px">OPCIONES</th>
+                                </tr>
+                              </thead>
+                            </table>
                           </div>
-                          <table id="tableCobrosP" class="table table-striped" style="font-size: 1.1rem; width:100%">
-                            <thead>
-                              <tr>
-                                <th>DESDE</th>
-                                <th>HACIA</th>
-                                <th>CONCEPTO</th>
-                                <th>COBRO RECURRENTE</th>
-                                <th>MONTO</th>
-                                <th>VENCIMIENTO</th>
-                                <th width="150px">OPCIONES</th>
-                              </tr>
-                            </thead>
-                          </table>
                         </div>
                       </div>
-                    </div>
-                    <!-- /.tab-pane -->
+                    <?php } else if ($pago == '0') { ?>
+                      <!-- /.tab-pane -->
+                      <div class="tab-pane active" id="cobros">
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <div class="small">
+                              <ul class="list-inline mt-3">
+                                <li class="text-success"><b>Cobro recurrente:</b> Cobrado y pagado mensualmente.</li>
+                                <li class="text-warning"><b>Cobro único:</b> Cobrado y pagado solo una vez.</li>
+                              </ul>
+                            </div>
+                            <table id="tableCobrosP" class="table table-striped" style="font-size: 1.1rem; width:100%">
+                              <thead>
+                                <tr>
+                                  <th>DESDE</th>
+                                  <th>HACIA</th>
+                                  <th>CONCEPTO</th>
+                                  <th>COBRO RECURRENTE</th>
+                                  <th>MONTO</th>
+                                  <th>VENCIMIENTO</th>
+                                  <th width="150px">OPCIONES</th>
+                                </tr>
+                              </thead>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.tab-pane -->
+                    <?php } ?>
                   </div>
                   <!-- /.tab-content -->
                 </div>

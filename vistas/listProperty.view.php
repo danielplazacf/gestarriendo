@@ -79,6 +79,7 @@
                     </h3>
                     <h5 class="widget-user-desc"><?php echo $rowProperty['type_property'];?></h5>
                     <a href="fichaProperty.php?id_property=<?php echo $rowProperty['id_property'];?>" class="btn btn-sm btn-primary">Ingresar</a>
+                    <a onclick="deleteProperty(<?php echo $rowProperty['id_property'];?>)" class="btn btn-sm btn-danger pull-right"><i class="fas fa-trash"></i></a>
                   </div>
                 </div>
               </div>
