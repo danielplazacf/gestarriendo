@@ -576,9 +576,7 @@ var deleteCobro = function(id_cobro_property) {
             },
             success: function(data) {
               if (data == 'ok') {
-                swal("Eliminado! El registro fue eliminado.", {
-                  icon: "success",
-                });
+                location.reload();
                 cargarCobrosP();
               } else {
                 console.log(data);

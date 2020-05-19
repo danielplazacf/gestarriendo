@@ -308,17 +308,6 @@
                 </div>
               <?php endif; ?>
               <?php
-              // echo $key;
-              // $selContratoSimple = $con->prepare("
-              //   SELECT Tc.id_property, Tc.name_leaser, Tc.name_owner, Tc.tipo_contrato, Tcob.id_property, Tcob.amount_csimple, Tcob.venc_csimple, Tpag.id_property, Tpag.amount_psimple, Tpag.venc_psimple
-              //   FROM tbl_contrato_system Tc
-              //   INNER JOIN tbl_cobros_property Tcob
-              //   INNER JOIN tbl_pagos_property Tpag
-              //   WHERE Tc.id_property = '$key'
-              //   ");
-              // $selContratoSimple->execute();
-              // $rowContratoS = $selContratoSimple->fetch(PDO::FETCH_ASSOC);
-
               $selCobro = $con->prepare("
               SELECT *
               FROM tbl_cobros_property
@@ -358,11 +347,11 @@
 
                     <div class="info-box-content">
 
-                      <span class="info-box-number">$<?php echo number_format($rowPago['amount_csimple'], 0, '', '.'); ?></span>
+                      <span class="info-box-number">$<?php echo @number_format($rowPago['amount_csimple'], 0, '', '.'); ?></span>
 
                       <span class="info-box-number text-pay-owner">PROPIETARIO A GESTARRIENDO</span>
                       <span class="info-box-text info-box-finanza">
-                        <i class="fas fa-calendar-alt"></i> Venc. <?php echo $rowPago['venc_csimple']; ?> de cada mes
+                        <i class="fas fa-calendar-alt"></i> Venc. <?php echo @$rowPago['venc_csimple']; ?> de cada mes
                       </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -376,15 +365,9 @@
 
                     <div class="info-box-content">
                       <span class="info-box-text info-box-finanza">
-                        CONTRATO DE ADMINISTRACIÓN COMPLETA
+                        CONTRATO DE ADMINISTRACIÓN SIMPLE
                       </span>
-                      <?php
-                      $monto1 = $rowContrato['amount_csimple'];
-                      $monto2 = $rowContrato['amount_psimple'];
-                      $montofinal = $monto1 - $monto2;
-
-                      ?>
-                      <span class="info-box-number">$<?php echo number_format($montofinal, 0, '', '.'); ?></span>
+                      <span class="info-box-number">$<?php echo @number_format($rowPago['amount_csimple'], 0, '', '.'); ?></span>
                       <span class="info-box-number text-pay-owner">UTILIDAD MENSUAL</span>
                     </div>
                     <!-- /.info-box-content -->
