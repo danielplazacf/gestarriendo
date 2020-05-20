@@ -96,10 +96,17 @@
                     <div class="description-block bg-yellowlight">
                       <h5 class="description-header py-3 px-3 text-left">
                       <?php 
-                        $originalDate = $rowContrato['fecha_inicio'];
-                        $newDate = date("d/m/Y", strtotime($originalDate));
+                        @$originalDate = $rowContrato['fecha_inicio'];
+                        @$arrendatario = $rowContrato['name_leaser'];
+                        if(empty($arrendatario) AND empty($originalDate)){
+                          $leaser = 'Sin Arrendatario';
+                          $newDate = 'Sin contrato de arriendo';
+                        }else{
+                          $leaser = $rowContrato['name_leaser'];
+                          $newDate = date("d/m/Y", strtotime($originalDate));
+                        }
                       ?>
-                        <b>Arrendatario:</b> <?php echo $rowContrato['name_leaser'];?> <br>
+                        <b>Arrendatario:</b> <?php echo $leaser;?> <br>
                         <b>En arriendo desde:</b> <?php echo $newDate;?>
                       </h5>
                       
