@@ -156,6 +156,9 @@
                     <a class="btn btn-app" data-toggle="modal" data-target="#modalAddMoveProperty">
                       <i class="fa fa-refresh"></i> Bitácora
                     </a>
+                    <a class="btn btn-app" data-toggle="modal" data-target="#modalDatosPropietario">
+                      <i class="fa fa-user"></i> Datos Propietario
+                    </a>
                   </div>
                 </div>
               </div>
@@ -1702,6 +1705,77 @@
       </div>
       <!-- /.modal-content -->
     </div>
+
+    <div class="modal fade" id="modalDatosPropietario" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">Datos Bancarios Propietario</h4>
+          </div>
+          <div class="modal-body">
+            
+
+            <?php
+
+              @$propietario = $rowContrato['name_owner'];
+
+              if(!empty($propietario)){
+                $select = $con->prepare("
+                SELECT * 
+                FROM tbl_owner_system
+                WHERE name_owner = '$propietario'
+                ");
+                $select->execute();
+                $rowPropietario= $select->fetch(PDO::FETCH_ASSOC);
+              }else{
+                $alert = '
+              <div class="alert alert-warning mb-4" role="alert">
+                <p>No hay datos bancarios almacenados para este propietario.</p>
+              </div>';
+              echo $alert;
+              }
+            ?>
+            <table class="table table-bordered">
+              <tr>
+                <th>Titular Cuenta</th>
+                <th>RUT Titular</th>
+                <th>Banco Cuenta</th>
+                <th>Tipo Cuenta</th>
+                <th>N° Cuenta</th>
+                <th>Email Confirmación</th>
+              </tr>
+              <tr>
+                <td>
+                  <?php echo @$rowPropietario['titular_account'];?>
+                </td>
+                <td>
+                  <?php echo @$rowPropietario['rut_account'];?>
+                </td>
+                <td>
+                  <?php echo @$rowPropietario['bank_account'];?>
+                </td>
+                <td>
+                  <?php echo @$rowPropietario['type_account'];?>
+                </td>
+                <td>
+                  <?php echo @$rowPropietario['number_account'];?>
+                </td>
+                <td>
+                  <?php echo @$rowPropietario['email_account'];?>
+                </td>
+              </tr>
+            </table>
+            
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+
   </div>
 
   <!-- Main Footer -->
