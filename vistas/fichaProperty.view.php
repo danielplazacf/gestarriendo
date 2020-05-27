@@ -1719,7 +1719,9 @@
 
             <?php
 
+              
               @$propietario = $rowContrato['name_owner'];
+              echo $propietario;
 
               if(!empty($propietario)){
                 $select = $con->prepare("
