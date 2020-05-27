@@ -196,18 +196,20 @@
           <!-- /.col -->
           <div class="col-md-8">
             <!-- Custom Tabs -->
+            <?php //echo $key; ?>
             <div class="row">
               <?php
-              echo $key;
-              $selContrato = $con->prepare("
-                SELECT Tc.id_property, Tc.name_leaser, Tc.name_owner, Tc.tipo_contrato, Tcob.amount_csimple, Tcob.venc_csimple, Tpag.id_property, Tpag.amount_psimple, Tpag.venc_psimple
-                FROM tbl_contrato_system Tc
-                INNER JOIN tbl_cobros_property Tcob
-                INNER JOIN tbl_pagos_property Tpag
-                ON Tc.id_property = '$key'
-                ");
-              $selContrato->execute();
-              $rowContrato = $selContrato->fetch(PDO::FETCH_ASSOC);
+              //echo $key;
+              // $selContrato = $con->prepare("
+              //   SELECT Tcob.id_property, Tcob.amount_csimple, Tcob.venc_csimple, Tpag.id_property, Tpag.amount_psimple, Tpag.venc_psimple
+              //   FROM tbl_contrato_system Tc
+              //   INNER JOIN tbl_cobros_property Tcob
+              //   INNER JOIN tbl_pagos_property Tpag
+              //   ON Tpag.id_property = Tcob.id_property
+              //   ");
+              // $selContrato->execute();
+              // $rowContrato = $selContrato->fetch(PDO::FETCH_ASSOC);
+              
               ?>
               <?php if ($pago == '1') : // La variable pago 1 es igual a tipo contrato completo
               ?>
@@ -216,11 +218,29 @@
                     <span class="info-box-icon bg-yellow">1</span>
 
                     <div class="info-box-content">
-                      <span class="info-box-number">$<?php echo @number_format($rowContrato['amount_csimple'], 0, '', '.'); ?></span>
+                      <span class="info-box-number">$
+                        <?php
+                        $stmtIngresos = $con->prepare("SELECT *
+                        FROM tbl_cobros_property
+                        WHERE id_property = '$key'
+                        ");
+                        $stmtIngresos->execute();
+                        $rowstmt = $stmtIngresos->fetch();
+          
+                        @$amountIngreso = $rowstmt['amount_csimple'];
+                        @$vencIngreso = $rowstmt['venc_csimple'];
+                        if(empty($amountIngreso) && empty($vencIngreso)){
+                          echo '0';
+                          $vencIngreso = '0';
+                        }else{
+                          echo number_format($amountIngreso, 0, '', '.');
+                        }
+                        ?>
+                        </span>
 
                       <span class="info-box-number text-pay-owner">PAGO DE ARRENDATARIO</span>
                       <span class="info-box-text info-box-finanza">
-                        <i class="fas fa-calendar-alt"></i> Venc. <?php echo @$rowContrato['venc_csimple']; ?> de cada mes
+                        <i class="fas fa-calendar-alt"></i> Venc. <?php echo @$vencIngreso; ?> de cada mes
                       </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -232,12 +252,28 @@
                     <span class="info-box-icon bg-red">2</span>
 
                     <div class="info-box-content">
-
-                      <span class="info-box-number">$<?php echo @number_format($rowContrato['amount_psimple'], 0, '', '.'); ?></span>
+                      <span class="info-box-number">$<?php
+                        $stmtEgresos = $con->prepare("SELECT *
+                        FROM tbl_pagos_property
+                        WHERE id_property = '$key'
+                        ");
+                        $stmtEgresos->execute();
+                        $rowstmt = $stmtEgresos->fetch();
+          
+                        @$amountEgresos = $rowstmt['amount_psimple'];
+                        @$vencEgreso = $rowstmt['venc_psimple'];
+                        if(empty($amountEgresos) && empty($vencEgreso)){
+                          echo '0';
+                          $vencEgreso = '0';
+                        }else{
+                          echo number_format($amountEgresos, 0, '', '.');
+                        }
+                        ?>
+                        </span>
 
                       <span class="info-box-number text-pay-owner">PAGO A PROPIETARIO</span>
                       <span class="info-box-text info-box-finanza">
-                        <i class="fas fa-calendar-alt"></i> Venc. <?php echo @$rowContrato['venc_psimple']; ?> de cada mes
+                        <i class="fas fa-calendar-alt"></i> Venc. <?php echo @$vencEgreso; ?> de cada mes
                       </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -253,8 +289,8 @@
                         CONTRATO DE ADMINISTRACIÓN COMPLETA
                       </span>
                       <?php
-                      @$monto1 = $rowContrato['amount_csimple'];
-                      @$monto2 = $rowContrato['amount_psimple'];
+                      @$monto1 = $amountIngreso;
+                      @$monto2 = $amountEgresos;
                       $montofinal = $monto1 - $monto2;
 
                       ?>
@@ -1718,8 +1754,14 @@
             
 
             <?php
-              @$propietario = $rowContrato['name_owner'];
-              echo $propietario;
+              $selContrato = $con->prepare("
+              SELECT * FROM tbl_contrato_system
+              WHERE id_property = '$key'
+              ");
+              $selContrato->execute();
+              $rowContrato = $selContrato->fetch(PDO::FETCH_ASSOC);
+
+              $propietario = $rowContrato['name_owner'];
 
               if(!empty($propietario)){
                 $select = $con->prepare("
