@@ -198,7 +198,7 @@
             <!-- Custom Tabs -->
             <div class="row">
               <?php
-              // echo $key;
+              echo $key;
               $selContrato = $con->prepare("
                 SELECT Tc.id_property, Tc.name_leaser, Tc.name_owner, Tc.tipo_contrato, Tcob.amount_csimple, Tcob.venc_csimple, Tpag.id_property, Tpag.amount_psimple, Tpag.venc_psimple
                 FROM tbl_contrato_system Tc
