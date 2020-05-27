@@ -204,7 +204,7 @@
                 FROM tbl_contrato_system Tc
                 INNER JOIN tbl_cobros_property Tcob
                 INNER JOIN tbl_pagos_property Tpag
-                WHERE Tc.id_property = '$key'
+                ON Tc.id_property = '$key'
                 ");
               $selContrato->execute();
               $rowContrato = $selContrato->fetch(PDO::FETCH_ASSOC);
@@ -1092,7 +1092,7 @@
                         <option value="Propietario">Propietario</option>
                         <option value="Gestarriendo">Gestarriendo</option>
                       </select> -->
-                      <input type="text" id="desde_pago" name="desde_pago" class="form-control" value="Gestarriendo" readonly>
+                      <input type="text" id="hacia_pago" name="hacia_pago" class="form-control" value="Gestarriendo" readonly>
                     </div>
                     <!-- /.input group -->
                   </div>
