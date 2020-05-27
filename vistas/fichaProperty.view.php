@@ -216,11 +216,11 @@
                     <span class="info-box-icon bg-yellow">1</span>
 
                     <div class="info-box-content">
-                      <span class="info-box-number">$<?php echo number_format($rowContrato['amount_csimple'], 0, '', '.'); ?></span>
+                      <span class="info-box-number">$<?php echo @number_format($rowContrato['amount_csimple'], 0, '', '.'); ?></span>
 
                       <span class="info-box-number text-pay-owner">PAGO DE ARRENDATARIO</span>
                       <span class="info-box-text info-box-finanza">
-                        <i class="fas fa-calendar-alt"></i> Venc. <?php echo $rowContrato['venc_csimple']; ?> de cada mes
+                        <i class="fas fa-calendar-alt"></i> Venc. <?php echo @$rowContrato['venc_csimple']; ?> de cada mes
                       </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -233,11 +233,11 @@
 
                     <div class="info-box-content">
 
-                      <span class="info-box-number">$<?php echo number_format($rowContrato['amount_psimple'], 0, '', '.'); ?></span>
+                      <span class="info-box-number">$<?php echo @number_format($rowContrato['amount_psimple'], 0, '', '.'); ?></span>
 
                       <span class="info-box-number text-pay-owner">PAGO A PROPIETARIO</span>
                       <span class="info-box-text info-box-finanza">
-                        <i class="fas fa-calendar-alt"></i> Venc. <?php echo $rowContrato['venc_psimple']; ?> de cada mes
+                        <i class="fas fa-calendar-alt"></i> Venc. <?php echo @$rowContrato['venc_psimple']; ?> de cada mes
                       </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -253,8 +253,8 @@
                         CONTRATO DE ADMINISTRACIÓN COMPLETA
                       </span>
                       <?php
-                      $monto1 = $rowContrato['amount_csimple'];
-                      $monto2 = $rowContrato['amount_psimple'];
+                      @$monto1 = $rowContrato['amount_csimple'];
+                      @$monto2 = $rowContrato['amount_psimple'];
                       $montofinal = $monto1 - $monto2;
 
                       ?>
@@ -327,11 +327,11 @@
                     <span class="info-box-icon bg-yellow">1</span>
 
                     <div class="info-box-content">
-                      <span class="info-box-number">$<?php echo number_format($rowCobro['amount_csimple'], 0, '', '.'); ?></span>
+                      <span class="info-box-number">$<?php echo @number_format($rowCobro['amount_csimple'], 0, '', '.'); ?></span>
 
                       <span class="info-box-number text-pay-owner">ARRENDATARIO A PROPIETARIO</span>
                       <span class="info-box-text info-box-finanza">
-                        <i class="fas fa-calendar-alt"></i> Venc. <?php echo $rowCobro['venc_csimple']; ?> de cada mes
+                        <i class="fas fa-calendar-alt"></i> Venc. <?php echo @$rowCobro['venc_csimple']; ?> de cada mes
                       </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -1718,8 +1718,6 @@
             
 
             <?php
-
-              
               @$propietario = $rowContrato['name_owner'];
               echo $propietario;
 
