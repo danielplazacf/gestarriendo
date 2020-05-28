@@ -1110,7 +1110,7 @@
                         <option value="Arrendatario">Arrendatario</option>
                         <option value="Gestarriendo">Gestarriendo</option>
                       </select> -->
-                      <input type="text" id="desde_pago" name="desde_pago" class="form-control" value="Arrendatario" readonly>
+                      <input type="text" id="desde_pago" name="desde_pago" class="form-control" value="Gestarriendo" readonly>
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -1128,7 +1128,7 @@
                         <option value="Propietario">Propietario</option>
                         <option value="Gestarriendo">Gestarriendo</option>
                       </select> -->
-                      <input type="text" id="hacia_pago" name="hacia_pago" class="form-control" value="Gestarriendo" readonly>
+                      <input type="text" id="hacia_pago" name="hacia_pago" class="form-control" value="Propietario" readonly>
                     </div>
                     <!-- /.input group -->
                   </div>
