@@ -32,6 +32,7 @@
     $resultado = $statement->fetch();
     if ($resultado !== false) {
       $_SESSION['user_system'] = $usuario;
+      $_SESSION['type_user'] = $resultado['type_user'];
       // Para ingreso normal
       header('Location: escritorio.php');
     } else {

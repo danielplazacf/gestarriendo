@@ -276,6 +276,9 @@
     <script type="text/javascript">
         $('.rut').rut();
         $(document).ready(function() {
+            <?php if($_SESSION['type_user'] == 'observador') {?>
+                $(".btn").attr('disabled', true);
+            <?php }?>
             newEmpresa();
         })
         // definimos el tipo de moneda con api de JS

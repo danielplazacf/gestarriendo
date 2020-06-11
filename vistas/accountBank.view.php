@@ -290,6 +290,9 @@
 
     <script>
         $(document).ready(function() {
+            <?php if($_SESSION['type_user'] == 'observador') {?>
+                $(".btn").attr('disabled', true);
+            <?php }?>
             cargarAccountBank();
             addAccountBank();
             editAccountBank();
@@ -385,7 +388,11 @@
                         "mData": function(data, type, dataToSet) {
                             // return "<div class='btn-group'><button button='button' onclick='mostrarProperty(" + data + ");' class='btn bg-olive' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i></button><a href='fichaProperty.php?property="+ data +"' class='btn btn-default'><i class='fa fa-eye'></i></a><button type='button' onclick='deleteProperty(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
                             //return "<div class='ocultar-elemento btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar <span class='caret'></span></button><ul class='dropdown-menu'><li><a href='' onclick='mostrarOwner(" + data.id_account_bank + ");' data-toggle='modal' data-target='#modalEditOwner'><i class='fa fa-edit'></i>Editar</a></li><li><a herf='' onclick='deleteOwner(" + data.id_account_bank + ");'><i class='fa fa-trash'></i> Eliminar</a></li></ul></div>"
-                            return '<div class="btn-group"><button button="button" onclick="mostrarAccount(' + data.id_account_bank + ')" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalEditAccountBank"><i class="fas fa-edit"></i></button><button button="button" onclick="deleteAccountBank(' + data.id_account_bank + ')" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></div>';
+                            let disable = '';
+                              <?php if($_SESSION['type_user'] == 'observador') {?>
+                                disable = 'disabled';
+                              <?php }?>
+                            return '<div class="btn-group"><button button="button" disabled="'+disable+'" onclick="mostrarAccount(' + data.id_account_bank + ')" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalEditAccountBank"><i class="fas fa-edit"></i></button><button button="button" disabled="'+disable+'" onclick="deleteAccountBank(' + data.id_account_bank + ')" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></div>';
                         }
                     }
 

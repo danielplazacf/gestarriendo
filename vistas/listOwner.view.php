@@ -567,6 +567,9 @@
   <script src="resources/dist/js/moment.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
+      <?php if($_SESSION['type_user'] == 'observador') {?>
+          $(".btn").attr('disabled', true);
+      <?php }?>
       // definimos el texto del boton btnSave
       $('#btnSave').html('<i class="fa fa-check-circle"></i> Guardar');
       // definimos el texto del boton btnEdit
@@ -660,8 +663,12 @@
           {
             "mData": function(data, type, dataToSet) {
               // return "<div class='btn-group'><button button='button' onclick='mostrarProperty(" + data + ");' class='btn bg-olive' data-toggle='modal' data-target='#modalEditProperty'><i class='fa fa-edit'></i></button><a href='fichaProperty.php?property="+ data +"' class='btn btn-default'><i class='fa fa-eye'></i></a><button type='button' onclick='deleteProperty(" + data + ");' class='btn btn-danger'><i class='fa fa-trash'></i></button></div>"
+              let disable = '';
+              <?php if($_SESSION['type_user'] == 'observador') {?>
+                disable = 'disabled';
+              <?php }?>
 
-              return "<!-- Single button --><div class='ocultar-elemento btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar <span class='caret'></span></button><ul class='dropdown-menu'><li><a href='' onclick='mostrarOwner(" + data.id_owner_system + ");' data-toggle='modal' data-target='#modalEditOwner'><i class='fa fa-edit'></i>Editar</a></li><li><a herf='' onclick='deleteOwner(" + data.id_owner_system + ");'><i class='fa fa-trash'></i> Eliminar</a></li></ul></div>"
+              return "<!-- Single button --><div class='ocultar-elemento btn-group'><button type='button' disabled='"+disable+"' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar <span class='caret'></span></button><ul class='dropdown-menu'><li><a href='' onclick='mostrarOwner(" + data.id_owner_system + ");' data-toggle='modal' data-target='#modalEditOwner'><i class='fa fa-edit'></i>Editar</a></li><li><a herf='' onclick='deleteOwner(" + data.id_owner_system + ");'><i class='fa fa-trash'></i> Eliminar</a></li></ul></div>"
             }
           }
 

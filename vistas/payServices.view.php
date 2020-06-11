@@ -197,6 +197,9 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+            <?php if($_SESSION['type_user'] == 'observador') {?>
+                $(".btn").attr('disabled', true);
+            <?php }?>
             sendMail();
             // ejecucion de on(change) al cambiar la opcion
             $('#address_property').on('change', function() {

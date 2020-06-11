@@ -44,7 +44,7 @@
           <?php echo $titulo; ?>
           <small>Sistema de Gestión Inmobiliaria</small>
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modalAddProperty">
+          <button type="button" class="btn btn-primary pull-right" id="new_administrator" data-toggle="modal" data-target="#modalAddProperty">
             <i class="fa fa-plus-circle"></i> Nueva Administración
           </button>
 
@@ -498,6 +498,10 @@
   <script src="resources/dist/js/moment.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
+      <?php if($_SESSION['type_user'] == 'observador') {?>
+          $(".btn-danger").hide();
+          $("#new_administrator").attr("disabled", true);
+      <?php }?>
       // definimos el texto del boton btnSave
       $('#btnSave').html('<i class="fa fa-check-circle"></i> Guardar');
       // definimos el texto del boton btnEdit
