@@ -36,6 +36,11 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+    <?php if($_SESSION['type_user'] == 'observador') {?>
+      div.ocultar-elemento{
+        display:none !important;
+      }
+    <?php } ?>
   </style>
 </head>
 
@@ -1855,7 +1860,7 @@
   <footer class="main-footer">
     <?php include 'footer.php'; ?>
   </footer>
-
+  <input type="hidden" id="only-read" value="N" />
   </div>
   <!-- ./wrapper -->
 
@@ -1883,6 +1888,15 @@
   <!-- Timeline -->
   <script src="resources/bower_components/timeline/dist/js/timeline.min.js"></script>
   <script src="resources/dist/js/fichaProperty.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      <?php if($_SESSION['type_user'] == 'observador') {?>
+          $(".btn-app").attr('disabled', true);
+          $(".btn-app").attr('data-target','');
+          $("#only-read").val('Y');
+      <?php }?>
+    })
+  </script>
 </body>
 
 </html>
