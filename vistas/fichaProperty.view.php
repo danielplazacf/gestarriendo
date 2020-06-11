@@ -143,6 +143,37 @@
                   </div>
                   <!-- /.col -->
                 </div>
+                <div class="row mb-4">
+                  <?php
+                    $dproperty_stmt = $con->prepare("SELECT * FROM tbl_property_system WHERE id_property='$id_property'");
+                    $dproperty_stmt->execute();
+                    $rowdp = $dproperty_stmt->fetch(PDO::FETCH_ASSOC);
+                  ?>
+                  <div class="col-sm-4 border-right">
+                    <div class="description-block">
+                      <span class="description-text">Agua:</span>
+                      <br />
+                      <span class="description-text">"<?php echo $rowdp['proveedor_agua']; ?>"</span>
+                      <h5 class="description-header text-uppercase"><?php echo $rowdp['n_client_agua']; ?></h5>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 border-right">
+                  <div class="description-block">
+                      <span class="description-text">Luz:</span>
+                      <br />
+                      <span class="description-text">"<?php echo $rowdp['proveedor_luz']; ?>"</span>
+                      <h5 class="description-header text-uppercase"><?php echo $rowdp['n_client_luz']; ?></h5>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 border-right">
+                    <div class="description-block">
+                      <span class="description-text">Gas:</span>
+                      <br />
+                      <span class="description-text">"<?php echo $rowdp['proveedor_gas']; ?>"</span>
+                      <h5 class="description-header text-uppercase"><?php echo $rowdp['n_client_gas']; ?></h5>
+                    </div>
+                  </div>
+                </div>
                 <!-- /.row -->
               </div>
             </div>

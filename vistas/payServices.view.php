@@ -84,16 +84,19 @@
 
                                         </div>
                                         <div class="col-md-3">
-                                            <label>N° Cliente agua:</label>
+                                            <label>Agua:</label>
+                                            <p id="proveedor_agua"></p>
                                             <p id="agua_edit">Sin registros</p>
                                             <!-- <p id="resultado">Cargando...</p> -->
                                         </div>
                                         <div class="col-md-3">
-                                            <label>N° Cliente luz:</label>
+                                            <label>Luz:</label>
+                                            <p id="proveedor_luz"></p>
                                             <p id="luz_edit">Sin registros</p>
                                         </div>
                                         <div class="col-md-3">
-                                            <label>N° Cliente gas:</label>
+                                            <label>Gas:</label>
+                                            <p id="proveedor_gas"></p>
                                             <p id="gas_edit">Sin registros</p>
                                         </div>
                                     </div>
@@ -225,8 +228,14 @@
                         success: function(datos) {
                             // mostramos los datos obtenidos de la busqueda en los siguientes id's
                             $('#agua_edit').html(datos.n_client_agua);
+                            $('#proveedor_agua').html(datos.proveedor_agua);
+
                             $('#luz_edit').html(datos.n_client_luz);
+                            $('#proveedor_luz').html(datos.proveedor_luz);
+
                             $('#gas_edit').html(datos.n_client_gas);
+                            $('#proveedor_gas').html(datos.proveedor_gas);
+
                             $('#id_property').val(datos.id_property);
                             // al obtener los numeros de clientes, habilitamos el 'btnMora'
                             $('#btnMora').attr('disabled', false);

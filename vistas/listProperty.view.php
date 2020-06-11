@@ -241,20 +241,39 @@
               <div class="row">
                 <div class="col-xs-4">
                   <div class="form-group">
-                    <label>N° Aguas Andinas</label>
+                    <label>Agua</label>
+                    <!--Proveedor-->
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-tint"></i>
+                      </div>
+                      <input name="proveedor_agua" id="proveedor_agua" type="text" class="form-control" autocomplete="none" placeholder="Proveedor" required>
+                    </div>
+
+                    <!--Nro-->
                     <div class="input-group">
                       <div class="input-group-addon">
                         <i class="fa fa-tint"></i>
                       </div>
                       <input name="n_cliente_agua" id="n_cliente_agua" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
                     </div>
+
                     <!-- /.input group -->
                   </div>
                 </div>
 
                 <div class="col-xs-4">
                   <div class="form-group">
-                    <label>N° Enel</label>
+                    <label>Energia Electrica</label>
+                    <!--Proveedor-->
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-bolt"></i>
+                      </div>
+                      <input name="proveedor_luz" id="proveedor_luz" type="text" class="form-control" autocomplete="none" placeholder="Proveedor" required>
+                    </div>
+
+                    <!--Nro-->
                     <div class="input-group">
                       <div class="input-group-addon">
                         <i class="fa fa-bolt"></i>
@@ -267,7 +286,16 @@
 
                 <div class="col-xs-4">
                   <div class="form-group">
-                    <label>N° MetroGas</label>
+                    <label>Gas</label>
+                    <!--Proveedor-->
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-fire"></i>
+                      </div>
+                      <input name="proveedor_gas" id="proveedor_gas" type="text" class="form-control" autocomplete="none" placeholder="Proveedor" required>
+                    </div>
+
+                    <!--Nro-->
                     <div class="input-group">
                       <div class="input-group-addon">
                         <i class="fa fa-fire"></i>

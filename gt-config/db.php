@@ -6,7 +6,7 @@
     ---------------------------*/
     /*Datos de conexion a la base de datos*/
     define('DB_HOST', 'localhost');//DB_HOST:  generalmente suele ser "127.0.0.1"
-    define('DB_USER', 'lexuqsal_4pp73n34');//Usuario de tu base de datos
-    define('DB_PASS', '4pp73n34');//Contraseña del usuario de la base de datos
-    define('DB_NAME', 'lexuqsal_app_system');//Nombre de la base de datos
+    define('DB_USER', 'root');//Usuario de tu base de datos
+    define('DB_PASS', 'Car2244los*');//Contraseña del usuario de la base de datos
+    define('DB_NAME', 'gestarriendo');//Nombre de la base de datos
 ?>
