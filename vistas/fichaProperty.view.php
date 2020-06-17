@@ -180,6 +180,28 @@
                   </div>
                 </div>
                 <!-- /.row -->
+                <div class="row mb-4">
+
+                  <div class="col-sm-6 border-right">
+                    <div class="description-block">
+                      <span class="description-text">Estacionamiento</span>
+                      <br />
+                      <span class="description-text"><?php if($rowdp['hasParking'] == 'Y'){ $display=''; echo "Si"; }else{ $display='style="display:none";'; echo "No"; } ?></span>
+                      <h5 <?php echo $display; ?> class="description-header text-uppercase"><b>Nro:</b> <?php echo $rowdp['numberParking']; ?></h5>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 border-right">
+                    <div class="description-block">
+                      <span class="description-text">Bodega</span>
+                      <br />
+                      <span class="description-text"><?php if($rowdp['hasWarehouse'] == 'Y'){ $display=''; echo "Si"; }else{ $display='style="display:none";'; echo "No"; } ?></span>
+                      <h5 <?php echo $display; ?> class="description-header text-uppercase"><b>Nro:</b> <?php echo $rowdp['numberWarehouse']; ?></h5>
+                    </div>
+                  </div>
+
+
+                </div>
               </div>
             </div>
             <!-- /.widget-user -->
