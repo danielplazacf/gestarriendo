@@ -162,7 +162,11 @@
             </div>
           </div>
         </div>
-
+        <div class="row">
+          <div class="col-md-12">
+            <iframe src="https://es.calcuworld.com/calculadoras-financieras/calculadora-ipc/cl/?iframe=1" width="100%" height="400"></iframe>
+          </div>
+      </div>
       </section>
 
       <!-- /.content -->
