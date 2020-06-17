@@ -83,7 +83,18 @@
                     <h5 class="widget-user-desc"><?php echo $rowProperty['type_property'];?></h5>
                     <a href="fichaProperty.php?id_property=<?php echo $rowProperty['id_property'];?>" class="btn btn-sm btn-primary">Ingresar</a>
                     <a onclick="mostrarProperty(<?php echo $rowProperty['id_property'];?>)" class="btn btn-sm btn-info pull-right"><i class="fas fa-edit"></i></a> 
-                    <a onclick="deleteProperty(<?php echo $rowProperty['id_property'];?>)" class="btn btn-sm btn-danger pull-right"><i class="fas fa-trash"></i></a>
+                    <?php if(verifyDocProperty($rowProperty['id_property'])){ 
+                      $disabled = 'disabled="disabled"';
+                      $onclick = "";
+                      $title = "title='No se puede eliminar ya que tiene un Contrato Asociado!!'";
+                    ?>
+                      <a <?php echo $onclick.' '.$disabled.' '.$title; ?> class="btn btn-sm btn-danger pull-right"><i class="fas fa-trash"></i></a>
+                    <?php }else{
+                      $disabled = '';
+                      $onclick = "onclick='deleteProperty(".$rowProperty['id_property'].")'";
+                      ?>
+                      <a <?php echo $onclick.' '.$disabled; ?> class="btn btn-sm btn-danger pull-right"><i class="fas fa-trash"></i></a>
+                    <?php }?>
                   </div>
                 </div>
               </div>
@@ -959,3 +970,4 @@
 </body>
 
 </html>
+

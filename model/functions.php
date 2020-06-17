@@ -42,4 +42,16 @@
 		echo $vector[$numero];
 	}
 
+	function verifyDocProperty($id_property = NULL){
+		global $con;
+		$stmt = $con->prepare("SELECT COUNT(*) as qty FROM tbl_contrato_system WHERE id_property = ".$id_property);
+		$stmt->execute();
+		$rs = $stmt->fetch();
+		if($rs['qty'] > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 ?>
