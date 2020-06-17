@@ -36,8 +36,14 @@
 		$client_gas = filter_var($_POST['n_cliente_gas'], FILTER_SANITIZE_STRING);
 		$proveedor_gas = filter_var($_POST['proveedor_gas'], FILTER_SANITIZE_STRING);
 
-		$query = $con->prepare("INSERT INTO tbl_property_system (agent_designated, date_register, type_property, date_administracion, address_property, region_property, comuna_property, n_client_agua, n_client_luz, n_client_gas, last_date, proveedor_agua, proveedor_luz, proveedor_gas)
-		 VALUES (:agent_designated,:date_register,:type_property,:date_administracion,:address_property,:name_region,:comuna_property,:n_client_agua,:n_client_luz,:n_client_gas,:date_register, :proveedor_agua, :proveedor_luz, :proveedor_gas)");
+		$hasParking = filter_var($_POST['hasParking'], FILTER_SANITIZE_STRING);
+		$numberParking = filter_var($_POST['numberParking'], FILTER_SANITIZE_STRING);
+
+		$hasWarehouse = filter_var($_POST['hasWarehouse'], FILTER_SANITIZE_STRING);
+		$numberWarehouse = filter_var($_POST['numberWarehouse'], FILTER_SANITIZE_STRING);
+
+		$query = $con->prepare("INSERT INTO tbl_property_system (agent_designated, date_register, type_property, date_administracion, address_property, region_property, comuna_property, n_client_agua, n_client_luz, n_client_gas, last_date, proveedor_agua, proveedor_luz, proveedor_gas, hasParking, numberParking, hasWarehouse, numberWarehouse)
+		 VALUES (:agent_designated,:date_register,:type_property,:date_administracion,:address_property,:name_region,:comuna_property,:n_client_agua,:n_client_luz,:n_client_gas,:date_register, :proveedor_agua, :proveedor_luz, :proveedor_gas, :hasParking, :numberParking, :hasWarehouse, :numberWarehouse)");
 
 		$query->bindParam('agent_designated', $agent);
 		$query->bindParam('date_register', $date);
@@ -56,6 +62,12 @@
 
 		$query->bindParam('n_client_gas', $client_gas);
 		$query->bindParam('proveedor_gas', $proveedor_gas);
+
+		$query->bindParam('hasParking', $hasParking);
+		$query->bindParam('numberParking', $numberParking);
+
+		$query->bindParam('hasWarehouse', $hasWarehouse);
+		$query->bindParam('numberWarehouse', $numberWarehouse);
 
 		if ($query->execute()) {
 				echo 'ok';

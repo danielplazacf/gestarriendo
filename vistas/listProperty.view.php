@@ -16,10 +16,13 @@
       background: #fff;
       color: #000;
     }
+
+    #contentParking, #contentWarehouse, #contentParkingEdit, #contentWarehouseEdit{
+      display: none;
+    }
   </style>
 
 </head>
-
 <body class="hold-transition skin-black sidebar-mini <?php echo $sidebar; ?>">
   <div class="wrapper">
 
@@ -79,6 +82,7 @@
                     </h3>
                     <h5 class="widget-user-desc"><?php echo $rowProperty['type_property'];?></h5>
                     <a href="fichaProperty.php?id_property=<?php echo $rowProperty['id_property'];?>" class="btn btn-sm btn-primary">Ingresar</a>
+                    <a onclick="mostrarProperty(<?php echo $rowProperty['id_property'];?>)" class="btn btn-sm btn-info pull-right"><i class="fas fa-edit"></i></a> 
                     <a onclick="deleteProperty(<?php echo $rowProperty['id_property'];?>)" class="btn btn-sm btn-danger pull-right"><i class="fas fa-trash"></i></a>
                   </div>
                 </div>
@@ -305,6 +309,18 @@
                     <!-- /.input group -->
                   </div>
                 </div>
+
+
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  Tiene Estacionamiento: <input type="checkbox" id="hasParking" name="hasParking" /><br />
+                  <p id="contentParking">Numero: <input type="text" id="numberParking" name="numberParking" size="5"></p>
+                </div>
+                <div class="col-md-6">
+                  Tiene Bodega: <input type="checkbox" id="hasWarehouse" name="hasWarehouse" /><br>
+                  <p id="contentWarehouse">Numero: <input type="text" id="numberWarehouse" name="numberWarehouse" size="5"></p>
+                </div>
               </div>
           </div>
           <div class="modal-footer">
@@ -418,25 +434,44 @@
               <div class="row">
                 <div class="col-xs-4">
                   <div class="form-group">
-                    <label>N° Aguas Andinas</label>
+                    <label>Agua</label>
+                    <!--Proveedor-->
                     <div class="input-group">
                       <div class="input-group-addon">
                         <i class="fa fa-tint"></i>
                       </div>
-                      <input type="text" name="agua_edit" id="agua_edit" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
+                      <input name="proveedor_agua_edit" id="proveedor_agua_edit" type="text" class="form-control" autocomplete="none" placeholder="Proveedor" required>
                     </div>
+
+                    <!--Nro-->
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-tint"></i>
+                      </div>
+                      <input name="n_cliente_agua_edit" id="n_cliente_agua_edit" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
+                    </div>
+
                     <!-- /.input group -->
                   </div>
                 </div>
 
                 <div class="col-xs-4">
                   <div class="form-group">
-                    <label>N° Enel</label>
+                    <label>Energia Electrica</label>
+                    <!--Proveedor-->
                     <div class="input-group">
                       <div class="input-group-addon">
                         <i class="fa fa-bolt"></i>
                       </div>
-                      <input type="text" name="luz_edit" id="luz_edit" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
+                      <input name="proveedor_luz_edit" id="proveedor_luz_edit" type="text" class="form-control" autocomplete="none" placeholder="Proveedor" required>
+                    </div>
+
+                    <!--Nro-->
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-bolt"></i>
+                      </div>
+                      <input name="n_cliente_luz_edit" id="n_cliente_luz_edit" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -444,17 +479,36 @@
 
                 <div class="col-xs-4">
                   <div class="form-group">
-                    <label>N° MetroGas</label>
+                    <label>Gas</label>
+                    <!--Proveedor-->
                     <div class="input-group">
                       <div class="input-group-addon">
                         <i class="fa fa-fire"></i>
                       </div>
-                      <input type="text" name="gas_edit" id="gas_edit" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
+                      <input name="proveedor_gas_edit" id="proveedor_gas_edit" type="text" class="form-control" autocomplete="none" placeholder="Proveedor" required>
+                    </div>
+
+                    <!--Nro-->
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-fire"></i>
+                      </div>
+                      <input name="n_cliente_gas_edit" id="n_cliente_gas_edit" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
                     </div>
                     <!-- /.input group -->
                   </div>
-                </div>
               </div>
+              
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              Tiene Estacionamiento: <input type="checkbox" id="hasParkingEdit" name="hasParkingEdit" value="N" /><br />
+              <p id="contentParkingEdit">Numero: <input type="text" id="numberParkingEdit" name="numberParkingEdit" size="5"></p>
+            </div>
+            <div class="col-md-6">
+              Tiene Bodega: <input type="checkbox" id="hasWarehouseEdit" name="hasWarehouseEdit" value="N" /><br>
+              <p id="contentWarehouseEdit">Numero: <input type="text" id="numberWarehouseEdit" name="numberWarehouseEdit" size="5"></p>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -464,7 +518,7 @@
         </div>
       </div>
     </div>
-
+  </div>
     <!-- Main Footer -->
     <footer class="main-footer">
       <?php include 'footer.php'; ?>
@@ -502,6 +556,54 @@
           $(".btn-danger").hide();
           $("#new_administrator").attr("disabled", true);
       <?php }?>
+
+
+      //Defininicio de Check Segun Bodega y Estancionamiento
+      $("#hasParking").click(function(){
+        if($(this).prop("checked")){
+          $("#contentParking").show();
+          $(this).val('Y');
+        }else{
+          $("#numberParking").val('');
+          $("#contentParking").hide();
+          $(this).val('N');
+        }
+      });
+
+      $("#hasWarehouse").click(function(){
+        if($(this).prop("checked")){
+          $("#contentWarehouse").show();
+          $(this).val('Y');
+        }else{
+          $("#numberWarehouse").val('');
+          $("#contentWarehouse").hide();
+          $(this).val('N');
+        }
+      });
+
+      //Defininicio de Check Segun Bodega y Estancionamiento Edit
+      $("#hasParkingEdit").click(function(){
+        if($(this).prop("checked")){
+          $("#contentParkingEdit").show();
+          $(this).val('Y');
+        }else{
+          $("#numberParkingEdit").val('');
+          $("#contentParkingEdit").hide();
+          $(this).val('N');
+        }
+      });
+
+      $("#hasWarehouseEdit").click(function(){
+        if($(this).prop("checked")){
+          $("#contentWarehouseEdit").show();
+          $(this).val('Y');
+        }else{
+          $("#numberWarehouseEdit").val('');
+          $("#contentWarehouseEdit").hide();
+          $(this).val('N');
+        }
+      });
+
       // definimos el texto del boton btnSave
       $('#btnSave').html('<i class="fa fa-check-circle"></i> Guardar');
       // definimos el texto del boton btnEdit
@@ -680,10 +782,35 @@
             $('#region_edit').val(datos.region_property);
             $('#comuna_edit').val(datos.comuna_property);
             //
-            $('#agua_edit').val(datos.n_client_agua);
-            $('#luz_edit').val(datos.n_client_luz);
-            $('#gas_edit').val(datos.n_client_gas);
-            //
+            $('#proveedor_agua_edit').val(datos.proveedor_agua);
+            $('#n_cliente_agua_edit').val(datos.n_client_agua);
+
+            $('#proveedor_luz_edit').val(datos.proveedor_luz);
+            $('#n_cliente_luz_edit').val(datos.n_client_luz);
+
+            $('#proveedor_gas_edit').val(datos.proveedor_gas);
+            $('#n_cliente_gas_edit').val(datos.n_client_gas);
+
+            if(datos.hasParking == 'Y'){
+              $("#hasParkingEdit").attr('checked',true).val('Y');
+              $("#contentParkingEdit").show();
+              $("#numberParkingEdit").val(datos.numberParking);
+            }else if(datos.hasParking == 'N'){
+               $("#hasParkingEdit").attr('checked',false).val('N');
+               $("#hasParkingEdit").val('N');
+            }
+
+            if(datos.hasWarehouse == 'Y'){
+              $("#hasWarehouseEdit").attr('checked',true).val('Y');
+              $("#contentWarehouseEdit").show();
+              $("#numberWarehouseEdit").val(datos.numberWarehouse);
+            }else if(datos.hasWarehouse == 'N'){
+              $("#hasWarehouseEdit").attr('checked',false).val('N');
+              $("#hasWarehouseEdit").val('N');
+            }
+
+            //show edit modal
+            $("#modalEditProperty").modal('show');
           },
           error: function (xhr, textStatus, errorMessage) {
 
