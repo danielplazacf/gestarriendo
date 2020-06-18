@@ -338,7 +338,7 @@
                       <div class="input-group-addon">
                           #
                       </div>
-                      <input type="text" id="numberParking" placeholder="Numero" class="form-control" name="numberParking"/>
+                      <input type="text" id="numberParking" placeholder="Número" class="form-control" name="numberParking"/>
                     </div>
                   </div>
                 </div>
@@ -356,7 +356,7 @@
                       <div class="input-group-addon">
                           #
                       </div>
-                      <input type="text" id="numberWarehouse" placeholder="Numero" class="form-control" name="numberWarehouse">
+                      <input type="text" id="numberWarehouse" placeholder="Número" class="form-control" name="numberWarehouse">
                     </div>
                   </div>
 
@@ -556,7 +556,7 @@
                       <div class="input-group-addon">
                           #
                       </div>
-                      <input type="text" id="numberParkingEdit" placeholder="Numero" class="form-control" name="numberParkingEdit"/>
+                      <input type="text" id="numberParkingEdit" placeholder="Número" class="form-control" name="numberParkingEdit"/>
                     </div>
                   </div>
                 </div>
@@ -574,7 +574,7 @@
                       <div class="input-group-addon">
                           #
                       </div>
-                      <input type="text" id="numberWarehouseEdit" placeholder="Numero" class="form-control" name="numberWarehouseEdit">
+                      <input type="text" id="numberWarehouseEdit" placeholder="Número" class="form-control" name="numberWarehouseEdit">
                     </div>
                   </div>
 
