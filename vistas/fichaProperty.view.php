@@ -217,9 +217,6 @@
                     <a class="btn btn-app" data-toggle="modal" data-target="#modalDatosPropietario">
                       <i class="fa fa-user"></i> Datos Propietario
                     </a>
-                    <a class="btn btn-app" id="ipcButton" data-toggle="modal" data-target="#modalDatosIpc">
-                      <i class="fa fa-file"></i> IPC
-                    </a>
                   </div>
                 </div>
               </div>
@@ -249,6 +246,9 @@
                     }
                     echo $html;
                     ?>
+                    <a class="btn btn-app" id="ipcButton" data-toggle="modal" data-target="#modalDatosIpc">
+                      <i class="fa fa-file"></i> IPC
+                    </a>
                   </div>
                 </div>
               </div>

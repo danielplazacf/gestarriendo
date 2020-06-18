@@ -336,7 +336,7 @@
                   <div class="form-group" id="contentParking">
                     <div class="input-group">
                       <div class="input-group-addon">
-                          <i class="fa fa-fire"></i>
+                          #
                       </div>
                       <input type="text" id="numberParking" placeholder="Numero" class="form-control" name="numberParking"/>
                     </div>
@@ -354,7 +354,7 @@
                   <div class="form-group" id="contentWarehouse">
                     <div class="input-group">
                       <div class="input-group-addon">
-                          <i class="fa fa-fire"></i>
+                          #
                       </div>
                       <input type="text" id="numberWarehouse" placeholder="Numero" class="form-control" name="numberWarehouse">
                     </div>
@@ -554,7 +554,7 @@
                   <div class="form-group" id="contentParkingEdit">
                     <div class="input-group">
                       <div class="input-group-addon">
-                          <i class="fa fa-fire"></i>
+                          #
                       </div>
                       <input type="text" id="numberParkingEdit" placeholder="Numero" class="form-control" name="numberParkingEdit"/>
                     </div>
@@ -572,7 +572,7 @@
                   <div class="form-group" id="contentWarehouseEdit">
                     <div class="input-group">
                       <div class="input-group-addon">
-                          <i class="fa fa-fire"></i>
+                          #
                       </div>
                       <input type="text" id="numberWarehouseEdit" placeholder="Numero" class="form-control" name="numberWarehouseEdit">
                     </div>
@@ -630,6 +630,9 @@
           $(".btn-danger").hide();
           $("#new_administrator").attr("disabled", true);
       <?php }?>
+
+      $(".toggle-on").text("Si")
+      $(".toggle-off").text("No")
 
       $('#hasParking').bootstrapToggle({
         on: 'Si',
