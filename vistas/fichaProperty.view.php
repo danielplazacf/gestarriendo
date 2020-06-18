@@ -2013,9 +2013,10 @@
               }else{
                 $r = "Cada ".$rss['recurrencia']." Meses";
               }
-              print "$('#alertIPC').show().html('<strong>La regulacion de su ip se ha configurado a ".$r."</strong>').addClass('alert-info');";
+              print "$('#alertIPC').show().html('<strong>La regulación de su IPC se ha configurado a ".$r."</strong>').addClass('alert-info');";
             }else{
-              print "$('#alertIPC').show().html('<strong>Aun no ha Configuracio la Regulacion de su IPC</strong>').addClass('alert-warning');";
+              print "$('#alertIPC').show().html('<strong>Aún no ha configurado la regulación de su IPC</strong>').addClass('alert-warning');";
+              print "$('#alertIPC').css('margin-bottom','15px');";
             }
           }else{
             print "$('#ipcButton').attr('disabled',true).attr('data-target','');";

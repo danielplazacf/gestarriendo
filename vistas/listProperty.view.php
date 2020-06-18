@@ -8,6 +8,8 @@
   <!-- bootstrap datepicker -->
   <link rel="stylesheet" href="resources/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
   <style type="text/css">
     .cke_textarea_inline {
       border: 1px solid #ccc;
@@ -324,15 +326,46 @@
 
               </div>
               <div class="row">
+
                 <div class="col-md-6">
-                  Tiene Estacionamiento: <input type="checkbox" id="hasParking" name="hasParking" /><br />
-                  <p id="contentParking">Numero: <input type="text" id="numberParking" name="numberParking" size="5"></p>
+                  <div class="form-group">
+                    <label>Tiene Estacionamiento?</label>
+                    <input type="checkbox" id="hasParking" name="hasParking" class="form-control" data-toggle="toggle" />
+                  </div>
+
+                  <div class="form-group" id="contentParking">
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                          <i class="fa fa-fire"></i>
+                      </div>
+                      <input type="text" id="numberParking" placeholder="Numero" class="form-control" name="numberParking"/>
+                    </div>
+                  </div>
                 </div>
+
+
                 <div class="col-md-6">
-                  Tiene Bodega: <input type="checkbox" id="hasWarehouse" name="hasWarehouse" /><br>
-                  <p id="contentWarehouse">Numero: <input type="text" id="numberWarehouse" name="numberWarehouse" size="5"></p>
+
+                  <div class="form-group">
+                    <label>Tiene Bodega?</label>
+                    <input type="checkbox" id="hasWarehouse" name="hasWarehouse" class="form-control" data-toggle="toggle" />
+                  </div>
+
+                  <div class="form-group" id="contentWarehouse">
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                          <i class="fa fa-fire"></i>
+                      </div>
+                      <input type="text" id="numberWarehouse" placeholder="Numero" class="form-control" name="numberWarehouse">
+                    </div>
+                  </div>
+
                 </div>
-              </div>
+
+
+            </div>
+
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -512,14 +545,40 @@
               
           </div>
           <div class="row">
-            <div class="col-md-6">
-              Tiene Estacionamiento: <input type="checkbox" id="hasParkingEdit" name="hasParkingEdit" value="N" /><br />
-              <p id="contentParkingEdit">Numero: <input type="text" id="numberParkingEdit" name="numberParkingEdit" size="5"></p>
-            </div>
-            <div class="col-md-6">
-              Tiene Bodega: <input type="checkbox" id="hasWarehouseEdit" name="hasWarehouseEdit" value="N" /><br>
-              <p id="contentWarehouseEdit">Numero: <input type="text" id="numberWarehouseEdit" name="numberWarehouseEdit" size="5"></p>
-            </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Tiene Estacionamiento?</label>
+                    <input type="checkbox" id="hasParkingEdit" name="hasParkingEdit" class="form-control" data-toggle="toggle" />
+                  </div>
+
+                  <div class="form-group" id="contentParkingEdit">
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                          <i class="fa fa-fire"></i>
+                      </div>
+                      <input type="text" id="numberParkingEdit" placeholder="Numero" class="form-control" name="numberParkingEdit"/>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-md-6">
+
+                  <div class="form-group">
+                    <label>Tiene Bodega?</label>
+                    <input type="checkbox" id="hasWarehouseEdit" name="hasWarehouseEdit" class="form-control" data-toggle="toggle" />
+                  </div>
+
+                  <div class="form-group" id="contentWarehouseEdit">
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                          <i class="fa fa-fire"></i>
+                      </div>
+                      <input type="text" id="numberWarehouseEdit" placeholder="Numero" class="form-control" name="numberWarehouseEdit">
+                    </div>
+                  </div>
+
+                </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -561,6 +620,10 @@
   <script src="resources/dist/js/adminlte.min.js"></script>
   <!-- Moment.js -->
   <script src="resources/dist/js/moment.min.js"></script>
+
+  <!-- Button Toggle -->
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
   <script type="text/javascript">
     $(document).ready(function() {
       <?php if($_SESSION['type_user'] == 'observador') {?>
@@ -568,9 +631,23 @@
           $("#new_administrator").attr("disabled", true);
       <?php }?>
 
+      $('#hasParking').bootstrapToggle({
+        on: 'Si',
+        off: 'No',
+        onstyle: 'success input-group',
+        offstyle: 'danger input-group'
+      });
+
+      $('#hasWarehouse').bootstrapToggle({
+        on: 'Si',
+        off: 'No',
+        onstyle: 'success input-group',
+        offstyle: 'danger input-group'
+      });
+
 
       //Defininicio de Check Segun Bodega y Estancionamiento
-      $("#hasParking").click(function(){
+      $("#hasParking").change(function(){
         if($(this).prop("checked")){
           $("#contentParking").show();
           $(this).val('Y');
@@ -581,7 +658,7 @@
         }
       });
 
-      $("#hasWarehouse").click(function(){
+      $("#hasWarehouse").change(function(){
         if($(this).prop("checked")){
           $("#contentWarehouse").show();
           $(this).val('Y');
@@ -593,7 +670,7 @@
       });
 
       //Defininicio de Check Segun Bodega y Estancionamiento Edit
-      $("#hasParkingEdit").click(function(){
+      $("#hasParkingEdit").change(function(){
         if($(this).prop("checked")){
           $("#contentParkingEdit").show();
           $(this).val('Y');
@@ -604,7 +681,7 @@
         }
       });
 
-      $("#hasWarehouseEdit").click(function(){
+      $("#hasWarehouseEdit").change(function(){
         if($(this).prop("checked")){
           $("#contentWarehouseEdit").show();
           $(this).val('Y');
@@ -804,19 +881,23 @@
 
             if(datos.hasParking == 'Y'){
               $("#hasParkingEdit").attr('checked',true).val('Y');
+              $("#hasParkingEdit").bootstrapToggle('on');
               $("#contentParkingEdit").show();
               $("#numberParkingEdit").val(datos.numberParking);
             }else if(datos.hasParking == 'N'){
                $("#hasParkingEdit").attr('checked',false).val('N');
+               $("#hasParkingEdit").bootstrapToggle('off');
                $("#hasParkingEdit").val('N');
             }
 
             if(datos.hasWarehouse == 'Y'){
               $("#hasWarehouseEdit").attr('checked',true).val('Y');
+              $("#hasWarehouseEdit").bootstrapToggle('on');
               $("#contentWarehouseEdit").show();
               $("#numberWarehouseEdit").val(datos.numberWarehouse);
             }else if(datos.hasWarehouse == 'N'){
               $("#hasWarehouseEdit").attr('checked',false).val('N');
+              $("#hasWarehouseEdit").bootstrapToggle('off');
               $("#hasWarehouseEdit").val('N');
             }
 
