@@ -217,6 +217,9 @@
                     <a class="btn btn-app" data-toggle="modal" data-target="#modalDatosPropietario">
                       <i class="fa fa-user"></i> Datos Propietario
                     </a>
+                    <a class="btn btn-app" id="ipcButton" data-toggle="modal" data-target="#modalDatosIpc">
+                      <i class="fa fa-file"></i> IPC
+                    </a>
                   </div>
                 </div>
               </div>
@@ -253,6 +256,7 @@
           </div>
           <!-- /.col -->
           <div class="col-md-8">
+            <div class="alert" id="alertIPC" style="display: none;"></div>
             <!-- Custom Tabs -->
             <?php //echo $key; ?>
             <div class="row">
@@ -1878,6 +1882,44 @@
 
   </div>
 
+  <div class="modal fade" id="modalDatosIpc" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content ">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Regular IPC</h4>
+              </div>
+              <div class="modal-body">
+                <form id="ipcForm">
+                  <?php
+                      $stmt = $con->prepare("SELECT id_contrato, fecha_inicio FROM tbl_contrato_system WHERE id_property = ".$key." ORDER BY id_contrato DESC LIMIT 1");
+                      $stmt->execute();
+
+                      $rs = $stmt->fetch();
+
+                  ?>
+                  <input type="hidden" name="ipcContrato_ID" value="<?php echo $rs['id_contrato']; ?>" id="ipcContrato_ID">
+                  <input type="hidden" name="ipcFechaInicio" value="<?php echo $rs['fecha_inicio']; ?>" id="ipcFechaInicio">
+                  <div class="form-group">
+                    <label>Regular IPC Cada: </label>
+                    <select class="form-control" id="ipcRecurrencia" name="ipcRecurrencia">
+                      <option value="3">3 Meses</option>
+                      <option value="6">6 Meses</option>
+                      <option value="12">12 Meses</option>
+                      <option value="0">Nunca</option>
+                    </select>
+                  </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-success">Registrar</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+      </div>
+  </div>
   <!-- Main Footer -->
   <footer class="main-footer">
     <?php include 'footer.php'; ?>
@@ -1917,7 +1959,70 @@
           $(".btn-app").attr('data-target','');
           $("#only-read").val('Y');
       <?php }?>
-    })
+
+
+
+      $("#ipcForm").submit(function(e){
+        e.preventDefault();
+        let datos = $(this).serialize();
+
+        $.ajax({
+          type : 'POST',
+          url : 'model/addIpcModel.php',
+          data: datos,
+          success : function(data){
+            console.log(data);
+            let title = "";
+            let text = "";
+            let icon = "";
+
+            if(data == "ok"){
+              title = "Exito";
+              text = "El registro fue insertado satisfactoriamente."
+              icon = "success";
+            }else{
+              title = "Error";
+              text = "Ocurrio un error al tratar de realizar la insercion."
+              icon = "error";
+            }
+
+            swal({
+              title: title,
+              text: text,
+              icon: icon,
+              button: "Ok",
+            });
+
+            location.reload();
+          },
+        })
+
+      });
+
+      <?php
+          if($rs['id_contrato']){
+            $stmt = $con->prepare("SELECT recurrencia FROM tbl_ipc_config WHERE id_contrato = ".$rs['id_contrato']);
+            $stmt->execute();
+            $rss = $stmt->fetch();
+            if($rss['recurrencia'] >= 0 and !empty($rss['recurrencia'])){
+
+              print "$('#ipcRecurrencia').val(".$rss['recurrencia'].");\n";
+
+              if($rss['recurrencia'] == 0){
+                $r = "Nunca";
+              }else{
+                $r = "Cada ".$rss['recurrencia']." Meses";
+              }
+              print "$('#alertIPC').show().html('<strong>La regulacion de su ip se ha configurado a ".$r."</strong>').addClass('alert-info');";
+            }else{
+              print "$('#alertIPC').show().html('<strong>Aun no ha Configuracio la Regulacion de su IPC</strong>').addClass('alert-warning');";
+            }
+          }else{
+            print "$('#ipcButton').attr('disabled',true).attr('data-target','');";
+          }
+      ?>
+
+    });
   </script>
 </body>
 
