@@ -49,7 +49,20 @@
           <?php echo $titulo; ?>
           <small>Sistema de Gestión Inmobiliaria</small>
           <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary pull-right" id="new_administrator" data-toggle="modal" data-target="#modalAddProperty">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i> Nueva Administración
+          </button>
         </h1>
+        <form class="form-inline" method="GET" action="">
+          <div class="input-group">
+            <input type="text" class="form-control" name="q" value="<?=$_GET['q']?>"  placeholder="Buscar Propiedad">
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
       </section>
 
       <!-- Main content -->
@@ -59,7 +72,12 @@
 
         <div class="row">
         <?php
-          $statement = $con->prepare("SELECT * FROM tbl_property_system ORDER BY date_register ASC");
+          if(isset($_GET['q']) and !empty($_GET['q'])){
+            $statement = $con->prepare("SELECT * FROM tbl_property_system WHERE address_property like '%".$_GET['q']."%' ORDER BY date_register ASC");
+          }else{
+            $statement = $con->prepare("SELECT * FROM tbl_property_system ORDER BY date_register ASC");
+          }
+          
           $statement->execute();
           while ($rowProperty = $statement->fetch()){
         ?>
