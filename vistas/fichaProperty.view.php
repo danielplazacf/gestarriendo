@@ -2018,7 +2018,7 @@
                   </div>
             
               <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Guardar</button>
+                <button type="submit" id="btnGastos" class="btn btn-success">Guardar</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
               </div>
               </form>
@@ -2119,6 +2119,8 @@
         datos.append('descriptionGasto',$("#descriptionGasto").val());
         datos.append('contrato_id',<?=$rs['id_contrato']?>);
 
+        $("#btnGastos").text("Cargando...").prop('disabled', true);
+
         $.ajax({
           type: 'post',
           url: 'model/addGastos.php',
@@ -2148,7 +2150,7 @@
               button: "Ok",
             });
 
-            location.reload();
+            //location.reload();
           }
         });
 
