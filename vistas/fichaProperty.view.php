@@ -69,6 +69,13 @@
         <h1>
           <?php echo $titulo;
           $key = $_GET['id_property']; ?>
+
+          <?php
+              $stmt = $con->prepare("SELECT id_contrato, fecha_inicio FROM tbl_contrato_system WHERE id_property = ".$key." ORDER BY id_contrato DESC LIMIT 1");
+              $stmt->execute();
+              $rs = $stmt->fetch();
+          ?>
+
           <small>Sistema de Gestión Inmobiliaria</small>
           <!-- <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalAddMove">
           <i class="fa fa-plus-circle"></i> Nuevo Movimiento
@@ -245,10 +252,15 @@
                               </button>';
                     }
                     echo $html;
+                    
                     ?>
                     <a class="btn btn-app" id="ipcButton" data-toggle="modal" data-target="#modalDatosIpc">
                       <i class="fa fa-file"></i> IPC
-                    </a>
+                    </a> 
+
+                    <a class="btn btn-app" id="gastosButton" data-toggle="modal" data-target="#modalDatosGatos">
+                      <i class="fa fa-file"></i> Registrar Gasto
+                    </a>  
                   </div>
                 </div>
               </div>
@@ -641,6 +653,49 @@
                         </div>
                         <!-- /.col -->
                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="nav-tabs-custom">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#gastos" data-toggle="tab" aria-expanded="false">Gastos</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="gastos">
+                      <table class="table table-striped">
+                        <thead>
+                          <th>ID</th>
+                          <th>Nro</th>
+                          <th>Cargo A</th>
+                          <th>Concepto</th>
+                          <th>Monto</th>
+                          <th>Descripcion</th>
+                          <th>Link Documento</th>
+                        </thead>
+                        <tbody>
+                          <?php
+                            $qgastos = "SELECT gt.id, gt.documentno, gt.charge_to, cg.name AS concepto_gasto, gt.amount, gt.description, gt.url_file_doc FROM tbl_gastos as gt INNER JOIN tbl_concepto_gasto AS cg ON (cg.id = gt.concepto_gasto_id) WHERE gt.contrato_id = ".$rs['id_contrato'];
+                            $r = $con->query($qgastos);
+
+                            while($row = $r->fetch(PDO::FETCH_ASSOC)){
+                          ?>
+                          <tr>
+                            <td><?=$row['id']?></td>
+                            <td><?=$row['documentno']?></td>
+                            <td><?=$row['charge_to']?></td>
+                            <td><?=$row['concepto_gasto']?></td>
+                            <td><?=$row['amount']?></td>
+                            <td><?=$row['description']?></td>
+                            <td><a class="btn btn-info" href="uploads/gastos/<?=$row['url_file_doc']?>" target="_blank">Ver Archvo</a></td>
+                          </tr>
+                        <?php }?>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
@@ -1892,13 +1947,6 @@
               </div>
               <div class="modal-body">
                 <form id="ipcForm">
-                  <?php
-                      $stmt = $con->prepare("SELECT id_contrato, fecha_inicio FROM tbl_contrato_system WHERE id_property = ".$key." ORDER BY id_contrato DESC LIMIT 1");
-                      $stmt->execute();
-
-                      $rs = $stmt->fetch();
-
-                  ?>
                   <input type="hidden" name="ipcContrato_ID" value="<?php echo $rs['id_contrato']; ?>" id="ipcContrato_ID">
                   <input type="hidden" name="ipcFechaInicio" value="<?php echo $rs['fecha_inicio']; ?>" id="ipcFechaInicio">
                   <div class="form-group">
@@ -1918,6 +1966,64 @@
             </div>
           </div>
           <!-- /.modal-content -->
+      </div>
+  </div>
+
+    <!--Modal de Gastos-->
+  <div class="modal fade" id="modalDatosGatos" role="dialog">
+      <div class="modal-dialog modal-md">
+          <div class="modal-content ">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Registrar Gasto</h4>
+              </div>
+              <div class="modal-body">
+                <form id="formGastos" method="POST" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label>Numero de Cobro u Orden:</label>
+                    <input type="text" name="documentno" id="documentno" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    <label>Con Cargo a:</label>
+                    <select class="form-control" name="chargeTo" id="chargeTo">
+                      <option value="GA">Gest Arriendo</option>
+                      <option value="Propietario">Propietario</option>
+                      <option value="Arrendatario">Arrendatario</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Concepto:</label>
+                    <select class="form-control" name="concepto_gasto_id" id="concepto_gasto_id">
+                      <?php 
+                        $qr = "SELECT id, name FROM tbl_concepto_gasto ORDER BY name ASC";
+                        $q = $con->query($qr);
+                        while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+                      ?>
+                        <option value="<?=$row['id']?>"><?=$row['name']?></option>
+                      <?php } ?>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Monto:</label>
+                    <input type="text" name="amountGasto" id="amountGasto" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    <label>Descripcion:</label>
+                    <textarea class="form-control" name="descriptionGasto" id="descriptionGasto"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label>Archivo Adjunto:</label>
+                    <input type="file" name="url_file_doc" id="url_file_doc" class="form-control" />
+                  </div>
+            
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              </div>
+              </form>
+            </div>
+          </div>
       </div>
   </div>
   <!-- Main Footer -->
@@ -1996,6 +2102,55 @@
             location.reload();
           },
         })
+
+      });
+
+      $("#formGastos").submit(function(e){
+        e.preventDefault();
+        var datos = new FormData();
+
+        var file = $("#url_file_doc")[0].files[0];
+
+        datos.append('url_file_doc', file);
+        datos.append('documentno',$("#documentno").val());
+        datos.append('chargeTo',$("#chargeTo").val());
+        datos.append('concepto_gasto_id', $("#concepto_gasto_id").val());
+        datos.append('amountGasto',$("#amountGasto").val());
+        datos.append('descriptionGasto',$("#descriptionGasto").val());
+        datos.append('contrato_id',<?=$rs['id_contrato']?>);
+
+        $.ajax({
+          type: 'post',
+          url: 'model/addGastos.php',
+          data: datos,
+          contentType: false,
+          processData: false,
+          success: function (data){
+            console.log(data);
+            let title = "";
+            let text = "";
+            let icon = "";
+
+            if(data == "ok"){
+              title = "Exito";
+              text = "El registro fue insertado satisfactoriamente."
+              icon = "success";
+            }else{
+              title = "Error";
+              text = "Ocurrio un error al tratar de realizar la insercion."
+              icon = "error";
+            }
+
+            swal({
+              title: title,
+              text: text,
+              icon: icon,
+              button: "Ok",
+            });
+
+            location.reload();
+          }
+        });
 
       });
 

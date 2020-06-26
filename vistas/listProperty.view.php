@@ -49,10 +49,6 @@
           <?php echo $titulo; ?>
           <small>Sistema de Gestión Inmobiliaria</small>
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary pull-right" id="new_administrator" data-toggle="modal" data-target="#modalAddProperty">
-            <i class="fa fa-plus-circle"></i> Nueva Administración
-          </button>
-
         </h1>
       </section>
 
