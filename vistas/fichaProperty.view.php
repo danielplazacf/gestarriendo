@@ -670,12 +670,12 @@
                       <table class="table table-striped">
                         <thead>
                           <th>ID</th>
-                          <th>Nro</th>
-                          <th>Cargo A</th>
-                          <th>Concepto</th>
-                          <th>Monto</th>
-                          <th>Descripcion</th>
-                          <th>Link Documento</th>
+                          <th>NRO</th>
+                          <th>CARGO A</th>
+                          <th>CONCEPTO</th>
+                          <th>MONTO</th>
+                          <th>DESCRIPCION</th>
+                          <th>DOCUMENTO</th>
                         </thead>
                         <tbody>
                           <?php

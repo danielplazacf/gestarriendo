@@ -1,5 +1,8 @@
 <?php
+	use PHPMailer\PHPMailer\PHPMailer;
+	use PHPMailer\PHPMailer\Exception;
 
+	
 	// Requerimos conexion a la DDBB
 	require_once('../gt-config/conexion.php');
 
