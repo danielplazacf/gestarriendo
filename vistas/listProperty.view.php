@@ -55,7 +55,7 @@
         </h1>
         <form class="form-inline" method="GET" action="">
           <div class="input-group">
-            <input type="text" class="form-control" name="q" value="<?=$_GET['q']?>"  placeholder="Buscar Propiedad">
+            <input type="text" class="form-control" name="q" value="<?=(isset($_GET['q']) and !empty($_GET['q'])) ? $_GET['q'] : ''; ?>"  placeholder="Buscar Propiedad">
             <div class="input-group-btn">
               <button class="btn btn-default" type="submit">
                 <i class="glyphicon glyphicon-search"></i>

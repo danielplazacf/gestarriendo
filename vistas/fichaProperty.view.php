@@ -68,7 +68,9 @@
       <section class="content-header">
         <h1>
           <?php echo $titulo;
-          $key = $_GET['id_property']; ?>
+          $key = $_GET['id_property']; 
+          verifyCobro($key);
+          ?>
 
           <?php
               $stmt = $con->prepare("SELECT id_contrato, fecha_inicio FROM tbl_contrato_system WHERE id_property = ".$key." ORDER BY id_contrato DESC LIMIT 1");
@@ -661,13 +663,58 @@
 
             <div class="row">
               <div class="col-lg-12">
+                 <div class="nav-tabs-custom">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#pagosu" data-toggle="tab" aria-expanded="false">Pagos</a></li>
+                    <li class=""><a href="#cobrosu" data-toggle="tab" aria-expanded="false">Cobros</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="pagosu">
+                      <table id="tablePagosU" class="table table-striped" style="font-size: 1.1rem; width:100%">
+                        <thead>
+                          <tr>
+                            <th>DESDE</th>
+                            <th>HACIA</th>
+                            <th>CONCEPTO</th>
+                            <th>MONTO</th>
+                            <th>Estatus</th>
+                            <th width="150px">OPCIONES</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php 
+                            $stmt_pagos = $con->query("SELECT * FROM tbl_pagos_property WHERE id_property = ".$key." AND unique_id <> 0");
+                            while($row = $stmt_pagos->fetch()){
+
+                          ?>
+                          <tr>
+                            <td><?=$row['desde_pago']?></td>
+                            <td><?=$row['hacia_pago']?></td>
+                            <td><?=$row['concepto_csimple']?></td>
+                            <td><?=$row['amount_psimple']?></td>
+                            <td><?=$row['estatus']?></td>
+                            <td></td>
+                          </tr>
+                        <?php } ?>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="tab-pane" id="cobrosu">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12">
                 <div class="nav-tabs-custom">
                   <ul class="nav nav-tabs">
                     <li class="active"><a href="#gastos" data-toggle="tab" aria-expanded="false">Gastos</a></li>
                   </ul>
                   <div class="tab-content">
                     <div class="tab-pane active" id="gastos">
-                      <table class="table table-striped">
+                      <table class="table table-striped" style="font-size: 1.1rem; width:100%">
                         <thead>
                           <th>ID</th>
                           <th>NRO</th>
@@ -707,10 +754,10 @@
                 <div class="nav-tabs-custom">
                   <ul class="nav nav-tabs">
                     <?php if ($pago == '1') { ?>
-                      <li class="active"><a href="#pagos" data-toggle="tab" aria-expanded="false">Pagos</a></li>
-                      <li class=""><a href="#cobros" data-toggle="tab" aria-expanded="false">Cobros</a></li>
+                      <li class="active"><a href="#pagos" data-toggle="tab" aria-expanded="false">Pagos Recurrentes</a></li>
+                      <li class=""><a href="#cobros" data-toggle="tab" aria-expanded="false">Cobros Recurrentes</a></li>
                     <?php } else if ($pago == '0') { ?>
-                      <li class="active"><a href="#cobros" data-toggle="tab" aria-expanded="false">Cobros</a></li>
+                      <li class="active"><a href="#cobros" data-toggle="tab" aria-expanded="false">Cobros Recurrentes</a></li>
                     <?php } ?>
                   </ul>
                   <div class="tab-content">

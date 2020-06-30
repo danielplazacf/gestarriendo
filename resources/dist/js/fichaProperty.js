@@ -494,15 +494,13 @@ var mostrarPago = function(id_pago_property) {
         $('#desde_edit_p').val(datos.desde_pago);
         $('#hacia_edit_p').val(datos.hacia_pago);
         $('#concepto_edit_p').val(datos.concepto_csimple);
-
+        $("#account_edit_p").val(datos.bankaccount);
         $('#hidden_recurrent_edit_p').val(datos.hidden_recurrent);
         if (datos.hidden_recurrent === '1') {
           $('#pay_edit_p').bootstrapToggle('on');
         } else if (datos.hidden_recurrent === '0') {
           $('#pay_edit_p').bootstrapToggle('off');
         }
-
-        $('#account_edit_p').val(datos.account_edit_p);
 
         $('#amount_edit_p').val(datos.amount_psimple);
         $('#venc_edit_p').val(datos.venc_psimple);
@@ -781,7 +779,7 @@ var editPago = function(id_pago_property) {
         $('#btnEditPagos').html('<i class="fas fa-spin fa-spinner"></i>');
       },
       success: function(data) {
-        if (data == 'ok') {
+        if (data.trim() == 'ok') {
           swal({
             title: "Actualizado!",
             text: "El registro fue actualizado satisfactoriamente.",

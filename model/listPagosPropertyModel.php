@@ -13,7 +13,7 @@
 	$key = $_GET['id_property'];
 
 	//$query = "SELECT * FROM tbl_property_system ORDER BY name_owner ASC";
-	$statement = $con->prepare("SELECT * FROM tbl_pagos_property WHERE id_property = '$key' ORDER BY id_pago_property ASC");
+	$statement = $con->prepare("SELECT * FROM tbl_pagos_property WHERE id_property = '$key' AND unique_id = 0 ORDER BY id_pago_property ASC");
 	$statement->execute();
 	while ($row = $statement->fetch()){
 		$datos['data'][] = $row;
