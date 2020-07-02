@@ -757,19 +757,21 @@
                           <?php
                             $qgastos = "SELECT gt.id, gt.documentno, gt.charge_to, cg.name AS concepto_gasto, gt.amount, gt.description, gt.url_file_doc FROM tbl_gastos as gt INNER JOIN tbl_concepto_gasto AS cg ON (cg.id = gt.concepto_gasto_id) WHERE gt.contrato_id = ".$rs['id_contrato'];
                             $r = $con->query($qgastos);
-
-                            while($row = $r->fetch(PDO::FETCH_ASSOC)){
+                            if(isset($rs['id_contrato']) and !empty($rs['id_contrato'])){
+                            while($row = $r->fetch()){
                           ?>
-                          <tr>
-                            <td><?=$row['id']?></td>
-                            <td><?=$row['documentno']?></td>
-                            <td><?=$row['charge_to']?></td>
-                            <td><?=$row['concepto_gasto']?></td>
-                            <td><?=$row['amount']?></td>
-                            <td><?=$row['description']?></td>
-                            <td><a class="btn btn-info" href="uploads/gastos/<?=$row['url_file_doc']?>" target="_blank">Ver Archvo</a></td>
-                          </tr>
-                        <?php }?>
+                            <tr>
+                              <td><?=$row['id']?></td>
+                              <td><?=$row['documentno']?></td>
+                              <td><?=$row['charge_to']?></td>
+                              <td><?=$row['concepto_gasto']?></td>
+                              <td><?=$row['amount']?></td>
+                              <td><?=$row['description']?></td>
+                              <td><a class="btn btn-info" href="uploads/gastos/<?=$row['url_file_doc']?>" target="_blank">Ver Archvo</a></td>
+                            </tr>
+                        <?php }
+                          }
+                        ?>
                         </tbody>
                       </table>
                     </div>
