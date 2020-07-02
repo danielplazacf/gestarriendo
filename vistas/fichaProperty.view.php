@@ -69,7 +69,8 @@
         <h1>
           <?php echo $titulo;
           $key = $_GET['id_property']; 
-          verifyCobro($key);
+          registerPago($key);
+          registerCobro($key);
           ?>
 
           <?php
@@ -692,7 +693,7 @@
                             <td><?=$row['hacia_pago']?></td>
                             <td><?=$row['concepto_csimple']?></td>
                             <td><?=$row['amount_psimple']?></td>
-                            <td><?=$row['estatus']?></td>
+                            <td><label class="label label-warning"><?=$row['estatus']?></label></td>
                             <td></td>
                           </tr>
                         <?php } ?>
@@ -700,6 +701,34 @@
                       </table>
                     </div>
                     <div class="tab-pane" id="cobrosu">
+                      <table id="tableCobrosU" class="table table-striped" style="font-size: 1.1rem; width:100%">
+                        <thead>
+                          <tr>
+                            <th>DESDE</th>
+                            <th>HACIA</th>
+                            <th>CONCEPTO</th>
+                            <th>MONTO</th>
+                            <th>Estatus</th>
+                            <th width="150px">OPCIONES</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php 
+                            $stmt_pagos = $con->query("SELECT * FROM tbl_cobros_property WHERE id_property = ".$key." AND unique_id <> 0");
+                            while($row = $stmt_pagos->fetch()){
+
+                          ?>
+                          <tr>
+                            <td><?=$row['desde_cobro']?></td>
+                            <td><?=$row['hacia_cobro']?></td>
+                            <td><?=$row['concepto_csimple']?></td>
+                            <td><?=$row['amount_csimple']?></td>
+                            <td><label class="label label-warning"><?=$row['estatus']?></label></td>
+                            <td></td>
+                          </tr>
+                        <?php } ?>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>

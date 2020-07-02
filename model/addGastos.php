@@ -37,7 +37,7 @@
 			$query->bindParam('url_file_doc', $newFileName);
 			$query->bindParam('id_contrato', $id_contrato);
 			
-	            echo 'ok';
+	         	echo 'ok';
 	        } else {
 	            echo 'error ';
 	            die($query);
