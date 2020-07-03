@@ -64,9 +64,8 @@
                                             <th>DESDE</th>
                                             <th>HACIA</th>
                                             <th>CONCEPTO</th>
-                                            <th>¿ÚNICO O RECURRENTE?</th>
+                                            <th>ESTADO</th>
                                             <th>MONTO</th>
-                                            <th width="150px">VENCIMIENTO</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -162,13 +161,13 @@
                     //1
                     {
                         "mData": function(data, type, dataToSet) {
-                            return data.desde_pago;
+                            return data.desde_pago+"<br>("+data.name_desde_pago+")";
                         }
                     },
                     //2
                     {
                         "mData": function(data, type, dataToSet) {
-                            return data.hacia_pago;
+                            return data.hacia_pago+"<br>("+data.name_hacia_pago+")";
                         }
                     },
                     //3
@@ -180,10 +179,14 @@
                     //4
                     {
                         "mData": function(data, type, dataToSet) {
-                            if (data.hidden_recurrent === '1') {
-                                return '<label class="label label-success">Cobro recurrente</label>'
-                            } else if (data.hidden_recurrent === '0') {
-                                return '<label class="label label-warning">Cobro único</label>'
+                            if (data.estatus === 'pendiente') {
+                                return '<label class="label label-info">Pendiente</label>'
+                            } else if (data.estatus === 'vencido') {
+                                return '<label class="label label-warning">Vencido</label>'
+                            } else if (data.estatus === 'pagado') {
+                                return '<label class="label label-success">Pagado</label>'
+                            } else if (data.estatus === 'cancelado') {
+                                return '<label class="label label-danger">Cancelado</label>'
                             }
                         }
                     },
@@ -191,12 +194,6 @@
                     {
                         "mData": function(data, type, dataToSet) {
                             return formatter.format(data.amount_psimple);
-                        }
-                    },
-
-                    {
-                        "mData": function(data, type, dataToSet) {
-                            return data.venc_psimple + ' de cada mes';
                         }
                     }
 
