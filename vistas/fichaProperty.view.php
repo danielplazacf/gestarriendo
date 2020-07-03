@@ -693,8 +693,30 @@
                             <td><?=$row['hacia_pago']?></td>
                             <td><?=$row['concepto_csimple']?></td>
                             <td><?=$row['amount_psimple']?></td>
-                            <td><label class="label label-warning"><?=$row['estatus']?></label></td>
-                            <td></td>
+                            <td>
+                              <?php
+                                if($row['estatus'] == "pendiente"){
+                                  $label = "info";
+                                }else if ($row['estatus'] == "pagado"){
+                                  $label = "success";
+                                }else if ($row['estatus'] == "atrasado"){
+                                  $label = "warning";
+                                }else{
+                                  $label = "danger";
+                                }
+                              ?>
+                              <label class="label label-<?=$label?>"><?=$row['estatus']?></label>
+
+                            </td>
+                            <td>
+                              <div class="ocultar-elemento btn-group">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cambiar Estadus A: <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="change-status" data-source="pago" data-value="<?=$row['id_pago_property']?>" data-status="pagado"><i class="fa fa-check" aria-hidden="true"></i>Pagado</a></li>
+                                    <li><a herf="#" class="change-status" data-source="pago" data-value="<?=$row['id_pago_property']?>" data-status="cancelado"><i class="fa fa-times"></i> Cancelado</a></li>
+                                </ul>
+                              </div>
+                            </td>
                           </tr>
                         <?php } ?>
                         </tbody>
@@ -723,8 +745,30 @@
                             <td><?=$row['hacia_cobro']?></td>
                             <td><?=$row['concepto_csimple']?></td>
                             <td><?=$row['amount_csimple']?></td>
-                            <td><label class="label label-warning"><?=$row['estatus']?></label></td>
-                            <td></td>
+                            <td>
+                              <?php
+                                if($row['estatus'] == "pendiente"){
+                                  $label = "info";
+                                }else if ($row['estatus'] == "pagado"){
+                                  $label = "success";
+                                }else if ($row['estatus'] == "atrasado"){
+                                  $label = "warning";
+                                }else{
+                                  $label = "danger";
+                                }
+                              ?>
+                              <label class="label label-<?=$label?>"><?=$row['estatus']?></label>
+
+                            </td>
+                            <td>
+                              <div class="ocultar-elemento btn-group">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cambiar Estadus A: <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="change-status" data-source="cobro" data-value="<?=$row['id_cobro_property']?>" data-status="pagado"><i class="fa fa-check" aria-hidden="true"></i>Pagado</a></li>
+                                    <li><a herf="#" class="change-status" data-source="cobro" data-value="<?=$row['id_cobro_property']?>" data-status="cancelado"><i class="fa fa-times"></i> Cancelado</a></li>
+                                </ul>
+                              </div>
+                            </td>
                           </tr>
                         <?php } ?>
                         </tbody>
@@ -760,7 +804,7 @@
                             if(isset($rs['id_contrato']) and !empty($rs['id_contrato'])){
                             while($row = $r->fetch()){
                           ?>
-                            <tr>
+           \\                 <tr>
                               <td><?=$row['id']?></td>
                               <td><?=$row['documentno']?></td>
                               <td><?=$row['charge_to']?></td>
@@ -2257,6 +2301,32 @@
             print "$('#ipcButton').attr('disabled',true).attr('data-target','');";
           }
       ?>
+
+      $("a.change-status").click(function(e){
+        e.preventDefault();
+
+        if(confirm("Esta seguro de cambiar el estado?")){
+
+          let id = $(this).attr("data-value");
+          let new_status = $(this).attr("data-status");
+          let source = $(this).attr("data-source");
+
+          $.post('model/updateStatus.php', { id: id, status: new_status, source: source }, function(data){
+            console.log(data);
+            if(data == "ok"){
+              swal({
+                title: "Exito",
+                text: "Estado Cambiado con Exito!!",
+                icon: "success",
+                button: "Ok",
+              });
+            }
+
+           location.reload();
+          });
+        }
+
+      });
 
     });
   </script>
