@@ -33,12 +33,12 @@
 		//$key = $_GET['id_property'];
 		//$query = "SELECT * FROM tbl_property_system ORDER BY name_owner ASC";
 		$statement = $con->prepare("SELECT *,
-		CASE WHEN desde_pago = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contrato_system tcs WHERE tcp.id_property = tcs.id_property order by tcs.id_contrato DESC limit 1) WHEN desde_cobro = 'Arrendatario' THEN (SELECT tcs.name_leaser FROM tbl_contrato_system tcs WHERE tcp.id_property = tcs.id_property order by tcs.id_contrato DESC limit 1)
+		CASE WHEN desde_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contrato_system tcs WHERE tcp.id_property = tcs.id_property order by tcs.id_contrato DESC limit 1) WHEN desde_cobro = 'Arrendatario' THEN (SELECT tcs.name_leaser FROM tbl_contrato_system tcs WHERE tcp.id_property = tcs.id_property order by tcs.id_contrato DESC limit 1)
   ELSE 'Gestarriendo'
   END AS name_desde_cobro, 
 		CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contrato_system tcs WHERE tcp.id_property = tcs.id_property order by tcs.id_contrato DESC limit 1)
-  WHEN hacia_pago = 'Arrendatario' THEN (SELECT tcs.name_leaser FROM tbl_contrato_system tcs WHERE tcp.id_property = tcs.id_property order by tcs.id_contrato DESC limit 1)
-  ELSE 'Gestarriendo' END AS name_hacia_pago 
+  WHEN hacia_cobro = 'Arrendatario' THEN (SELECT tcs.name_leaser FROM tbl_contrato_system tcs WHERE tcp.id_property = tcs.id_property order by tcs.id_contrato DESC limit 1)
+  ELSE 'Gestarriendo' END AS name_hacia_cobro 
   FROM tbl_cobros_property as tcp WHERE tcp.hidden_recurrent = 0 ORDER BY tcp.id_cobro_property ASC");
 		$statement->execute();
 		while ($row = $statement->fetch()){
