@@ -684,13 +684,20 @@
                         </thead>
                         <tbody>
                           <?php 
-                            $stmt_pagos = $con->query("SELECT * FROM tbl_pagos_property WHERE id_property = ".$key." AND unique_id <> 0");
+                            $stmt_pagos = $con->query("SELECT *,  
+CASE WHEN desde_pago = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contrato_system tcs WHERE tpp.id_property = tcs.id_property order by tcs.id_contrato DESC limit 1) WHEN desde_pago = 'Arrendatario' THEN (SELECT tcs.name_leaser FROM tbl_contrato_system tcs WHERE tpp.id_property = tcs.id_property order by tcs.id_contrato DESC limit 1)
+  ELSE 'Gestarriendo'
+  END AS name_desde_pago, 
+CASE WHEN hacia_pago = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contrato_system tcs WHERE tpp.id_property = tcs.id_property order by tcs.id_contrato DESC limit 1)
+  WHEN hacia_pago = 'Arrendatario' THEN (SELECT tcs.name_leaser FROM tbl_contrato_system tcs WHERE tpp.id_property = tcs.id_property order by tcs.id_contrato DESC limit 1)
+  ELSE 'Gestarriendo' END AS name_hacia_pago
+FROM tbl_pagos_property as tpp WHERE tpp.id_property = ".$key." AND tpp.unique_id <> 0");
                             while($row = $stmt_pagos->fetch()){
 
                           ?>
                           <tr>
-                            <td><?=$row['desde_pago']?></td>
-                            <td><?=$row['hacia_pago']?></td>
+                            <td><?=$row['desde_pago']?><br>(<?=$row['name_desde_pago']?>)</td>
+                            <td><?=$row['hacia_pago']?><br>(<?=$row['name_hacia_pago']?>)</td>
                             <td><?=$row['concepto_csimple']?></td>
                             <td><?=$row['amount_psimple']?></td>
                             <td>
@@ -736,13 +743,20 @@
                         </thead>
                         <tbody>
                           <?php 
-                            $stmt_pagos = $con->query("SELECT * FROM tbl_cobros_property WHERE id_property = ".$key." AND unique_id <> 0");
+                            $stmt_pagos = $con->query("SELECT *,
+CASE WHEN desde_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contrato_system tcs WHERE tcp.id_property = tcs.id_property order by tcs.id_contrato DESC limit 1) WHEN desde_cobro = 'Arrendatario' THEN (SELECT tcs.name_leaser FROM tbl_contrato_system tcs WHERE tcp.id_property = tcs.id_property order by tcs.id_contrato DESC limit 1)
+  ELSE 'Gestarriendo'
+  END AS name_desde_cobro, 
+CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contrato_system tcs WHERE tcp.id_property = tcs.id_property order by tcs.id_contrato DESC limit 1)
+  WHEN hacia_cobro = 'Arrendatario' THEN (SELECT tcs.name_leaser FROM tbl_contrato_system tcs WHERE tcp.id_property = tcs.id_property order by tcs.id_contrato DESC limit 1)
+  ELSE 'Gestarriendo' END AS name_hacia_cobro
+                             FROM tbl_cobros_property as tcp WHERE tcp.id_property = ".$key." AND tcp.unique_id <> 0");
                             while($row = $stmt_pagos->fetch()){
 
                           ?>
                           <tr>
-                            <td><?=$row['desde_cobro']?></td>
-                            <td><?=$row['hacia_cobro']?></td>
+                            <td><?=$row['desde_cobro']?><br>(<?=$row['name_desde_cobro']?>)</td>
+                            <td><?=$row['hacia_cobro']?><br>(<?=$row['name_hacia_cobro']?>)</td>
                             <td><?=$row['concepto_csimple']?></td>
                             <td><?=$row['amount_csimple']?></td>
                             <td>
