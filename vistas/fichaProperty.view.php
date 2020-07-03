@@ -74,7 +74,7 @@
           ?>
 
           <?php
-              $stmt = $con->prepare("SELECT id_contrato, fecha_inicio FROM tbl_contrato_system WHERE id_property = ".$key." ORDER BY id_contrato DESC LIMIT 1");
+              $stmt = $con->prepare("SELECT id_contrato, fecha_inicio, name_leaser FROM tbl_contrato_system WHERE id_property = ".$key." ORDER BY id_contrato DESC LIMIT 1");
               $stmt->execute();
               $rs = $stmt->fetch();
           ?>
@@ -227,6 +227,11 @@
                     <a class="btn btn-app" data-toggle="modal" data-target="#modalDatosPropietario">
                       <i class="fa fa-user"></i> Datos Propietario
                     </a>
+                    <?php if(isset($rs['id_contrato']) and !empty($rs['id_contrato'])){ ?>
+                     <a class="btn btn-app" data-toggle="modal" data-target="#modalDatosArrendatario">
+                      <i class="fa fa-user"></i> Datos Arrendatario
+                    </a>
+                  <?php } ?>
                   </div>
                 </div>
               </div>
@@ -1993,6 +1998,47 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
         </div>
       </div>
       <!-- /.modal-content -->
+    </div>
+
+    <div class="modal fade" id="modalDatosArrendatario" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">Datos Arrendatario</h4>
+          </div>
+          <div class="modal-body">
+            <div class="modal-footer">
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <th>Nombre</th>
+                  <th>Rut</th>
+                  <th>Email</th>
+                  <th>Telefono</th>
+                  <th>Telefono 2</th>
+                </thead>
+                <tbody>
+                  <?php
+                    $query = $con->prepare("SELECT * FROM tbl_leaser_system WHERE name_leaser = '".$rs['name_leaser']."'");
+                    $query->execute();
+                    $row = $query->fetch();
+
+                  ?>
+                  <tr>
+                    <td><?=$row['name_leaser']?></td>
+                    <td><?=$row['rut_leaser']?></td>
+                    <td><?=$row['email_leaser']?></td>
+                    <td><?=$row['phone_one_leaser']?></td>
+                    <td><?=$row['phone_two_leaser']?></td>
+                  </tr>
+                </tbody>
+              </table>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="modal fade" id="modalDatosPropietario" role="dialog">
