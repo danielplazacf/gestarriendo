@@ -722,7 +722,7 @@ FROM tbl_pagos_property as tpp WHERE tpp.id_property = ".$key." AND tpp.unique_i
                             </td>
                             <td>
                               <div class="ocultar-elemento btn-group">
-                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cambiar Estadus A: <span class="caret"></span></button>
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cambiar Estado: <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <li><a href="#" class="change-status" data-source="pago" data-value="<?=$row['id_pago_property']?>" data-status="pagado"><i class="fa fa-check" aria-hidden="true"></i>Pagado</a></li>
                                     <li><a herf="#" class="change-status" data-source="pago" data-value="<?=$row['id_pago_property']?>" data-status="cancelado"><i class="fa fa-times"></i> Cancelado</a></li>
@@ -781,7 +781,7 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
                             </td>
                             <td>
                               <div class="ocultar-elemento btn-group">
-                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cambiar Estadus A: <span class="caret"></span></button>
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cambiar Estado: <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <li><a href="#" class="change-status" data-source="cobro" data-value="<?=$row['id_cobro_property']?>" data-status="pagado"><i class="fa fa-check" aria-hidden="true"></i>Pagado</a></li>
                                     <li><a herf="#" class="change-status" data-source="cobro" data-value="<?=$row['id_cobro_property']?>" data-status="cancelado"><i class="fa fa-times"></i> Cancelado</a></li>
