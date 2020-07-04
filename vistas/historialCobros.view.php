@@ -148,7 +148,7 @@
                 "order": [], //[[ 0, "desc" ]],
                 "paging": true,
                 "lengthChange": false,
-                "searching": false,
+                "searching": true,
                 "ordering": false,
                 "info": true,
                 "autoWidth": true,

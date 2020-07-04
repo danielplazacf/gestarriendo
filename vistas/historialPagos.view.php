@@ -132,15 +132,8 @@
         })
 
         $(document).ready(function() {
-            cargarPagos();
-        });
-
-        // Cargamos la lista de propiedades en relación al propietario
-        cargarPagos = function() {
-            // Obtenemos el valor por el id
-            // id_property = document.getElementById("id_owner_property").value;
-
-            var table = $("#tablePagos").dataTable({
+            
+          var table = $("#tablePagos").dataTable({
                 dom: 'Bfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf','print'
@@ -149,7 +142,7 @@
                 "order": [], //[[ 0, "desc" ]],
                 "paging": true,
                 "lengthChange": false,
-                "searching": false,
+                "searching": true,
                 "ordering": false,
                 "info": true,
                 "autoWidth": true,
@@ -207,8 +200,8 @@
                 ],
                 "language": idioma_spanol
             });
+        });
 
-        }
 
         idioma_spanol = {
             "sProcessing": "Procesando...",
