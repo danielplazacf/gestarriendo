@@ -66,6 +66,7 @@
                                             <th>CONCEPTO</th>
                                             <th>ESTADO</th>
                                             <th>MONTO</th>
+                                            <th>DIRECCION PROPIEDAD</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -194,6 +195,12 @@
                     {
                         "mData": function(data, type, dataToSet) {
                             return formatter.format(data.amount_psimple);
+                        }
+                    },
+                    //6
+                    {
+                        "mData": function(data, type, dataToSet) {
+                            return data.address_property+"<br>("+data.comuna_property+")";
                         }
                     }
 

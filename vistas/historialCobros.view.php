@@ -66,6 +66,7 @@
                                             <th>CONCEPTO</th>
                                             <th>ESTADO</th>
                                             <th>MONTO</th>
+                                            <th>DIRECCION PROPIEDAD</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -195,7 +196,12 @@
                             return formatter.format(data.amount_csimple);
                         }
                     },
-
+                    //6
+                    {
+                        "mData": function(data, type, dataToSet) {
+                            return data.address_property+"<br>("+data.comuna_property+")";
+                        }
+                    }
 
                 ],
                 "language": idioma_spanol
