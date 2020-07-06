@@ -65,6 +65,8 @@
 		$real_date = date('Y-m-d',strtotime('+3 day', strtotime(date('Y-m-d'))));
 		$day = date('d', strtotime($real_date));
 
+		print $day;
+
 		$unique_id = date('Ymd');
 
 		while($row = $stmt->fetch()){
