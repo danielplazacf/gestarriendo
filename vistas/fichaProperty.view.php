@@ -822,7 +822,7 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
                             if(isset($rs['id_contrato']) and !empty($rs['id_contrato'])){
                             while($row = $r->fetch()){
                           ?>
-           \\                 <tr>
+                          <tr>
                               <td><?=$row['id']?></td>
                               <td><?=$row['documentno']?></td>
                               <td><?=$row['charge_to']?></td>
