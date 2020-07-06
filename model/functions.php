@@ -65,12 +65,10 @@
 		$real_date = date('Y-m-d',strtotime('+3 day', strtotime(date('Y-m-d'))));
 		$day = date('j', strtotime($real_date));
 
-		print $day;
-
 		$unique_id = date('Ymd');
 
 		while($row = $stmt->fetch()){
-
+			print "Hola";
 			if($day == $row['venc_psimple']){
 				$stmt2 = $con->prepare('SELECT COUNT(*) as qty FROM tbl_pagos_property WHERE unique_id = '.$unique_id);
 				$stmt2->execute();
