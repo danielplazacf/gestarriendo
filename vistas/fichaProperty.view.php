@@ -2331,7 +2331,7 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
               button: "Ok",
             });
 
-            //location.reload();
+            location.reload();
           }
         });
 
