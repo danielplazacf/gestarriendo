@@ -69,11 +69,10 @@
 
 		while($row = $stmt->fetch()){
 			if($day == $row['venc_psimple']){
-				$stmt2 = $con->prepare('SELECT COUNT(*) as qty FROM tbl_pagos_property WHERE unique_id = '.$unique_id);
+				$stmt2 = $con->prepare('SELECT COUNT(*) as qty FROM tbl_pagos_property WHERE unique_id = '.$unique_id.' AND id_property = '.$id_property);
 				$stmt2->execute();
 				$row2 = $stmt2->fetch();
 				if($row2['qty'] <= 0){
-					print $day."==".$row['venc_psimple'];
 					$query = $con->prepare("INSERT INTO tbl_pagos_property (id_property, date_register, desde_pago, hacia_pago, concepto_csimple, hidden_recurrent, amount_psimple, estatus, unique_id) 
 						VALUES (:id_property, current_date, :desde_pago, :hacia_pago, :concepto_csimple, 0, :amount_psimple, 'pendiente', :unique_id)");
 
@@ -107,7 +106,7 @@
 
 		while($row = $stmt->fetch()){
 			if($day == $row['venc_csimple']){
-				$stmt2 = $con->prepare('SELECT COUNT(*) as qty FROM tbl_cobros_property WHERE unique_id = '.$unique_id);
+				$stmt2 = $con->prepare('SELECT COUNT(*) as qty FROM tbl_cobros_property WHERE unique_id = '.$unique_id.' AND id_property = '.$id_property);
 				$stmt2->execute();
 				$row2 = $stmt2->fetch();
 				if($row2['qty'] <= 0){
