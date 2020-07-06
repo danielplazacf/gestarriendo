@@ -37,7 +37,7 @@
 			$query->bindParam('url_file_doc', $newFileName);
 			$query->bindParam('id_contrato', $id_contrato);
 
-			$query->execute()
+			$query->execute();
 			
 	         	echo 'ok';
 	        } else {
