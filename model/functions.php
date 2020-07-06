@@ -63,7 +63,7 @@
 		$stmt = $con->prepare("SELECT * FROM tbl_pagos_property WHERE hidden_recurrent = 1 and id_property = ".$id_property);
 		$stmt->execute();
 		$real_date = date('Y-m-d',strtotime('+3 day', strtotime(date('Y-m-d'))));
-		$day = date('d', strtotime($real_date));
+		$day = date('j', strtotime($real_date));
 
 		print $day;
 
@@ -103,7 +103,7 @@
 		$stmt = $con->prepare("SELECT * FROM tbl_cobros_property WHERE hidden_recurrent = 1 and id_property = ".$id_property);
 		$stmt->execute();
 		$real_date = date('Y-m-d',strtotime('+3 day', strtotime(date('Y-m-d'))));
-		$day = date('d', strtotime($real_date));
+		$day = date('j', strtotime($real_date));
 
 		$unique_id = date('Ymd');
 
