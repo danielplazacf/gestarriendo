@@ -386,19 +386,19 @@
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <div class="box box-solid">
                     <?php
+                    $montoIngreso = 0;
+                    $montoEgreso = 0;
                     $selMontoIngresos = $con->prepare("
                   SELECT SUM(amount_csimple) AS totalIngreso 
                   FROM tbl_cobros_property 
-                  WHERE id_property = '$key' 
-                  ");
+                  WHERE id_property = '$key' AND hidden_recurrent = 0 AND estatus = 'pagado'");
                     $selMontoIngresos->execute();
                     $rowMontoI = $selMontoIngresos->fetch();
 
                     $selMontoEgresos = $con->prepare("
                   SELECT SUM(amount_psimple) AS totalEgreso
                   FROM tbl_pagos_property 
-                  WHERE id_property = '$key' 
-                  ");
+                  WHERE id_property = '$key' AND hidden_recurrent = 0 AND estatus = 'pagado'");
                     $selMontoEgresos->execute();
                     $rowMontoE = $selMontoEgresos->fetch();
 
@@ -503,8 +503,7 @@
                     SELECT SUM(amount_csimple) AS totalIngreso 
                     FROM tbl_cobros_property 
                     WHERE id_property = '$key'
-                    AND desde_cobro = '$propietario'
-                    ");
+                    AND desde_cobro = '$propietario' AND hidden_recurrent = 0 AND estatus = 'pagado'");
                     $selMontoIngresos->execute();
                     $rowMontoI = $selMontoIngresos->fetch();
 
@@ -2012,11 +2011,11 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
             <div class="modal-footer">
               <table class="table table-striped table-bordered">
                 <thead>
-                  <th>Nombre</th>
-                  <th>Rut</th>
-                  <th>Email</th>
-                  <th>Telefono</th>
-                  <th>Telefono 2</th>
+                  <th><center>Nombre</center></th>
+                  <th><center>Rut</center></th>
+                  <th><center>Email</center></th>
+                  <th><center>Telefono</center></th>
+                  <th><center>Telefono 2</center></th>
                 </thead>
                 <tbody>
                   <?php
@@ -2026,11 +2025,11 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
 
                   ?>
                   <tr>
-                    <td><?=$row['name_leaser']?></td>
-                    <td><?=$row['rut_leaser']?></td>
-                    <td><?=$row['email_leaser']?></td>
-                    <td><?=$row['phone_one_leaser']?></td>
-                    <td><?=$row['phone_two_leaser']?></td>
+                    <td align="center"><?=$row['name_leaser']?></td>
+                    <td align="center"><?=$row['rut_leaser']?></td>
+                    <td align="center"><?=$row['email_leaser']?></td>
+                    <td align="center"><?=$row['phone_one_leaser']?></td>
+                    <td align="center"><?=$row['phone_two_leaser']?></td>
                   </tr>
                 </tbody>
               </table>

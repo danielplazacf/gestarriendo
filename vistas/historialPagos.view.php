@@ -61,12 +61,12 @@
                                 <table id="tablePagos" class="table table-striped" style="font-size: 1.1rem; width:100%">
                                     <thead>
                                         <tr>
+                                            <th>DIRECCION PROPIEDAD</th>
                                             <th>DESDE</th>
                                             <th>HACIA</th>
                                             <th>CONCEPTO</th>
                                             <th>ESTADO</th>
                                             <th>MONTO</th>
-                                            <th>DIRECCION PROPIEDAD</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -152,7 +152,12 @@
                 },
                 "aoColumns": [
 
-                    //1
+                    
+                    {
+                        "mData": function(data, type, dataToSet) {
+                            return data.address_property+"<br>("+data.comuna_property+")";
+                        }
+                    },
                     {
                         "mData": function(data, type, dataToSet) {
                             return data.desde_pago+"<br>("+data.name_desde_pago+")";
@@ -188,12 +193,6 @@
                     {
                         "mData": function(data, type, dataToSet) {
                             return formatter.format(data.amount_psimple);
-                        }
-                    },
-                    //6
-                    {
-                        "mData": function(data, type, dataToSet) {
-                            return data.address_property+"<br>("+data.comuna_property+")";
                         }
                     }
 
