@@ -58,6 +58,16 @@
                         <div class="box no-border">
                             <!-- /.box-header -->
                             <div class="box-body ">
+                                <div class="form-group">
+                                    <label>Filtro por Estado:</label>
+                                    <select class="form-control" id="status_filter" style="width: 150px !important;">
+                                        <option value="">Todos</option>
+                                        <option value="pendiente">Pendiente</option>
+                                        <option value="vencido">Vencido</option>
+                                        <option value="pagado">Pagado</option>
+                                        <option value="cancelado">Cancelado</option>
+                                    </select>
+                                </div>
                                 <table id="tableCobros" class="table table-striped" style="font-size: 1.1rem; width:100%">
                                     <thead>
                                         <tr>
@@ -130,16 +140,17 @@
             minimumFractionDigits: 0
         })
         $(document).ready(function() {
-            cargarCobros();
 
-        });
-
-        // Cargamos la lista de propiedades en relación al propietario
-        cargarCobros = function() {
-            // Obtenemos el valor por el id
-            // id_property = document.getElementById("id_owner_property").value;
-
-            var table = $("#tableCobros").dataTable({
+            $("#status_filter").change(function(){
+               if ( table.column(4).search() !== this.value ) {
+                    table
+                        .column(4)
+                        .search( this.value )
+                        .draw();
+                }
+            });
+            
+            var table = $("#tableCobros").DataTable({
                 dom: 'Bfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf','print'
@@ -205,7 +216,7 @@
                 "language": idioma_spanol
             });
 
-        }
+        });
 
         idioma_spanol = {
             "sProcessing": "Procesando...",

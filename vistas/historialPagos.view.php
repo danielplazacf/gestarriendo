@@ -54,10 +54,19 @@
 
                 <div class="row">
                     <div class="col-xs-12">
-
                         <div class="box no-border">
                             <!-- /.box-header -->
                             <div class="box-body ">
+                                <div class="form-group">
+                                    <label>Filtro por Estado:</label>
+                                    <select class="form-control" id="status_filter" style="width: 150px !important;">
+                                        <option value="">Todos</option>
+                                        <option value="pendiente">Pendiente</option>
+                                        <option value="vencido">Vencido</option>
+                                        <option value="pagado">Pagado</option>
+                                        <option value="cancelado">Cancelado</option>
+                                    </select>
+                                </div>
                                 <table id="tablePagos" class="table table-striped" style="font-size: 1.1rem; width:100%">
                                     <thead>
                                         <tr>
@@ -132,8 +141,17 @@
         })
 
         $(document).ready(function() {
+
+        $("#status_filter").change(function(){
+           if ( table.column(4).search() !== this.value ) {
+                table
+                    .column(4)
+                    .search( this.value )
+                    .draw();
+            }
+        });
             
-          var table = $("#tablePagos").dataTable({
+          var table = $("#tablePagos").DataTable({
                 dom: 'Bfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf','print'
@@ -199,6 +217,7 @@
                 ],
                 "language": idioma_spanol
             });
+
         });
 
 
