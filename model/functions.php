@@ -68,7 +68,7 @@
 		$unique_id = date('Ymd');
 
 		while($row = $stmt->fetch()){
-			print "Hola";
+			 print $day."==".$row['venc_psimple'];
 			if($day == $row['venc_psimple']){
 				$stmt2 = $con->prepare('SELECT COUNT(*) as qty FROM tbl_pagos_property WHERE unique_id = '.$unique_id);
 				$stmt2->execute();
