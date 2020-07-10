@@ -36,6 +36,17 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+
+    #visualizador_pdf{
+      display: none;
+      height: 700px !important;
+    }
+
+    #frame_visualizador{
+      height: 600px !important;
+    }
+
+
     <?php if($_SESSION['type_user'] == 'observador') {?>
       div.ocultar-elemento{
         display:none !important;
@@ -275,7 +286,21 @@
             </div>
           </div>
           <!-- /.col -->
-          <div class="col-md-8">
+          <div class="col-md-8" id="visualizador_pdf">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3>Visualizador de Documentos!!</h3>
+              </div>
+              <div class="panel-body">
+                <a class="btn btn-success volver-ficha" href="#">Volver a Ficha</a>
+                <br />
+                <br />
+                <iframe id="frame_visualizador" scrolling="no" width="100%" frameborder="no"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-8" id="contenedor_inicial">
             <div class="alert" id="alertIPC" style="display: none;"></div>
             <!-- Custom Tabs -->
             <?php //echo $key; ?>
@@ -829,7 +854,7 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
                               <td><?=$row['concepto_gasto']?></td>
                               <td>$<?=number_format($row['amount'], 0, '', '.')?></td>
                               <td><?=$row['description']?></td>
-                              <td><a class="btn btn-info" href="uploads/gastos/<?=$row['url_file_doc']?>" target="_blank">Ver Archvo</a></td>
+                              <td><a class="btn btn-info ver-archivo" href="#" data-url="uploads/gastos/<?=$row['url_file_doc']?>">Ver Archvo</a></td>
                             </tr>
                         <?php }
                           }
@@ -2389,6 +2414,20 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
           });
         }
 
+      });
+
+      $("a.ver-archivo").click(function(e){
+        e.preventDefault();
+        let url = $(this).attr("data-url");
+        $("#contenedor_inicial").hide();
+        $("#visualizador_pdf").show();
+        $("#frame_visualizador").attr("src",url);
+
+      });
+
+      $("a.volver-ficha").click(function(){
+        $("#contenedor_inicial").show();
+        $("#visualizador_pdf").hide();
       });
 
     });
