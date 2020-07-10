@@ -703,7 +703,7 @@ FROM tbl_pagos_property as tpp WHERE tpp.id_property = ".$key." AND tpp.unique_i
                             <td><?=$row['desde_pago']?><br>(<?=$row['name_desde_pago']?>)</td>
                             <td><?=$row['hacia_pago']?><br>(<?=$row['name_hacia_pago']?>)</td>
                             <td><?=$row['concepto_csimple']?></td>
-                            <td><?=$row['amount_psimple']?></td>
+                            <td>$<?=number_format($row['amount_psimple'], 0, '', '.')?></td>
                             <td>
                               <?php
                                 if($row['estatus'] == "pendiente"){
@@ -762,7 +762,7 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
                             <td><?=$row['desde_cobro']?><br>(<?=$row['name_desde_cobro']?>)</td>
                             <td><?=$row['hacia_cobro']?><br>(<?=$row['name_hacia_cobro']?>)</td>
                             <td><?=$row['concepto_csimple']?></td>
-                            <td><?=$row['amount_csimple']?></td>
+                            <td>$<?=number_format($row['amount_csimple'], 0, '', '.')?></td>
                             <td>
                               <?php
                                 if($row['estatus'] == "pendiente"){
@@ -827,7 +827,7 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
                               <td><?=$row['documentno']?></td>
                               <td><?=$row['charge_to']?></td>
                               <td><?=$row['concepto_gasto']?></td>
-                              <td><?=$row['amount']?></td>
+                              <td>$<?=number_format($row['amount'], 0, '', '.')?></td>
                               <td><?=$row['description']?></td>
                               <td><a class="btn btn-info" href="uploads/gastos/<?=$row['url_file_doc']?>" target="_blank">Ver Archvo</a></td>
                             </tr>
@@ -2197,7 +2197,10 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
                     <label>Archivo Adjunto:</label>
                     <input type="file" name="url_file_doc" id="url_file_doc" class="form-control" />
                   </div>
-            
+                  <div class="form-group">
+                    <label>Enviar Correo?</label>
+                    <input type="checkbox" id="sendEmail" name="sendEmail" class="form-control" data-toggle="toggle" />
+                  </div>
               <div class="modal-footer">
                 <button type="submit" id="btnGastos" class="btn btn-success">Guardar</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -2247,8 +2250,9 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
           $("#only-read").val('Y');
       <?php }?>
 
-
-
+      $(".toggle-on").text("Si")
+      $(".toggle-off").text("No")
+      
       $("#ipcForm").submit(function(e){
         e.preventDefault();
         let datos = $(this).serialize();
@@ -2339,7 +2343,7 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
 
       <?php
           if($rs['id_contrato']){
-            $stmt = $con->prepare("SELECT recurrencia FROM tbl_ipc_config WHERE id_contrato = ".$rs['id_contrato']);
+            $stmt = $con->prepare("SELECT recurrencia, fecha_inicio FROM tbl_ipc_config WHERE id_contrato = ".$rs['id_contrato']);
             $stmt->execute();
             $rss = $stmt->fetch();
             if($rss['recurrencia'] >= 0 and !empty($rss['recurrencia'])){
@@ -2351,7 +2355,7 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
               }else{
                 $r = "Cada ".$rss['recurrencia']." Meses";
               }
-              print "$('#alertIPC').show().html('<strong>La regulación de su IPC se ha configurado a ".$r."</strong>').addClass('alert-info');";
+              print "$('#alertIPC').show().html('<strong>La regulación de su IPC se ha configurado a ".$r.", la cual esta programada para la fecha ".date('d-m-Y',strtotime($rss['fecha_inicio']))."</strong>').addClass('alert-info');";
             }else{
               print "$('#alertIPC').show().html('<strong>Aún no ha configurado la regulación de su IPC</strong>').addClass('alert-warning');";
               print "$('#alertIPC').css('margin-bottom','15px');";
