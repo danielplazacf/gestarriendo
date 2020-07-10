@@ -278,7 +278,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-tint"></i>
                       </div>
-                      <input name="proveedor_agua" id="proveedor_agua" type="text" class="form-control" autocomplete="none" placeholder="Proveedor" required>
+                      <input name="proveedor_agua" id="proveedor_agua" type="text" class="form-control" autocomplete="none" placeholder="Proveedor">
                     </div>
 
                     <!--Nro-->
@@ -286,7 +286,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-tint"></i>
                       </div>
-                      <input name="n_cliente_agua" id="n_cliente_agua" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
+                      <input name="n_cliente_agua" id="n_cliente_agua" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente">
                     </div>
 
                     <!-- /.input group -->
@@ -301,7 +301,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-bolt"></i>
                       </div>
-                      <input name="proveedor_luz" id="proveedor_luz" type="text" class="form-control" autocomplete="none" placeholder="Proveedor" required>
+                      <input name="proveedor_luz" id="proveedor_luz" type="text" class="form-control" autocomplete="none" placeholder="Proveedor">
                     </div>
 
                     <!--Nro-->
@@ -309,7 +309,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-bolt"></i>
                       </div>
-                      <input name="n_cliente_luz" id="n_cliente_luz" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
+                      <input name="n_cliente_luz" id="n_cliente_luz" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente">
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -323,7 +323,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-fire"></i>
                       </div>
-                      <input name="proveedor_gas" id="proveedor_gas" type="text" class="form-control" autocomplete="none" placeholder="Proveedor" required>
+                      <input name="proveedor_gas" id="proveedor_gas" type="text" class="form-control" autocomplete="none" placeholder="Proveedor">
                     </div>
 
                     <!--Nro-->
@@ -331,7 +331,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-fire"></i>
                       </div>
-                      <input name="n_cliente_gas" id="n_cliente_gas" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
+                      <input name="n_cliente_gas" id="n_cliente_gas" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente">
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -498,7 +498,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-tint"></i>
                       </div>
-                      <input name="proveedor_agua_edit" id="proveedor_agua_edit" type="text" class="form-control" autocomplete="none" placeholder="Proveedor" required>
+                      <input name="proveedor_agua_edit" id="proveedor_agua_edit" type="text" class="form-control" autocomplete="none" placeholder="Proveedor">
                     </div>
 
                     <!--Nro-->
@@ -506,7 +506,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-tint"></i>
                       </div>
-                      <input name="n_cliente_agua_edit" id="n_cliente_agua_edit" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
+                      <input name="n_cliente_agua_edit" id="n_cliente_agua_edit" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente">
                     </div>
 
                     <!-- /.input group -->
@@ -521,7 +521,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-bolt"></i>
                       </div>
-                      <input name="proveedor_luz_edit" id="proveedor_luz_edit" type="text" class="form-control" autocomplete="none" placeholder="Proveedor" required>
+                      <input name="proveedor_luz_edit" id="proveedor_luz_edit" type="text" class="form-control" autocomplete="none" placeholder="Proveedor">
                     </div>
 
                     <!--Nro-->
@@ -529,7 +529,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-bolt"></i>
                       </div>
-                      <input name="n_cliente_luz_edit" id="n_cliente_luz_edit" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
+                      <input name="n_cliente_luz_edit" id="n_cliente_luz_edit" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente">
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -543,7 +543,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-fire"></i>
                       </div>
-                      <input name="proveedor_gas_edit" id="proveedor_gas_edit" type="text" class="form-control" autocomplete="none" placeholder="Proveedor" required>
+                      <input name="proveedor_gas_edit" id="proveedor_gas_edit" type="text" class="form-control" autocomplete="none" placeholder="Proveedor">
                     </div>
 
                     <!--Nro-->
@@ -551,7 +551,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-fire"></i>
                       </div>
-                      <input name="n_cliente_gas_edit" id="n_cliente_gas_edit" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente" required>
+                      <input name="n_cliente_gas_edit" id="n_cliente_gas_edit" type="text" class="form-control" autocomplete="none" placeholder="N° de cliente">
                     </div>
                     <!-- /.input group -->
                   </div>

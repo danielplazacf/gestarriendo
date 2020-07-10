@@ -392,7 +392,7 @@
                               <?php if($_SESSION['type_user'] == 'observador') {?>
                                 disable = 'disabled';
                               <?php }?>
-                            return '<div class="btn-group"><button button="button" disabled="'+disable+'" onclick="mostrarAccount(' + data.id_account_bank + ')" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalEditAccountBank"><i class="fas fa-edit"></i></button><button button="button" disabled="'+disable+'" onclick="deleteAccountBank(' + data.id_account_bank + ')" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></div>';
+                            return '<div class="btn-group"><button button="button" disabled="'+disable+'" onclick="mostrarAccount(' + data.id_account_bank + ')" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalEditAccountBank"><i class="fas fa-edit"></i></button><button button="button" onclick="deleteAccountBank(' + data.id_account_bank + ')" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button></div>';
                         }
                     }
 
