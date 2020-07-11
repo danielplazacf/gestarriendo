@@ -67,90 +67,126 @@
 
       <!-- Main content -->
       <section class="content container-fluid">
-
-        
-
         <div class="row">
-        <?php
-          if(isset($_GET['q']) and !empty($_GET['q'])){
-            $statement = $con->prepare("SELECT * FROM tbl_property_system WHERE address_property like '%".$_GET['q']."%' ORDER BY date_register ASC");
-          }else{
-            $statement = $con->prepare("SELECT * FROM tbl_property_system ORDER BY date_register ASC");
-          }
-          
-          $statement->execute();
-          while ($rowProperty = $statement->fetch()){
-        ?>
-          <div class="col-md-4 col-xs-12">
-            <div class="box box-widget widget-user">
-              <!-- Add the bg color to the header using any of the bg-* classes -->
-              <div class="widget-user-header bg-blue-active">
-              
-                <div class="row">
-                  <div class="col-md-4">
-                    <img src="resources/dist/img/img_property.png" width="100%">
-                  </div>
-                  <div class="col-md-8">
-                    <h3 class="widget-user-username">
-                      <a href="fichaProperty.php?id_property=<?php echo $rowProperty['id_property'];?>" class="text-white">
-                        <?php echo $rowProperty['address_property'];?>
-                      </a>
-                    </h3>
-                    <h5 class="widget-user-desc"><?php echo $rowProperty['type_property'];?></h5>
-                    <a href="fichaProperty.php?id_property=<?php echo $rowProperty['id_property'];?>" class="btn btn-sm btn-primary">Ingresar</a>
-                    <a onclick="mostrarProperty(<?php echo $rowProperty['id_property'];?>)" class="btn btn-sm btn-info pull-right"><i class="fas fa-edit"></i></a> 
-                    <?php if(verifyDocProperty($rowProperty['id_property'])){ 
-                      $disabled = 'disabled="disabled"';
-                      $onclick = "";
-                      $title = "title='No se puede eliminar ya que tiene un Contrato Asociado!!'";
-                    ?>
-                      <a <?php echo $onclick.' '.$disabled.' '.$title; ?> class="btn btn-sm btn-danger pull-right"><i class="fas fa-trash"></i></a>
-                    <?php }else{
-                      $disabled = '';
-                      $onclick = "onclick='deleteProperty(".$rowProperty['id_property'].")'";
-                      ?>
-                      <a <?php echo $onclick.' '.$disabled; ?> class="btn btn-sm btn-danger pull-right"><i class="fas fa-trash"></i></a>
-                    <?php }?>
-                  </div>
-                </div>
-              </div>
-              <div class="box-footer pt-0">
-                <?php if(isset($rowProperty['id_property'])): ?>
+          <div class="col-md-12">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#home">Tarjeta</a></li>
+              <li><a data-toggle="tab" href="#menu1">Lista</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="home" class="tab-pane fade in active">
+                <br />
                 <?php
-                  $key = $rowProperty['id_property'];
-                  $stmt = $con->prepare("SELECT * FROM tbl_contrato_system WHERE id_property = '$key'");
-                  $stmt->execute();
-                  $rowContrato= $stmt->fetch();
+                  if(isset($_GET['q']) and !empty($_GET['q'])){
+                    $statement = $con->prepare("SELECT * FROM tbl_property_system WHERE address_property like '%".$_GET['q']."%' ORDER BY date_register ASC");
+                  }else{
+                    $statement = $con->prepare("SELECT * FROM tbl_property_system ORDER BY date_register ASC");
+                  }
+                  
+                  $statement->execute();
+                  while ($rowProperty = $statement->fetch()){
                 ?>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="description-block bg-yellowlight">
-                      <h5 class="description-header py-3 px-3 text-left">
-                      <?php 
-                        @$originalDate = $rowContrato['fecha_inicio'];
-                        @$arrendatario = $rowContrato['name_leaser'];
-                        if(empty($arrendatario) AND empty($originalDate)){
-                          $leaser = 'Sin Arrendatario';
-                          $newDate = 'Sin contrato de arriendo';
-                        }else{
-                          $leaser = $rowContrato['name_leaser'];
-                          $newDate = date("d/m/Y", strtotime($originalDate));
-                        }
-                      ?>
-                        <b>Arrendatario:</b> <?php echo $leaser;?> <br>
-                        <b>En arriendo desde:</b> <?php echo $newDate;?>
-                      </h5>
+                  <div class="col-md-4 col-xs-12">
+                    <div class="box box-widget widget-user">
+                      <!-- Add the bg color to the header using any of the bg-* classes -->
+                      <div class="widget-user-header bg-blue-active">
                       
+                        <div class="row">
+                          <div class="col-md-4">
+                            <img src="resources/dist/img/img_property.png" width="100%">
+                          </div>
+                          <div class="col-md-8">
+                            <h3 class="widget-user-username">
+                              <a href="fichaProperty.php?id_property=<?php echo $rowProperty['id_property'];?>" class="text-white">
+                                <?php echo $rowProperty['address_property'];?>
+                              </a>
+                            </h3>
+                            <h5 class="widget-user-desc"><?php echo $rowProperty['type_property'];?></h5>
+                            <a href="fichaProperty.php?id_property=<?php echo $rowProperty['id_property'];?>" class="btn btn-sm btn-primary">Ingresar</a>
+                            <a onclick="mostrarProperty(<?php echo $rowProperty['id_property'];?>)" class="btn btn-sm btn-info pull-right"><i class="fas fa-edit"></i></a> 
+                            <?php if(verifyDocProperty($rowProperty['id_property'])){ 
+                              $disabled = 'disabled="disabled"';
+                              $onclick = "";
+                              $title = "title='No se puede eliminar ya que tiene un Contrato Asociado!!'";
+                            ?>
+                              <a <?php echo $onclick.' '.$disabled.' '.$title; ?> class="btn btn-sm btn-danger pull-right"><i class="fas fa-trash"></i></a>
+                            <?php }else{
+                              $disabled = '';
+                              $onclick = "onclick='deleteProperty(".$rowProperty['id_property'].")'";
+                              ?>
+                              <a <?php echo $onclick.' '.$disabled; ?> class="btn btn-sm btn-danger pull-right"><i class="fas fa-trash"></i></a>
+                            <?php }?>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="box-footer pt-0">
+                        <?php if(isset($rowProperty['id_property'])): ?>
+                        <?php
+                          $key = $rowProperty['id_property'];
+                          $stmt = $con->prepare("SELECT * FROM tbl_contrato_system WHERE id_property = '$key'");
+                          $stmt->execute();
+                          $rowContrato= $stmt->fetch();
+                        ?>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="description-block bg-yellowlight">
+                              <h5 class="description-header py-3 px-3 text-left">
+                              <?php 
+                                @$originalDate = $rowContrato['fecha_inicio'];
+                                @$arrendatario = $rowContrato['name_leaser'];
+                                if(empty($arrendatario) AND empty($originalDate)){
+                                  $leaser = 'Sin Arrendatario';
+                                  $newDate = 'Sin contrato de arriendo';
+                                }else{
+                                  $leaser = $rowContrato['name_leaser'];
+                                  $newDate = date("d/m/Y", strtotime($originalDate));
+                                }
+                              ?>
+                                <b>Arrendatario:</b> <?php echo $leaser;?> <br>
+                                <b>En arriendo desde:</b> <?php echo $newDate;?>
+                              </h5>
+                              
+                            </div>
+                          </div>
+                        </div>
+                        <?php endif; ?>
+                        <!-- /.row -->
+                      </div>
                     </div>
                   </div>
-                </div>
-                <?php endif; ?>
-                <!-- /.row -->
+                <?php } ?>
+              </div>
+              <div id="menu1" class="tab-pane fade" style="background: white !important; padding: 10px !important;">
+
+                <br />
+                <table class="table table-bordered table-striped" id="tabla-propiedades">
+                  <thead>
+                    <th>ID</th>
+                    <th>Tipo de Propiedad</th>
+                    <th>Region</th>
+                    <th>Comuna</th>
+                    <th>Direccion</th>
+                  </thead>
+                  <tbody>
+                      <?php
+                        $statement = $con->prepare("SELECT * FROM tbl_property_system ORDER BY date_register ASC");
+                        $statement->execute();
+                        while ($rowProperty = $statement->fetch()){
+                      ?>
+                        <tr>
+                          <td><?=$rowProperty['id_property']?></td>
+                          <td><?=$rowProperty['type_property']?></td>
+                          <td><?=$rowProperty['region_property']?></td>
+                          <td><?=$rowProperty['comuna_property']?></td>
+                          <td><?=$rowProperty['address_property']?></td>
+                        </tr>
+                  <?php } ?>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
-        <?php } ?>
-        </div>
+      </div>
         <!-- /.row -->
       </section>
       <!-- /.content -->
@@ -626,6 +662,13 @@
   <script src="resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+        <!--Export Buttons-->
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
   <!-- Sweet Alert -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!-- Rut Chileno -->
@@ -644,6 +687,13 @@
           $(".btn-danger").hide();
           $("#new_administrator").attr("disabled", true);
       <?php }?>
+
+      $("#tabla-propiedades").DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf','print'
+        ],
+      });
 
       $(".toggle-on").text("Si")
       $(".toggle-off").text("No")
