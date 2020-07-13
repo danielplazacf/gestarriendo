@@ -242,6 +242,9 @@
                      <a class="btn btn-app" data-toggle="modal" data-target="#modalDatosArrendatario">
                       <i class="fa fa-user"></i> Datos Arrendatario
                     </a>
+                    <a class="btn btn-app" data-toggle="modal" data-target="#modalGestorArchivos">
+                      <i class="fa fa-file"></i> Gestor de Archivos
+                    </a>
                   <?php } ?>
                   </div>
                 </div>
@@ -2292,6 +2295,25 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
               </div>
               <div class="modal-footer">
                 <button type="submit" id="btnAbono" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              </div>
+        </div>
+      </div>
+  </div>
+
+  <!--Modal Gestor de Archivos-->
+  <div class="modal fade" id="modalGestorArchivos" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Gestor de Archivos</h4>
+              </div>
+              <div class="modal-body">
+                <iframe src="lib/file-manager/index.php" width="100%" height="500px" frameborder="0"></iframe>
+              </div>
+              <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
               </div>
         </div>
