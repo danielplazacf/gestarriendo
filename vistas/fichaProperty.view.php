@@ -733,7 +733,7 @@ FROM tbl_pagos_property as tpp WHERE tpp.id_property = ".$key." AND tpp.unique_i
                             <td><?=$row['desde_pago']?><br>(<?=$row['name_desde_pago']?>)</td>
                             <td><?=$row['hacia_pago']?><br>(<?=$row['name_hacia_pago']?>)</td>
                             <td><?=$row['concepto_csimple']?></td>
-                            <td>$<?=number_format($row['amount_psimple'], 0, '', '.')?></td>
+                            <td>$<?=number_format($row['amount_psimple'], 0, '', '.')?> (Pendiente) <br /><span id="monto_pago_abonado_<?=$row['id_pago_property']?>"></span></td>
                                                         <td>
                               <button type="button" class="btn btn-info" data-toggle="modal" data-target="#pagoModal_<?=$row['id_pago_property']?>">VER</button>
                               <!-- Modal -->
@@ -756,8 +756,10 @@ FROM tbl_pagos_property as tpp WHERE tpp.id_property = ".$key." AND tpp.unique_i
                                         </thead>
                                         <tbody>
                                           <?php
+                                            $pago_suma = 0;
                                             $rsc = $con->query("SELECT * FROM tbl_abonos WHERE id_element = ".$row['id_pago_property']);
                                             while($rwc = $rsc->fetch()){
+                                              $pago_suma+=$rwc['monto'];
                                           ?>
                                             <tr>
                                               <td><?=$rwc['id']?></td>
@@ -766,6 +768,9 @@ FROM tbl_pagos_property as tpp WHERE tpp.id_property = ".$key." AND tpp.unique_i
                                               <td><?=date('d-m-Y',strtotime($rwc['fecha']))?></td>
                                             </tr>
                                         <?php } ?>
+                                        <script type="text/javascript">
+                                          document.getElementById("monto_pago_abonado_<?=$row['id_pago_property']?>").innerHTML = "$<?=number_format($pago_suma, 0, '', '.')?> (Abonado)";
+                                        </script>
                                         </tbody>
                                       </table>
                                     </div>
@@ -839,7 +844,7 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
                             <td><?=$row['desde_cobro']?><br>(<?=$row['name_desde_cobro']?>)</td>
                             <td><?=$row['hacia_cobro']?><br>(<?=$row['name_hacia_cobro']?>)</td>
                             <td><?=$row['concepto_csimple']?></td>
-                            <td>$<?=number_format($row['amount_csimple'], 0, '', '.')?></td>
+                            <td>$<?=number_format($row['amount_csimple'], 0, '', '.')?> (Pendiente) <br /><span id="monto_cobro_abonado_<?=$row['id_cobro_property']?>"></span></td>
                             <td>
                               <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cobroModal_<?=$row['id_cobro_property']?>">VER</button>
                               <!-- Modal -->
@@ -862,8 +867,10 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
                                         </thead>
                                         <tbody>
                                           <?php
+                                            $cobro_suma = 0;
                                             $rsc = $con->query("SELECT * FROM tbl_abonos WHERE id_element = ".$row['id_cobro_property']);
                                             while($rwc = $rsc->fetch()){
+                                              $cobro_suma+=$rwc['monto'];
                                           ?>
                                             <tr>
                                               <td><?=$rwc['id']?></td>
@@ -872,6 +879,9 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
                                               <td><?=date('d-m-Y',strtotime($rwc['fecha']))?></td>
                                             </tr>
                                         <?php } ?>
+                                        <script type="text/javascript">
+                                          document.getElementById("monto_cobro_abonado_<?=$row['id_cobro_property']?>").innerHTML = "$<?=number_format($cobro_suma, 0, '', '.')?> (Abonado)";
+                                        </script>
                                         </tbody>
                                       </table>
                                     </div>
