@@ -42,6 +42,18 @@
           </ul>
         </li>
 
+        <!-- Configuracion -->
+        <li class="treeview <?php echo $active_settings;?>">
+          <a class="active" href="#"><i class="fas fa-cog"></i><span> Configuracion</span>
+            <span class="pull-right-container">
+              <i class="fas fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="conceptoGastos.php"><i class="fas fa-file"></i> Conceptos de Gastos</a></li>
+          </ul>
+        </li>
+
         <li class="<?php echo $active_opciones;?>">
           <a href="optionSystem.php"><i class="fas fa-cog"></i> <span>Opciones</span></a>
         </li>

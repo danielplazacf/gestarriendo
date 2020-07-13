@@ -1,0 +1,27 @@
+<?php
+	/*-------------------------
+    Autor: Jesús Caballero P.
+    Web: integramosweb.pro
+    Correo: web@integramosweb.pro
+	---------------------------*/
+	
+	// Requerimos conexion a la DDBB
+	require_once('../gt-config/conexion.php');
+
+	// REQUEST METHOD POST
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $id = filter_var($_POST['id_concepto_gasto'], FILTER_SANITIZE_NUMBER_INT);
+        
+        $query = $con->prepare("DELETE FROM tbl_concepto_gasto WHERE id = '$id'");
+         
+        // bindParam('valor_input', $variable_input);
+		$query->bindParam('id', $id, PDO::PARAM_INT);
+
+		if ($query->execute()) {
+				echo 'ok';
+			}else{
+                echo 'error';
+                //die($query);
+			}
+	}
+

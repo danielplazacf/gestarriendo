@@ -289,7 +289,7 @@
           <div class="col-md-8" id="visualizador_pdf">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <h3>Visualizador de Documentos!!</h3>
+                <h3>Visualizador de Documentos</h3>
               </div>
               <div class="panel-body">
                 <a class="btn btn-success volver-ficha" href="#">Volver a Ficha</a>
@@ -842,7 +842,7 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
                         </thead>
                         <tbody>
                           <?php
-                            $qgastos = "SELECT gt.id, gt.documentno, gt.charge_to, cg.name AS concepto_gasto, gt.amount, gt.description, gt.url_file_doc FROM tbl_gastos as gt INNER JOIN tbl_concepto_gasto AS cg ON (cg.id = gt.concepto_gasto_id) WHERE gt.contrato_id = ".$rs['id_contrato'];
+                            $qgastos = "SELECT gt.id, gt.documentno, gt.charge_to, cg.name AS concepto_gasto, gt.amount, gt.description, gt.url_file_doc FROM tbl_gastos as gt INNER JOIN tbl_concepto_gasto AS cg ON (cg.id = gt.concepto_gasto_id) WHERE gt.contrato_id = ".$rs['id_contrato']." ORDER BY gt.created_at DESC";
                             $r = $con->query($qgastos);
                             if(isset($rs['id_contrato']) and !empty($rs['id_contrato'])){
                             while($row = $r->fetch()){
