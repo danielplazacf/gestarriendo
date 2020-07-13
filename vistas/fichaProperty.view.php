@@ -587,6 +587,7 @@
                                 <th>INDIVIDUALIZACIÓN</th>
                                 <th>GARANTIAS</th>
                                 <th>TIPO CONTRATO</th>
+                                <th>DOCUMENTO</th>
                                 <th>ESTADO</th>
                                 <th width="150px">OPCIONES</th>
                               </tr>
@@ -1230,12 +1231,21 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
                             </div>
                           </div>
 
-                          <div class="col-xs-12">
-                            <p id="desc_contrato" class="alert alert-warning">
-                              Acá se indican los <u>flujos de pago</u>, de acuerdo al tipo de contrato.
-                            </p>
+                          <div class="row">
+                            <div class="col-xs-12">
+                              <div class="form-group">
+                                <label>Contrato Escaneado</label>
+                                <input type="file" class="form-control" id="file_contract_new" />
+                              </div>
+                            </div>
                           </div>
-                        </div>
+
+                            <div class="col-xs-12">
+                              <p id="desc_contrato" class="alert alert-warning">
+                                Acá se indican los <u>flujos de pago</u>, de acuerdo al tipo de contrato.
+                              </p>
+                            </div>
+                          </div>
 
                         <!-- button -->
                         <div class="row mt-4">
@@ -1429,6 +1439,20 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
                               <input name="status_edit" id="status_edit" type="checkbox" class="form-control" checked data-toggle="toggle">
                             </div>
                             <input type="hidden" name="hidden_status" id="hidden_status" value="0">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xs-8">
+                            <div class="form-group">
+                              <label>Contrato Escaneado</label>
+                              <input type="file" id="file_contract" />
+                            </div>
+                          </div>
+                          <div class="col-xs-4">
+                            <div class="form-group">
+                              <label>Link Contrato</label>
+                              <a href="#" class="btn btn-info" target="_blank" id="url_contrato_pdf">Ver Contrato</a>
+                            </div>
                           </div>
                         </div>
 
@@ -2570,7 +2594,7 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
 
       });
 
-      $("a.ver-archivo").click(function(e){
+      $(document).on('click','a.ver-archivo', function(e){
         e.preventDefault();
         let url = $(this).attr("data-url");
         $("#contenedor_inicial").hide();

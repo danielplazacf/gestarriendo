@@ -199,6 +199,12 @@ cargarContratos = function() {
           }
         }
       },
+      //4
+      {
+        "mData": function(data, type, dataToSet) {
+          return "<a class='btn btn-info ver-archivo' href='#' data-url='uploads/contratos/"+data.url_pdf+"'>Ver Archivo<a>";
+        }
+      },
       //5
       {
         "mData": function(data, type, dataToSet) {
@@ -434,6 +440,7 @@ var mostrarContrato = function(id_contrato) {
         $('#garantia_edit').val(datos.garantia_contrato);
         $('#receptor_edit').val(datos.receptor_garantia);
         $('#tipo_edit').val(datos.tipo_contrato);
+        $('#url_contrato_pdf').attr("href","uploads/contratos/"+datos.url_pdf);
         // $('#type_edit').val(datos.type_account);
         // $('#number_edit').val(datos.number_account);
         // $('#email_account_edit').val(datos.email_account);
@@ -668,12 +675,49 @@ var deleteMovement = function(id_mov_property) {
   }
 }
 
+var uploadContrato = function(id_contrato){
+  var uc = new FormData();
+  var files = $("#file_contract")[0].files[0];
+  uc.append('file',files);
+  uc.append('id_contrato', id_contrato);
+
+  $.ajax({
+      url: 'model/uploadContrato.php',
+      type: 'post',
+      data: uc,
+      contentType: false,
+      processData: false,
+      success: function(response){
+          console.log("upload contract file");
+      },
+  });
+
+}
+
+var uploadContratoNew = function(id_contrato){
+  var uc = new FormData();
+  var files = $("#file_contract_new")[0].files[0];
+  uc.append('file',files);
+  uc.append('id_contrato', id_contrato);
+
+  $.ajax({
+      url: 'model/uploadContrato.php',
+      type: 'post',
+      data: uc,
+      contentType: false,
+      processData: false,
+      success: function(response){
+          console.log("upload contract file");
+      },
+  });
+
+}
+
 var editContrato = function(id_contrato) {
   $('#editContrato').submit(function(e) {
     var datos = $(this).serialize();
     e.preventDefault();
     // console.log(datos);
-
     $.ajax({
       type: "POST",
       url: "model/editContratoModel.php",
@@ -690,12 +734,13 @@ var editContrato = function(id_contrato) {
             icon: "success",
             button: "Ok",
           });
+          uploadContrato($("#id_contrato").val());
           cargarContratos();
           $('#editContrato')[0].reset();
           $('#modalEditContrato').modal('hide');
           $('#btnEditContrato').removeAttr('disabled');
           $('#btnEditContrato').html('<i class="fa fa-check-circle"></i> Editar');
-          location.reload();
+          //location.reload();
           //$('#modalAddCobro').modal('show');
           // console.log('Exitazooooooo');
         } else if (data == 'error') {
@@ -826,13 +871,15 @@ var addContrato = function() {
         $('#btnSaveContrato').html('<i class="fas fa-spin fa-spinner"></i>');
       },
       success: function(data) {
-        if (data == 'ok') {
+        var data = data.split('|');
+        if (data[0] == 'ok') {
           swal({
             title: "Buen Trabajo!",
             text: "El registro fue ingresado satisfactoriamente.",
             icon: "success",
             button: "Ok",
           });
+          uploadContratoNew(data[1]);
           cargarContratos();
           $('#addContrato')[0].reset();
           $('#modalAddContrato').modal('hide');

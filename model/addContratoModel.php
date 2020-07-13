@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     if ($query->execute()) {
-        echo 'ok';
+        echo 'ok|'.$con->lastInsertId();
     } else {
         echo 'error';
         die($query);

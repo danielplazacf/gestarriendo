@@ -1,0 +1,2 @@
+ALTER TABLE `tbl_contrato_system` ADD `url_pdf` VARCHAR(255) NOT NULL AFTER `tipo_contrato`;
+ALTER TABLE `tbl_contrato_system` CHANGE `url_pdf` `url_pdf` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL;
