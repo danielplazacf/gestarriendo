@@ -707,6 +707,7 @@
                             <th>HACIA</th>
                             <th>CONCEPTO</th>
                             <th>MONTO</th>
+                            <th>VER ABONOS</th>
                             <th>Estatus</th>
                             <th width="150px">OPCIONES</th>
                           </tr>
@@ -729,6 +730,49 @@ FROM tbl_pagos_property as tpp WHERE tpp.id_property = ".$key." AND tpp.unique_i
                             <td><?=$row['hacia_pago']?><br>(<?=$row['name_hacia_pago']?>)</td>
                             <td><?=$row['concepto_csimple']?></td>
                             <td>$<?=number_format($row['amount_psimple'], 0, '', '.')?></td>
+                                                        <td>
+                              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#pagoModal_<?=$row['id_pago_property']?>">VER</button>
+                              <!-- Modal -->
+                              <div id="pagoModal_<?=$row['id_pago_property']?>" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+
+                                  <!-- Modal content-->
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      <h4 class="modal-title">Lista de Abonos</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <table class="table table-bordered table-striped">
+                                        <thead>
+                                          <th>ID</th>
+                                          <th>DESCRIPCION</th>
+                                          <th>MONTO</th>
+                                          <th>FECHA</th>
+                                        </thead>
+                                        <tbody>
+                                          <?php
+                                            $rsc = $con->query("SELECT * FROM tbl_abonos WHERE id_element = ".$row['id_pago_property']);
+                                            while($rwc = $rsc->fetch()){
+                                          ?>
+                                            <tr>
+                                              <td><?=$rwc['id']?></td>
+                                              <td><?=$rwc['descripcion']?></td>
+                                              <td><?=number_format($rwc['monto'], 0, '', '.')?></td>
+                                              <td><?=date('d-m-Y',strtotime($rwc['fecha']))?></td>
+                                            </tr>
+                                        <?php } ?>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </td>
                             <td>
                               <?php
                                 if($row['estatus'] == "pendiente"){
@@ -748,6 +792,9 @@ FROM tbl_pagos_property as tpp WHERE tpp.id_property = ".$key." AND tpp.unique_i
                               <div class="ocultar-elemento btn-group">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cambiar Estado: <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
+
+                                  <li><a href="#" class="change-status" data-amount="<?=$row['amount_psimple']?>" data-source="pago" data-value="<?=$row['id_pago_property']?>" data-status="abonar"><i class="fa fa-credit-card" aria-hidden="true"></i>Abonar</a></li>
+
                                     <li><a href="#" class="change-status" data-source="pago" data-value="<?=$row['id_pago_property']?>" data-status="pagado"><i class="fa fa-check" aria-hidden="true"></i>Pagado</a></li>
                                     <li><a herf="#" class="change-status" data-source="pago" data-value="<?=$row['id_pago_property']?>" data-status="cancelado"><i class="fa fa-times"></i> Cancelado</a></li>
                                 </ul>
@@ -766,6 +813,7 @@ FROM tbl_pagos_property as tpp WHERE tpp.id_property = ".$key." AND tpp.unique_i
                             <th>HACIA</th>
                             <th>CONCEPTO</th>
                             <th>MONTO</th>
+                            <th>VER ABONOS</th>
                             <th>Estatus</th>
                             <th width="150px">OPCIONES</th>
                           </tr>
@@ -789,6 +837,49 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
                             <td><?=$row['concepto_csimple']?></td>
                             <td>$<?=number_format($row['amount_csimple'], 0, '', '.')?></td>
                             <td>
+                              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cobroModal_<?=$row['id_cobro_property']?>">VER</button>
+                              <!-- Modal -->
+                              <div id="cobroModal_<?=$row['id_cobro_property']?>" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+
+                                  <!-- Modal content-->
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      <h4 class="modal-title">Lista de Abonos</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <table class="table table-bordered table-striped">
+                                        <thead>
+                                          <th>ID</th>
+                                          <th>DESCRIPCION</th>
+                                          <th>MONTO</th>
+                                          <th>FECHA</th>
+                                        </thead>
+                                        <tbody>
+                                          <?php
+                                            $rsc = $con->query("SELECT * FROM tbl_abonos WHERE id_element = ".$row['id_cobro_property']);
+                                            while($rwc = $rsc->fetch()){
+                                          ?>
+                                            <tr>
+                                              <td><?=$rwc['id']?></td>
+                                              <td><?=$rwc['descripcion']?></td>
+                                              <td><?=number_format($rwc['monto'], 0, '', '.')?></td>
+                                              <td><?=date('d-m-Y',strtotime($rwc['fecha']))?></td>
+                                            </tr>
+                                        <?php } ?>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </td>
+                            <td>
                               <?php
                                 if($row['estatus'] == "pendiente"){
                                   $label = "info";
@@ -807,6 +898,9 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
                               <div class="ocultar-elemento btn-group">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cambiar Estado: <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
+
+                                  <li><a href="#" class="change-status" data-amount="<?=$row['amount_csimple']?>" data-source="cobro" data-value="<?=$row['id_cobro_property']?>" data-status="abonar"><i class="fa fa-credit-card" aria-hidden="true"></i>Abonar</a></li>
+
                                     <li><a href="#" class="change-status" data-source="cobro" data-value="<?=$row['id_cobro_property']?>" data-status="pagado"><i class="fa fa-check" aria-hidden="true"></i>Pagado</a></li>
                                     <li><a herf="#" class="change-status" data-source="cobro" data-value="<?=$row['id_cobro_property']?>" data-status="cancelado"><i class="fa fa-times"></i> Cancelado</a></li>
                                 </ul>
@@ -2175,6 +2269,35 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
       </div>
   </div>
 
+  <div class="modal fade" id="modalDatosAbono" role="dialog">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content ">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Registrar Abono</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label>Description: </label>
+                  <input type="text" name="abono_description" class="form-control" id="abono_description" />
+                </div> 
+                <div class="form-group">
+                  <label>Monto: </label>
+                  <input type="text" name="abono_amount" class="form-control" id="abono_amount" />
+                </div> 
+                <input type="hidden" name="abono_type" id="abono_type" /> 
+                <input type="hidden" name="abono_type_id" id="abono_type_id" />
+                <input type="hidden" name="max_amount" id="max_amount" />
+              </div>
+              <div class="modal-footer">
+                <button type="submit" id="btnAbono" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              </div>
+        </div>
+      </div>
+  </div>
+
     <!--Modal de Gastos-->
   <div class="modal fade" id="modalDatosGatos" role="dialog">
       <div class="modal-dialog modal-md">
@@ -2393,25 +2516,33 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
       $("a.change-status").click(function(e){
         e.preventDefault();
 
-        if(confirm("Esta seguro de cambiar el estado?")){
+        var new_status = $(this).attr("data-status");
 
-          let id = $(this).attr("data-value");
-          let new_status = $(this).attr("data-status");
-          let source = $(this).attr("data-source");
+        if(new_status != 'abonar'){
+            if(confirm("Esta seguro de cambiar el estado?")){
 
-          $.post('model/updateStatus.php', { id: id, status: new_status, source: source }, function(data){
-            console.log(data);
-            if(data == "ok"){
-              swal({
-                title: "Exito",
-                text: "Estado Cambiado con Exito!!",
-                icon: "success",
-                button: "Ok",
+              let id = $(this).attr("data-value");
+              let source = $(this).attr("data-source");
+
+              $.post('model/updateStatus.php', { id: id, status: new_status, source: source }, function(data){
+                console.log(data);
+                if(data == "ok"){
+                  swal({
+                    title: "Exito",
+                    text: "Estado Cambiado con Exito!!",
+                    icon: "success",
+                    button: "Ok",
+                  });
+                }
+
+               location.reload();
               });
             }
-
-           location.reload();
-          });
+        }else{
+            $("#modalDatosAbono").modal('show');
+            $("#abono_type_id").val($(this).attr("data-value"));
+            $("#abono_type").val($(this).attr("data-source"));
+            $("#max_amount").val($(this).attr("data-amount"));
         }
 
       });
@@ -2428,6 +2559,36 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
       $("a.volver-ficha").click(function(){
         $("#contenedor_inicial").show();
         $("#visualizador_pdf").hide();
+      });
+
+      $("#btnAbono").click(function(){
+        var id = $("#abono_type_id").val();
+        var type = $("#abono_type").val();
+        var description = $("#abono_description").val();
+        var amount = $("#abono_amount").val();
+        var max_amount = $("#max_amount").val();
+        if(amount > max_amount){
+            swal({
+              title: "Error",
+              text: "El monto del Abono Supera al del Pago o Cobro",
+              icon: "error",
+              button: "Ok",
+            });
+        }else{
+          $.post('model/updateStatus.php', { id: id, status: 'abonar', source: type, abono_description: description, abono_amount: amount }, function(data){
+              console.log(data);
+              if(data == "ok"){
+                swal({
+                  title: "Exito",
+                  text: "Abono Cargado con Exito!!",
+                  icon: "success",
+                  button: "Ok",
+                });
+              }
+
+             location.reload();
+          });
+        }
       });
 
     });
