@@ -2614,7 +2614,7 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
         var description = $("#abono_description").val();
         var amount = $("#abono_amount").val();
         var max_amount = $("#max_amount").val();
-        if(amount > max_amount){
+        if(amount.parseFloat() > max_amount.parseFloat()){
             swal({
               title: "Error",
               text: "El monto del Abono Supera al del Pago o Cobro",
