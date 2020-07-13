@@ -2311,7 +2311,7 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
                 <h4 class="modal-title">Gestor de Archivos</h4>
               </div>
               <div class="modal-body">
-                <iframe src="lib/file-manager/index.php" width="100%" height="500px" frameborder="0"></iframe>
+                <iframe src="uploads/index.php" width="100%" height="500px" frameborder="0"></iframe>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
