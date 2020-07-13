@@ -2311,7 +2311,8 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
                 <h4 class="modal-title">Gestor de Archivos</h4>
               </div>
               <div class="modal-body">
-                <iframe src="uploads/index.php" width="100%" height="500px" frameborder="0"></iframe>
+                <a class="btn btn-success" href="#" id="reload-iframe-file-manager"><i class="fa fa-home"></i></a><br />
+                <iframe src="uploads/index.php" id="iframe-file-manager" width="100%" height="500px" frameborder="0"></iframe>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -2611,6 +2612,10 @@ CASE WHEN hacia_cobro = 'Propietario' THEN (SELECT tcs.name_owner FROM tbl_contr
              location.reload();
           });
         }
+      });
+
+      $("#reload-iframe-file-manager").click(function(){
+        $("#iframe-file-manager").attr("src","uploads/index.php");
       });
 
     });
