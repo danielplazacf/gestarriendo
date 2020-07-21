@@ -139,12 +139,11 @@
 		require '../resources/PHPMailer/src/PHPMailer.php';
 		require '../resources/PHPMailer/src/SMTP.php';
 
-		use PHPMailer\PHPMailer\PHPMailer;
+		/*use PHPMailer\PHPMailer\PHPMailer;
 		use PHPMailer\PHPMailer\Exception;
-		use PHPMailer\PHPMailer\SMTP;
+		use PHPMailer\PHPMailer\SMTP;*/
 
 		$mail = new PHPMailer(true);
-
 		try {
 		    //Server settings
 		    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
