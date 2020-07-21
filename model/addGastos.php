@@ -38,6 +38,7 @@
 			$query->bindParam('id_contrato', $id_contrato);
 
 			if($query->execute()){
+				sendEmail();
 	         	echo 'ok';
 	        } else {
 	            echo 'error ';

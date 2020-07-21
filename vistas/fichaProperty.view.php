@@ -436,7 +436,6 @@
                     $utilidad = $montoIngreso - $montoEgreso;
 
                     ?>
-
                     <!-- /.box-header -->
                     <div class="box-body" style="padding:0;border-radius:5px;">
                       <dl class="dl-horizontal" style="margin-bottom: 0; border-bottom: 1px solid #ccc;height:55px; padding:10px">

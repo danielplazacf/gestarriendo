@@ -133,36 +133,50 @@
 	}
 
 	function sendEmail($data){
-		require 'resources/PHPMailer/src/Exception.php';
-		require 'resources/PHPMailer/src/PHPMailer.php';
-		require 'resources/PHPMailer/src/SMTP.php';
+		$send = true;
+
+		require '../resources/PHPMailer/src/Exception.php';
+		require '../resources/PHPMailer/src/PHPMailer.php';
+		require '../resources/PHPMailer/src/SMTP.php';
+
+		use PHPMailer\PHPMailer\PHPMailer;
+		use PHPMailer\PHPMailer\Exception;
+		use PHPMailer\PHPMailer\SMTP;
 
 		$mail = new PHPMailer(true);
-		$mail->IsSMTP(); // habilita SMTP
-		$mail->SMTPDebug = 0; // debugging: 1 = errores y mensajes, 2 = sólo mensajes
-		$mail->SMTPAuth = true; // auth habilitada
-		$mail->SMTPSecure = 'TLS'; // transferencia segura REQUERIDA para Gmail
-		$mail->Host = "smtp.mailtrap.io";
-		$mail->Port = 465; // or 587
-		$mail->IsHTML(true);
-		$mail->Username = "2627ae47e05902";
-		$mail->Password = "e68ac6687909d7";
-		$mail->SetFrom($data['emailFrom']);
-		$mail->Subject = $data['subject'];
-		$mail->Body = $data['body'];
-		$mail->AddAddress($data['emailTo']);
 
-		$send = false;
+		try {
+		    //Server settings
+		    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+		    $mail->isSMTP();                                            // Send using SMTP
+		    $mail->Host       = 'clicfactor.com';                       // Set the SMTP server to send through
+		    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+		    $mail->Username   = 'gest@clicfactor.com';                  // SMTP username
+		    $mail->Password   = 'MMA0S7BCFVPH';                         // SMTP password
+		    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+		    $mail->CharSet    = 'UTF-8';                                // Activa la condificacción utf-8
+		    $mail->Port       = 465;                                    // TCP port to connect to
 
-		 if(!$mail->Send()) {
-		 	$send = false;
-		    //echo "Mailer Error: " . $mail->ErrorInfo;
-		 } else {
-		 	$send = true;
-		    //echo "Message has been sent";
-		 }
+		    $mail->setFrom('gest@clicfactor.com', 'Gestarriendo | Servicios Inmobiliarios');
+		    $mail->addAddress($data['emailTo'], $data['nameTo']);                       // Add a recipient
+		    $mail->addReplyTo('gest@clicfactor.com', 'Gestarriendo | Servicios Inmobiliarios');
+		    $mail->addCC('uebeats@gmail.com');
 
-		 return $send;
+		    $services = $_POST['selServices'];
+		    $asunto = 'IMPORTANTE | Recordatorio de pago ' . $services . ' para ' . $nameTo;
+
+		    $mail->isHTML(true);                                        // Set email format to HTML
+		    $mail->Subject = $asunto;
+		    $mail->Body = ob_get_clean();
+
+		    if(!$mail->send()){
+		        $send = false;
+		    }
+		} catch (Exception $e) {
+		    $send = false;
+		}
+
+		return $send;
 	}
 
 ?>

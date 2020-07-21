@@ -221,26 +221,70 @@
        */
 
       var areaChartData = {
-        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
+        
+        labels: [
+          <?php
+            $stmt = $con->query('select ( sum(pp.amount_psimple) + sum(tb.monto) ) as monto, 
+                    date_format(pp.date_register, "%m/%Y") as fecha 
+                  from tbl_pagos_property as pp
+                    left join tbl_abonos as tb on (pp.id_pago_property = tb.id_element)
+                  where pp.estatus = "pagado"
+                    group by pp.date_register
+                    order by pp.date_register asc');
+
+            while($row = $stmt->fetch()){
+          ?>
+            "<?=$row['fecha']?>",
+          <?php } ?>
+        ],
+
         datasets: [{
-            label: 'Ingresos',
+            label: 'Egresos',
             fillColor: 'rgba(210, 214, 222, 1)',
             strokeColor: 'rgba(210, 214, 222, 1)',
             pointColor: 'rgba(210, 214, 222, 1)',
             pointStrokeColor: '#c1c7d1',
             pointHighlightFill: '#fff',
             pointHighlightStroke: 'rgba(220,220,220,1)',
-            data: [1200000, 1400000, 1600000, 1800000, 1200000, 1400000, 1600000]
+            data: [
+              <?php
+              $stmt = $con->query('select ( sum(pp.amount_psimple) + sum(tb.monto) ) as monto, 
+                      date_format(pp.date_register, "%m/%Y") as fecha 
+                    from tbl_pagos_property as pp
+                      left join tbl_abonos as tb on (pp.id_pago_property = tb.id_element)
+                    where pp.estatus = "pagado"
+                      group by pp.date_register
+                      order by pp.date_register asc');
+
+              while($row = $stmt->fetch()){
+            ?>
+              <?=$row['monto']?>,
+            <?php } ?>
+            ]
           },
           {
-            label: 'Utilidades',
+            label: 'Ingresos',
             fillColor: 'rgba(60,141,188,0.9)',
             strokeColor: 'rgba(60,141,188,0.8)',
             pointColor: '#3b8bba',
             pointStrokeColor: 'rgba(60,141,188,1)',
             pointHighlightFill: '#fff',
             pointHighlightStroke: 'rgba(60,141,188,1)',
-            data: [1100000, 1300000, 1500000, 1700000, 1300000, 1500000, 1700000]
+            data: [
+              <?php
+                $stmt = $con->query("select 
+                      ( sum(pp.amount_csimple) + sum(tb.monto) ) as monto, 
+                        date_format(pp.date_register, '%m/%Y') as fecha 
+                    from tbl_cobros_property as pp
+                    left join tbl_abonos as tb on (pp.id_cobro_property = tb.id_element)
+                    where pp.estatus = 'pagado'
+                    group by pp.date_register
+                    order by pp.date_register asc");
+                while($row = $stmt->fetch()){
+              ?>
+              [<?=$row['monto']?>,]
+              <?php } ?>
+            ]
           }
         ]
       }
