@@ -599,8 +599,8 @@ CREATE TABLE `tbl_users_system` (
 --
 
 INSERT INTO `tbl_users_system` (`id_user_system`, `user_system`, `pass_system`, `name_user_system`, `depto_user`, `type_user`) VALUES
-(1, 'admin', 'd74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1', 'Nombre Agente', 'administrativo', ''),
-(5, 'gestarriendos', 'fd81a19c5f1cbc4b5a7324f03fc09a09bd4ac4dddee63982c861e55a53217b43', 'Daniel Plaza', 'administrativo', '');
+(1, 'admin', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Nombre Agente', 'administrativo', ''),
+(5, 'gestarriendos', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Daniel Plaza', 'administrativo', '');
 
 --
 -- Índices para tablas volcadas
