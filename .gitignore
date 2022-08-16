@@ -1,2 +1,4 @@
 gt-config/db.php
 gt-config/conexion.php
+.mysql
+.env

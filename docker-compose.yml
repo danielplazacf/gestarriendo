@@ -1,0 +1,50 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: devits
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: gestarriendo
+    container_name: gestarriendo
+    restart: unless-stopped
+    working_dir: /var/www/html/gestarriendo
+    volumes:
+      - ./:/var/www/html/gestarriendo
+      - ./docker-compose/configini/gestarriendo.ini:/usr/local/etc/php/conf.d/gestarriendo.ini
+    networks:
+      - gestarriendo
+
+  gestarriendo-db:
+    image: mysql
+    container_name: gestarriendo-db
+    volumes:
+      - .mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${APP_DATABASE}
+      MYSQL_USER: ${APP_DATABASE_USER}
+      MYSQL_PASSWORD: ${APP_DATABASE_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    ports:
+      - 3307:3306
+    networks:
+      - gestarriendo
+
+  nginx:
+    image: nginx:1.17-alpine
+    container_name: gestarriendo-nginx
+    restart: unless-stopped
+    ports:
+      - 8017:80
+      - 8018:443
+    volumes:
+      - ./:/var/www/html/gestarriendo
+      - ./docker-compose/nginx/gestarriendo.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - gestarriendo
+
+networks:
+  gestarriendo:
+    driver: bridge
