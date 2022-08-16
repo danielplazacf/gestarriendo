@@ -4,4 +4,4 @@ ALTER TABLE `tbl_property_system` ADD `proveedor_gas` VARCHAR(150) NOT NULL AFTE
 UPDATE `tbl_users_system` SET `type_user` = 'administrador' WHERE `tbl_users_system`.`id_user_system` = 1;
 UPDATE `tbl_users_system` SET `type_user` = 'administrador' WHERE `tbl_users_system`.`id_user_system` = 5;
 UPDATE `tbl_users_system` SET `type_user` = 'administrador' WHERE `tbl_users_system`.`id_user_system` = 8;
-INSERT INTO `tbl_users_system` (`id_user_system`, `user_system`, `pass_system`, `name_user_system`, `depto_user`, `type_user`) VALUES (NULL, 'observador', '16e578782b041eb8fb72daed09c8a41069492f2b53e8ce29d74d7780cd5eb318', 'observador', 'administrativo', 'observador');
+INSERT INTO `tbl_users_system` (`id_user_system`, `user_system`, `pass_system`, `name_user_system`, `depto_user`, `type_user`) VALUES (NULL, 'observador', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'observador', 'administrativo', 'observador');
